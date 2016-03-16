@@ -165,8 +165,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\file.cs" />
+    <Compile Include="Models\folder.cs" />
+    <Compile Include="Models\folderType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\schedule.cs" />
+    <Compile Include="Models\scheduleDetail.cs" />
+    <Compile Include="Models\schoolClass.cs" />
+    <Compile Include="Models\task.cs" />
+    <Compile Include="Models\user_student.cs" />
+    <Compile Include="Models\user_teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -177,6 +186,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Help\LMS_ver02.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
