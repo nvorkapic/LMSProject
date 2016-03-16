@@ -14,8 +14,8 @@ namespace LMSProject.Models
 
 		public string name { get; set; }
 
-		[ForeignKey("user_teacherID")]
+		[ForeignKey("userID")]
 		public virtual user_teacher user_teachers { get; set; }
-		public int user_teacherID { get; set; }
+		public int userID { get; set; }
 	}
 }

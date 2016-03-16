@@ -167,9 +167,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603161248227_initial.cs" />
-    <Compile Include="Migrations\201603161248227_initial.Designer.cs">
-      <DependentUpon>201603161248227_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201603161510084_initial.cs" />
+    <Compile Include="Migrations\201603161510084_initial.Designer.cs">
+      <DependentUpon>201603161510084_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -251,7 +251,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -260,8 +259,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603161248227_initial.resx">
-      <DependentUpon>201603161248227_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603161510084_initial.resx">
+      <DependentUpon>201603161510084_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
