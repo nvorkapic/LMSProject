@@ -1,0 +1,37 @@
+﻿pakcage manager consol
+--------------------------
+Enable-Migrations
+Enable-Migrations -ContextTypeName <name>.LibraryContext
+Enable-Migrations -ContextTypeName MvcGarageGroup.Models.LibraryContext -force
+
+If done before !!!! Obs !!! overwrites SEED
+Enable-Migrations -Force
+
+
+help add-Migration
+Add-Migration initial -Force
+Update-database -force -Verbose
+
+-force
+Disa
+
+
+
+----------------------------
+Install the EF6 NuGet package
+
+ 	
+You need to upgrade to the new Entity Framework 6 runtime.
+
+Right-click on your project and select Manage NuGet Packages...
+Under the Online tab select EntityFramework and click Install
+Note: If a previous version of the EntityFramework NuGet package was installed this will upgrade it to EF6.
+Alternatively, you can run the following command from Package Manager Console:
+
+PM> Install-Package EntityFramework
+------------------------------
+Try changing Tools > Options > Database Tools > Data Connections > SQL Server Instance Name.
+
+The default for VS2013 is (LocalDB)\v11.0.
+
+Changing to (LocalDB)\MSSQLLocalDB, for example, seems to work - no more version 782 error.
