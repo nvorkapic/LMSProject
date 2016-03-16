@@ -12,7 +12,8 @@ namespace LMSProject.Models
 		[Key]
 		public int userID { get; set; }
 
-		[ForeignKey("schoolClass")]
-		public virtual schoolClass schoolClassID { get; set; }
+		[ForeignKey("schoolClassID")]
+		public virtual schoolClass schoolClasses { get; set; }
+		public int schoolClassID { get; set; }
 	}
 }

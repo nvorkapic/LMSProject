@@ -12,14 +12,17 @@ namespace LMSProject.Models
 		[Key]
 		public int fileID { get; set; }
 
-		[ForeignKey("folder")]
-		public virtual folder folderID {get; set;}
+		[ForeignKey("folderID")]
+		public virtual folder folders {get; set;}
+		public int folderID { get; set; }
 
 		public string name {get;set;}
 
 		public string path {get;set;}
 
-		[ForeignKey("task")]
-		public virtual task taskID {get; set;}
+		[ForeignKey("taskID")]
+		public virtual task tasks { get; set; }
+		public int taskID { get; set; }
+		
 	}
 }
