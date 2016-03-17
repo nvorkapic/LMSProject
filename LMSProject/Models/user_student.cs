@@ -10,7 +10,7 @@ namespace LMSProject.Models
 	public class user_student
 	{
 		[Key]
-		public int userID { get; set; }
+		public string userId { get; set; }
 
 		[ForeignKey("schoolClassID")]
 		public virtual schoolClass schoolClasses { get; set; }

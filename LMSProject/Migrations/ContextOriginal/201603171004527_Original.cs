@@ -63,7 +63,7 @@ namespace LMSProject.Migrations.ContextOriginal
                 c => new
                     {
                         user_teacherID = c.Int(nullable: false, identity: true),
-                        userID = c.Int(nullable: false),
+                        userId = c.String(),
                         schoolClassID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.user_teacherID);
@@ -110,10 +110,10 @@ namespace LMSProject.Migrations.ContextOriginal
                 "dbo.user_student",
                 c => new
                     {
-                        userID = c.Int(nullable: false, identity: true),
+                        userId = c.String(nullable: false, maxLength: 128),
                         schoolClassID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.userID)
+                .PrimaryKey(t => t.userId)
                 .ForeignKey("dbo.schoolClasses", t => t.schoolClassID, cascadeDelete: true)
                 .Index(t => t.schoolClassID);
             

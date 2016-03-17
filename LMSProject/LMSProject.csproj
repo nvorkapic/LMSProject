@@ -166,19 +166,18 @@
     <Compile Include="Controllers\IUserRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DataAccess\LMSContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ContextOriginal\201603170911269_Original.cs" />
-    <Compile Include="Migrations\ContextOriginal\201603170911269_Original.Designer.cs">
-      <DependentUpon>201603170911269_Original.cs</DependentUpon>
+    <Compile Include="Migrations\ContextOriginal\201603171004527_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201603171004527_Original.Designer.cs">
+      <DependentUpon>201603171004527_Original.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
-    <Compile Include="Migrations\ContextUsers\201603170911409_Users.cs" />
-    <Compile Include="Migrations\ContextUsers\201603170911409_Users.Designer.cs">
-      <DependentUpon>201603170911409_Users.cs</DependentUpon>
+    <Compile Include="Migrations\ContextUsers\201603171005074_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201603171005074_Users.Designer.cs">
+      <DependentUpon>201603171005074_Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -207,9 +206,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Help\CheatSheet.txt" />
-    <Content Include="Help\LMS_ver02.png" />
-    <Content Include="Help\Notes.txt" />
+    <Content Include="Content\Help\CheatSheet.txt" />
+    <Content Include="Content\Help\LMS_ver02.png" />
+    <Content Include="Content\Help\Notes.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -268,15 +267,15 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextOriginal\201603170911269_Original.resx">
-      <DependentUpon>201603170911269_Original.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextUsers\201603170911409_Users.resx">
-      <DependentUpon>201603170911409_Users.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Test\" />
+    <EmbeddedResource Include="Migrations\ContextOriginal\201603171004527_Original.resx">
+      <DependentUpon>201603171004527_Original.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ContextUsers\201603171005074_Users.resx">
+      <DependentUpon>201603171005074_Users.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
