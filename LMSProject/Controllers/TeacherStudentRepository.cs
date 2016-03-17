@@ -56,7 +56,7 @@ namespace LMSProject.Controllers
             return results;
         }
 
-        public void AddRoleToUser(string userId, string role)
+        public void AddUserToRole(string userId, string role)
         {
             IdentityRole _role = roleManager.FindByName(role);
             IdentityUser _user = userManager.FindById(userId);
@@ -68,10 +68,6 @@ namespace LMSProject.Controllers
             };
 
             _role.Users.Add(_userRole);
-            //var results = from u in userManager.Users
-            //              where u.Id == userId
-            //              select u.Roles.Add(userRole.);
-            //throw new NotImplementedException();
         }
 
         public void AddRole(string role)
@@ -85,7 +81,7 @@ namespace LMSProject.Controllers
             userManager.Create(user);
         }
 
-        public void Adduser(string userName, string email, string password)
+        public void AddUser(string userName, string email, string password)
         {
             ApplicationUser user = new ApplicationUser
             {
@@ -103,3 +99,4 @@ namespace LMSProject.Controllers
         }
 
     }
+}
