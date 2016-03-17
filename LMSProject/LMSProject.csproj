@@ -257,7 +257,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Help\Migrations\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <PropertyGroup>
