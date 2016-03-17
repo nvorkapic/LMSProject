@@ -11,6 +11,7 @@ namespace LMSProject.Models
 		[Key]
 		public int folderTypeID { get; set; }
 
+		[Required]
 		public string name { get; set; }
 	}
 }

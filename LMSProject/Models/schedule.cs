@@ -12,7 +12,7 @@ namespace LMSProject.Models
 		[Key]
 		public int scheduleID { get; set; }
 
-		[ForeignKey("schoolClassID")]
+		[ForeignKey("schoolClassID"), Required]
 		public virtual schoolClass schoolClasses { get; set; }
 		public int schoolClassID { get; set; }
 	}

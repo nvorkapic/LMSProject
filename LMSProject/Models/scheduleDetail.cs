@@ -12,20 +12,23 @@ namespace LMSProject.Models
 		[Key]
 		public int scheduleDetailID { get; set; }
 
-		[ForeignKey("scheduleID")]
+		[ForeignKey("scheduleID"), Required]
 		public virtual schedule schedules { get; set; }
 		public int scheduleID { get; set; }
 
+		[Required]
 		public DateTime startTime { get; set; }
 
+		[Required]
 		public DateTime endTime { get; set; }
 
+		[Required]
 		public string name { get; set; }
 
 		public string room { get; set; }
 
 		[ForeignKey("taskID")]
 		public virtual task tasks { get; set; }
-		public int taskID { get; set; }
+		public int? taskID { get; set; }
 	}
 }
