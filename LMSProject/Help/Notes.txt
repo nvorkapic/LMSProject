@@ -56,3 +56,7 @@ protected override void OnModelCreating(DbModelBuilder modelBuilder)
 
 Update-Database -ConfigurationTypeName ConfigurationOriginal
 Update-Database -ConfigurationTypeName ConfigurationUsers
+
+-----------------------------------
+
+Hello :)
