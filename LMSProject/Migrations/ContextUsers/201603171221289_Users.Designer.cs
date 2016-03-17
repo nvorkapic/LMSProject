@@ -13,7 +13,7 @@ namespace LMSProject.Migrations.ContextUsers
         
         string IMigrationMetadata.Id
         {
-            get { return "201603171208441_Users"; }
+            get { return "201603171221289_Users"; }
         }
         
         string IMigrationMetadata.Source

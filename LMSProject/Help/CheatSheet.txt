@@ -18,4 +18,12 @@ namespace ContosoUniversity.Models
 }
 
 http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application
-_________________________________________________________________________________________________
+_______________________________________________________________________________________________
+
+
+Put this into your MenuEntities class (class that descend from DbContext):
+
+protected override void OnModelCreating(DbModelBuilder modelBuilder)
+{
+   modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); 
+}

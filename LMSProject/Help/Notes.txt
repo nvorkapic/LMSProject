@@ -47,7 +47,11 @@ to ConfigurationOriginal and ConfigurationUsers)
 Add-Migration Original -ConfigurationTypeName ConfigurationOriginal
 Add-Migration Users -ConfigurationTypeName ConfigurationUsers
 
-!!!Replace CascadeDelete: true to false in ConfigurationOriginal
+!!!Replace CascadeDelete: true to false in ConfigurationOriginal or add to Context these lines:
+protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+		}
 
 
 Update-Database -ConfigurationTypeName ConfigurationOriginal

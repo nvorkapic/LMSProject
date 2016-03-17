@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using LMSProject.Models;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 
 namespace LMSProject.DataAccess
@@ -19,10 +20,11 @@ namespace LMSProject.DataAccess
 		public DbSet<schedule> schedules { get; set; }
 		public DbSet<scheduleDetail> scheduleDetails { get; set; }
 		public DbSet<file> files { get; set; }
-		
 
-		
-		
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+		}
 
 		public LMSContext()
             : base("LMSprojectDb")
