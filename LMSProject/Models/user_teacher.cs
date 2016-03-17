@@ -10,17 +10,14 @@ namespace LMSProject.Models
 	public class user_teacher
 	{
 		[Key]
-		[Column(Order = 0)]
-		public int userID { get; set; }
+		public int user_teacherID { get; set; }
 
-		[Key]
-		[Column(Order = 1)]
-		[ForeignKey("schoolClassID")]
-		public virtual schoolClass schoolClasses { get; set; }
+		public int userID { get; set; }
 		public int schoolClassID { get; set; }
 
-		
-		
+		//[Column(Order = 1)]
+		//[ForeignKey("schoolClassID")]
+		//public virtual schoolClass schoolClasses { get; set; }
 		//public int schoolClassID { get; set; }
 		
 	}

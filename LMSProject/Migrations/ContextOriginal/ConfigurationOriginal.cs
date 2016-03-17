@@ -1,15 +1,16 @@
-namespace LMSProject.Migrations
+namespace LMSProject.Migrations.ContextOriginal
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LMSProject.DataAccess.LMSContext>
+    internal sealed class ConfigurationOriginal : DbMigrationsConfiguration<LMSProject.DataAccess.LMSContext>
     {
-        public Configuration()
+        public ConfigurationOriginal()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Migrations\ContextOriginal";
         }
 
         protected override void Seed(LMSProject.DataAccess.LMSContext context)

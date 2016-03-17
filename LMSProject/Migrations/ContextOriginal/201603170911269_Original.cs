@@ -1,9 +1,9 @@
-namespace LMSProject.Migrations
+namespace LMSProject.Migrations.ContextOriginal
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Original : DbMigration
     {
         public override void Up()
         {
@@ -62,12 +62,11 @@ namespace LMSProject.Migrations
                 "dbo.user_teacher",
                 c => new
                     {
-                        userID = c.Int(nullable: false, identity: true),
+                        user_teacherID = c.Int(nullable: false, identity: true),
+                        userID = c.Int(nullable: false),
                         schoolClassID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.userID)
-                .ForeignKey("dbo.schoolClasses", t => t.schoolClassID, cascadeDelete: true)
-                .Index(t => t.schoolClassID);
+                .PrimaryKey(t => t.user_teacherID);
             
             CreateTable(
                 "dbo.folderTypes",
@@ -128,14 +127,12 @@ namespace LMSProject.Migrations
             DropForeignKey("dbo.schedules", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.files", "taskID", "dbo.tasks");
             DropForeignKey("dbo.tasks", "userID", "dbo.user_teacher");
-            DropForeignKey("dbo.user_teacher", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.files", "folderID", "dbo.folders");
             DropForeignKey("dbo.folders", "schoolClassID", "dbo.schoolClasses");
             DropIndex("dbo.user_student", new[] { "schoolClassID" });
             DropIndex("dbo.schedules", new[] { "schoolClassID" });
             DropIndex("dbo.scheduleDetails", new[] { "taskID" });
             DropIndex("dbo.scheduleDetails", new[] { "scheduleID" });
-            DropIndex("dbo.user_teacher", new[] { "schoolClassID" });
             DropIndex("dbo.tasks", new[] { "userID" });
             DropIndex("dbo.folders", new[] { "schoolClassID" });
             DropIndex("dbo.files", new[] { "taskID" });
