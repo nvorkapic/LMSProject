@@ -170,6 +170,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\ContextOriginal\201603171020450_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201603171020450_Original.Designer.cs">
+      <DependentUpon>201603171020450_Original.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
+    <Compile Include="Migrations\ContextUsers\201603171020525_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201603171020525_Users.Designer.cs">
+      <DependentUpon>201603171020525_Users.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\file.cs" />
     <Compile Include="Models\folder.cs" />
@@ -257,8 +267,15 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Help\Migrations\" />
     <Folder Include="Views\Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\ContextOriginal\201603171020450_Original.resx">
+      <DependentUpon>201603171020450_Original.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ContextUsers\201603171020525_Users.resx">
+      <DependentUpon>201603171020525_Users.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
