@@ -12,7 +12,7 @@ namespace LMSProject.Models
 		[Key]
 		public int user_teacherID { get; set; }
 
-		public int userID { get; set; }
+		public string userId { get; set; }
 		public int schoolClassID { get; set; }
 
 		//[Column(Order = 1)]
