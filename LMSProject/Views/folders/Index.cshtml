@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LMSProject.Models.folder>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.folderTypes.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.schoolClasses.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.path)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.folderTypes.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.schoolClasses.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.path)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.folderID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.folderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.folderID })
+        </td>
+    </tr>
+}
+
+</table>

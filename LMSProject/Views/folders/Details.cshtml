@@ -1,0 +1,50 @@
+﻿@model LMSProject.Models.folder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>folder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.folderTypes.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.folderTypes.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolClasses.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.schoolClasses.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.path)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.folderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

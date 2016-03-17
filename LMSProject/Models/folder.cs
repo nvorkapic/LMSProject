@@ -12,7 +12,8 @@ namespace LMSProject.Models
 		[Key]
 		public int folderID { get; set; }
 
-		[Required]
+		[ForeignKey("folderTypeID"), Required]
+		public virtual folderType folderTypes { get; set; }
 		public int folderTypeID { get; set; }
 
 		[ForeignKey("schoolClassID"), Required]

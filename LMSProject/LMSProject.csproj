@@ -162,22 +162,25 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\foldersController.cs" />
+    <Compile Include="Controllers\folderTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IUserRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\schoolClassesController.cs" />
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
     <Compile Include="DataAccess\LMSContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ContextOriginal\201603171221169_Original.cs" />
-    <Compile Include="Migrations\ContextOriginal\201603171221169_Original.Designer.cs">
-      <DependentUpon>201603171221169_Original.cs</DependentUpon>
+    <Compile Include="Migrations\ContextOriginal\201603171427320_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201603171427320_Original.Designer.cs">
+      <DependentUpon>201603171427320_Original.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
-    <Compile Include="Migrations\ContextUsers\201603171221289_Users.cs" />
-    <Compile Include="Migrations\ContextUsers\201603171221289_Users.Designer.cs">
-      <DependentUpon>201603171221289_Users.cs</DependentUpon>
+    <Compile Include="Migrations\ContextUsers\201603171427382_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201603171427382_Users.Designer.cs">
+      <DependentUpon>201603171427382_Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -258,6 +261,21 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\schoolClasses\Create.cshtml" />
+    <Content Include="Views\schoolClasses\Delete.cshtml" />
+    <Content Include="Views\schoolClasses\Details.cshtml" />
+    <Content Include="Views\schoolClasses\Edit.cshtml" />
+    <Content Include="Views\schoolClasses\Index.cshtml" />
+    <Content Include="Views\folderTypes\Create.cshtml" />
+    <Content Include="Views\folderTypes\Delete.cshtml" />
+    <Content Include="Views\folderTypes\Details.cshtml" />
+    <Content Include="Views\folderTypes\Edit.cshtml" />
+    <Content Include="Views\folderTypes\Index.cshtml" />
+    <Content Include="Views\folders\Create.cshtml" />
+    <Content Include="Views\folders\Delete.cshtml" />
+    <Content Include="Views\folders\Details.cshtml" />
+    <Content Include="Views\folders\Edit.cshtml" />
+    <Content Include="Views\folders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -270,11 +288,11 @@
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextOriginal\201603171221169_Original.resx">
-      <DependentUpon>201603171221169_Original.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextOriginal\201603171427320_Original.resx">
+      <DependentUpon>201603171427320_Original.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextUsers\201603171221289_Users.resx">
-      <DependentUpon>201603171221289_Users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextUsers\201603171427382_Users.resx">
+      <DependentUpon>201603171427382_Users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

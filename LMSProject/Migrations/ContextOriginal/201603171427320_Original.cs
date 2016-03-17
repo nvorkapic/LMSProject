@@ -34,8 +34,19 @@ namespace LMSProject.Migrations.ContextOriginal
                         path = c.String(),
                     })
                 .PrimaryKey(t => t.folderID)
+                .ForeignKey("dbo.folderTypes", t => t.folderTypeID)
                 .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
+                .Index(t => t.folderTypeID)
                 .Index(t => t.schoolClassID);
+            
+            CreateTable(
+                "dbo.folderTypes",
+                c => new
+                    {
+                        folderTypeID = c.Int(nullable: false),
+                        name = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.folderTypeID);
             
             CreateTable(
                 "dbo.schoolClasses",
@@ -72,15 +83,6 @@ namespace LMSProject.Migrations.ContextOriginal
                 .PrimaryKey(t => t.user_teacherID)
                 .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
                 .Index(t => t.schoolClassID);
-            
-            CreateTable(
-                "dbo.folderTypes",
-                c => new
-                    {
-                        folderTypeID = c.Int(nullable: false, identity: true),
-                        name = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.folderTypeID);
             
             CreateTable(
                 "dbo.scheduleDetails",
@@ -136,6 +138,7 @@ namespace LMSProject.Migrations.ContextOriginal
             DropForeignKey("dbo.tasks", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.files", "folderID", "dbo.folders");
             DropForeignKey("dbo.folders", "schoolClassID", "dbo.schoolClasses");
+            DropForeignKey("dbo.folders", "folderTypeID", "dbo.folderTypes");
             DropIndex("dbo.user_student", new[] { "schoolClassID" });
             DropIndex("dbo.schedules", new[] { "schoolClassID" });
             DropIndex("dbo.scheduleDetails", new[] { "taskID" });
@@ -144,15 +147,16 @@ namespace LMSProject.Migrations.ContextOriginal
             DropIndex("dbo.tasks", new[] { "schoolClassID" });
             DropIndex("dbo.tasks", new[] { "userID" });
             DropIndex("dbo.folders", new[] { "schoolClassID" });
+            DropIndex("dbo.folders", new[] { "folderTypeID" });
             DropIndex("dbo.files", new[] { "taskID" });
             DropIndex("dbo.files", new[] { "folderID" });
             DropTable("dbo.user_student");
             DropTable("dbo.schedules");
             DropTable("dbo.scheduleDetails");
-            DropTable("dbo.folderTypes");
             DropTable("dbo.user_teacher");
             DropTable("dbo.tasks");
             DropTable("dbo.schoolClasses");
+            DropTable("dbo.folderTypes");
             DropTable("dbo.folders");
             DropTable("dbo.files");
         }
