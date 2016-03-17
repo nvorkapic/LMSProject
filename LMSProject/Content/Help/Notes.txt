@@ -42,8 +42,8 @@ Enable-Migrations -MigrationsDirectory "Migrations\ContextOriginal" -ContextType
 Enable-Migrations -MigrationsDirectory "Migrations\ContextUsers" -ContextTypeName LMSProject.Models.ApplicationDbContext
 
 
-Add-Migration Original -ConfigurationTypeName ConfigurationOriginal
-Add-Migration Users -ConfigurationTypeName ConfigurationUsers
+Add-Migration -ConfigurationTypeName ConfigurationOriginal
+Add-Migration -ConfigurationTypeName ConfigurationUsers
 
 (rename configuration files from newly created migration folders
 to ConfigurationOriginal and ConfigurationUsers)
