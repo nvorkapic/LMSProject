@@ -10,8 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LMSProject.Controllers
 {
-    public class TeacherStudentRepository : Controller
+    public class TeacherStudentRepository : Controller, IUserRepository
     {
+
         private ApplicationRoleManager roleManager;
         private ApplicationUserManager userManager;
         private ApplicationSignInManager signinManager;
@@ -23,23 +24,22 @@ namespace LMSProject.Controllers
             signinManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
         }
 
-        public IEnumerable<IdentityRole> GetRoles()
+        public IEnumerable<IdentityRole> GetAllRoles()
         {
-            return roleManager.Roles.ToList();
+            IEnumerable<IdentityRole> results;
+            results = roleManager.Roles.ToList();
+            return results;
         }
 
-        public ICollection<IdentityUserRole> GetUsersByRole(string role)
+        public IEnumerable<IdentityUserRole> GetUsersByRole(string role)
         {
-            var users = from u in roleManager.Roles
-                        where u.Name == role
-                        select u.Users;
-            //var users = roleManager.Roles.Select((p) => (p.Name == role));
-            return users.FirstOrDefault();
+            var users = roleManager.Roles.Where(p => p.Name == role).FirstOrDefault();
+            return users.Users;
         }
 
-        public bool IsUserInRole(string id, string role)
+        public bool IsUserInRole(string userId, string role)
         {
-            if (userManager.GetRoles(id).Contains(role))
+            if (userManager.GetRoles(userId).Contains(role))
             {
                 return true;
             }
@@ -47,6 +47,30 @@ namespace LMSProject.Controllers
             {
                 return false;
             }
+        }
+
+        public IEnumerable<string> GetRolesOfUser(string userId)
+        {
+            var results = userManager.GetRoles(userId);
+            return results;
+        }
+
+        public void AddRoleToUser(string userId, string role)
+        {
+            IdentityRole _role = roleManager.FindByName(role);
+            IdentityUser _user = userManager.FindById(userId);
+
+            IdentityUserRole _userRole = new IdentityUserRole()
+            {
+                RoleId = _role.Id,
+                UserId = _user.Id
+            };
+
+            _role.Users.Add(_userRole);
+            //var results = from u in userManager.Users
+            //              where u.Id == userId
+            //              select u.Roles.Add(userRole.);
+            //throw new NotImplementedException();
         }
     }
 }
