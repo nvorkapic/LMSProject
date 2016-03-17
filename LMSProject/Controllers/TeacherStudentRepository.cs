@@ -96,16 +96,6 @@ namespace LMSProject.Controllers
             userManager.Create(user, password);
         }
 
-        public void AddUser(IdentityUser user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddUser(string userName, string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
         public IdentityUser GetUserById(string Id)
         {
             var results = userManager.Users.Where(p => p.Id == Id);
