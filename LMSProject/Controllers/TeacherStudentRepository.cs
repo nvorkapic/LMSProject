@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
+using LMSProject.Models;
 
 namespace LMSProject.Controllers
 {
@@ -72,5 +73,43 @@ namespace LMSProject.Controllers
             //              select u.Roles.Add(userRole.);
             //throw new NotImplementedException();
         }
+
+        public void AddRole(string role)
+        {
+            IdentityRole identity = new IdentityRole(role);
+            roleManager.Create(identity);
+        }
+
+        public void AddUser(ApplicationUser user)
+        {
+            userManager.Create(user);
+        }
+
+        public void Adduser(string userName, string email, string password)
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = userName,
+                Email = email
+            };
+
+            userManager.Create(user, password);
+        }
+
+        public void AddUser(IdentityUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddUser(string userName, string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IdentityUser GetUserById(string Id)
+        {
+            var results = userManager.Users.Where(p => p.Id == Id);
+            return results.FirstOrDefault();
+        }
+
     }
-}
