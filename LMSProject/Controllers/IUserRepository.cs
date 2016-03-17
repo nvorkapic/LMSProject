@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using LMSProject.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace LMSProject.Controllers
         IEnumerable<string> GetRolesOfUser(string userId);
         void AddUserToRole(string userId, string role);
         void AddRole(string role);
-        void AddUser(IdentityUser user);
+        void AddUser(ApplicationUser user);
         void AddUser(string userName, string email, string password);
         IdentityUser GetUserById(string Id);
     }
