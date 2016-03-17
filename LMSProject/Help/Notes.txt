@@ -41,14 +41,13 @@ Changing to (LocalDB)\MSSQLLocalDB, for example, seems to work - no more version
 Enable-Migrations -MigrationsDirectory "Migrations\ContextOriginal" -ContextTypeName LMSProject.DataAccess.LMSContext
 Enable-Migrations -MigrationsDirectory "Migrations\ContextUsers" -ContextTypeName LMSProject.Models.ApplicationDbContext
 
+(!!!rename configuration files from newly created migration folders
+to ConfigurationOriginal and ConfigurationUsers)
 
 Add-Migration Original -ConfigurationTypeName ConfigurationOriginal
 Add-Migration Users -ConfigurationTypeName ConfigurationUsers
 
-(rename configuration files from newly created migration folders
-to ConfigurationOriginal and ConfigurationUsers)
-
-gonna need to supply name for each migration
+!!!Replace CascadeDelete: true to false in ConfigurationOriginal
 
 
 Update-Database -ConfigurationTypeName ConfigurationOriginal
