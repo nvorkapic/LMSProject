@@ -172,22 +172,22 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\schoolClassesController.cs" />
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DataAccess\LMSContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ContextOriginal\201603181256596_Original.cs" />
-    <Compile Include="Migrations\ContextOriginal\201603181256596_Original.Designer.cs">
-      <DependentUpon>201603181256596_Original.cs</DependentUpon>
+    <Compile Include="Migrations\ContextOriginal\201603181414414_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201603181414414_Original.Designer.cs">
+      <DependentUpon>201603181414414_Original.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
-    <Compile Include="Migrations\ContextUsers\201603181257117_Users.cs" />
-    <Compile Include="Migrations\ContextUsers\201603181257117_Users.Designer.cs">
-      <DependentUpon>201603181257117_Users.cs</DependentUpon>
+    <Compile Include="Migrations\ContextUsers\201603181415049_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201603181415049_Users.Designer.cs">
+      <DependentUpon>201603181415049_Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetUserRole.cs" />
     <Compile Include="Models\file.cs" />
     <Compile Include="Models\folder.cs" />
     <Compile Include="Models\folderType.cs" />
@@ -328,11 +328,11 @@
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextOriginal\201603181256596_Original.resx">
-      <DependentUpon>201603181256596_Original.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextOriginal\201603181414414_Original.resx">
+      <DependentUpon>201603181414414_Original.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextUsers\201603181257117_Users.resx">
-      <DependentUpon>201603181257117_Users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextUsers\201603181415049_Users.resx">
+      <DependentUpon>201603181415049_Users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

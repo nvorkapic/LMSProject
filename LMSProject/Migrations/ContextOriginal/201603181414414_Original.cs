@@ -8,15 +8,6 @@ namespace LMSProject.Migrations.ContextOriginal
         public override void Up()
         {
             CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId });
-            
-            CreateTable(
                 "dbo.files",
                 c => new
                     {
@@ -149,7 +140,6 @@ namespace LMSProject.Migrations.ContextOriginal
             DropTable("dbo.folderTypes");
             DropTable("dbo.folders");
             DropTable("dbo.files");
-            DropTable("dbo.AspNetUserRoles");
         }
     }
 }

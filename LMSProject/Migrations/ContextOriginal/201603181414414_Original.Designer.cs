@@ -13,7 +13,7 @@ namespace LMSProject.Migrations.ContextOriginal
         
         string IMigrationMetadata.Id
         {
-            get { return "201603181256596_Original"; }
+            get { return "201603181414414_Original"; }
         }
         
         string IMigrationMetadata.Source
