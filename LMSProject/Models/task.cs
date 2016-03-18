@@ -16,11 +16,11 @@ namespace LMSProject.Models
 		[Required]
 		public string name { get; set; }
 
-		[ForeignKey("userID"), Required]
+		[ForeignKey("userID")]
 		public virtual user_teacher user_teachers { get; set; }
 		public int userID { get; set; }
 
-		[ForeignKey("schoolClassID"), Required]
+		[ForeignKey("schoolClassID")]
 		public virtual schoolClass schoolClasses { get; set; }
 		public int schoolClassID { get; set; }
 	}
