@@ -7,13 +7,18 @@ using System.Web;
 
 namespace LMSProject.Models
 {
-	public class user_student
+	public class AspNetUserRole
 	{
 		[Key]
-		public string userId { get; set; }
-		
-		[ForeignKey("schoolClassID")]
-		public virtual schoolClass schoolClasses { get; set; }
-		public int schoolClassID { get; set; }
+		[Column(Order = 1)]
+		[MaxLength(128)]
+		public string UserId { get; set; }
+
+		[Key]
+		[Column(Order = 1)]
+		[MaxLength(128)]
+		public string RoleId { get; set; }
+
+
 	}
 }

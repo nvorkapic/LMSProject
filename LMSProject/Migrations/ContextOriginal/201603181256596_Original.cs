@@ -8,6 +8,15 @@ namespace LMSProject.Migrations.ContextOriginal
         public override void Up()
         {
             CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId });
+            
+            CreateTable(
                 "dbo.files",
                 c => new
                     {
@@ -63,24 +72,9 @@ namespace LMSProject.Migrations.ContextOriginal
                     {
                         taskID = c.Int(nullable: false, identity: true),
                         name = c.String(nullable: false),
-                        userID = c.Int(nullable: false),
                         schoolClassID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.taskID)
-                .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
-                .ForeignKey("dbo.user_teacher", t => t.userID)
-                .Index(t => t.userID)
-                .Index(t => t.schoolClassID);
-            
-            CreateTable(
-                "dbo.user_teacher",
-                c => new
-                    {
-                        user_teacherID = c.Int(nullable: false, identity: true),
-                        userId = c.String(nullable: false),
-                        schoolClassID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.user_teacherID)
                 .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
                 .Index(t => t.schoolClassID);
             
@@ -114,13 +108,14 @@ namespace LMSProject.Migrations.ContextOriginal
                 .Index(t => t.schoolClassID);
             
             CreateTable(
-                "dbo.user_student",
+                "dbo.users",
                 c => new
                     {
-                        userId = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
                         schoolClassID = c.Int(nullable: false),
+                        RoleId = c.String(),
                     })
-                .PrimaryKey(t => t.userId)
+                .PrimaryKey(t => new { t.UserId, t.schoolClassID })
                 .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
                 .Index(t => t.schoolClassID);
             
@@ -128,37 +123,33 @@ namespace LMSProject.Migrations.ContextOriginal
         
         public override void Down()
         {
-            DropForeignKey("dbo.user_student", "schoolClassID", "dbo.schoolClasses");
+            DropForeignKey("dbo.users", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.scheduleDetails", "taskID", "dbo.tasks");
             DropForeignKey("dbo.scheduleDetails", "scheduleID", "dbo.schedules");
             DropForeignKey("dbo.schedules", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.files", "taskID", "dbo.tasks");
-            DropForeignKey("dbo.tasks", "userID", "dbo.user_teacher");
-            DropForeignKey("dbo.user_teacher", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.tasks", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.files", "folderID", "dbo.folders");
             DropForeignKey("dbo.folders", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.folders", "folderTypeID", "dbo.folderTypes");
-            DropIndex("dbo.user_student", new[] { "schoolClassID" });
+            DropIndex("dbo.users", new[] { "schoolClassID" });
             DropIndex("dbo.schedules", new[] { "schoolClassID" });
             DropIndex("dbo.scheduleDetails", new[] { "taskID" });
             DropIndex("dbo.scheduleDetails", new[] { "scheduleID" });
-            DropIndex("dbo.user_teacher", new[] { "schoolClassID" });
             DropIndex("dbo.tasks", new[] { "schoolClassID" });
-            DropIndex("dbo.tasks", new[] { "userID" });
             DropIndex("dbo.folders", new[] { "schoolClassID" });
             DropIndex("dbo.folders", new[] { "folderTypeID" });
             DropIndex("dbo.files", new[] { "taskID" });
             DropIndex("dbo.files", new[] { "folderID" });
-            DropTable("dbo.user_student");
+            DropTable("dbo.users");
             DropTable("dbo.schedules");
             DropTable("dbo.scheduleDetails");
-            DropTable("dbo.user_teacher");
             DropTable("dbo.tasks");
             DropTable("dbo.schoolClasses");
             DropTable("dbo.folderTypes");
             DropTable("dbo.folders");
             DropTable("dbo.files");
+            DropTable("dbo.AspNetUserRoles");
         }
     }
 }
