@@ -1,0 +1,104 @@
+﻿@*Emelies temporary test view for calendar stuff.*@
+
+@model IEnumerable<LMSProject.Models.scheduleDetail>
+
+@{
+    ViewBag.Title = "Calendar";
+}
+<style>
+    table,th,td {
+        border: 1px dotted black;
+    }
+    th,td {
+        width: 100px;
+        height: 100px;
+        margin: 0px;
+        padding: 0px;
+        vertical-align: top;
+    }
+    .scheduleDetail{
+        background-color:#CCDFE6;
+        position: absolute;
+        width: 100px;
+        /*padding-left:*/ 
+        border-radius: 10px;
+        height: 10px;
+    }
+
+    .calendarHeader > th
+    {
+        display:grid;
+    height: 30px;
+    }
+    table > td
+    {
+        padding-bottom:50px;
+    }
+
+    .schedule_cell div
+    {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 60px;
+            border-top: 1px dotted black;
+            border-bottom: 1px dotted black;
+    }
+    @foreach(var d in Model)
+    {
+        //string css_id = String.Format("#detail{0} {1}\n margin-left: {2}px;\nmargin-top:{3}px;\n{4}\n", d.scheduleDetailID, '{', (int)d.startTime.DayOfWeek * 100 + 100, d.startTime.Hour * 100 + 30 + ((100 / 60) * d.startTime.Minute), '}');/*(d.endTime - d.startTime).TotalMinutes * (100/60) + 40,'}');*/
+        string css_id = String.Format("#detail{0} {1}\n transform:translate({2}px,{3}px);\n{4}\n",
+            d.scheduleDetailID,
+            '{',
+            (int)d.startTime.DayOfWeek * 100 + 100,
+            d.startTime.Hour * 100 + ((100 / 60) * d.startTime.Minute),
+            '}');/*(d.endTime - d.startTime).TotalMinutes * (100/60) + 40,'}');*/
+
+        @Html.Raw(css_id);
+    }
+</style>
+<h2>Calendar</h2>
+
+
+<table>
+    <thead>
+        <tr class="calendarHeader">
+            <th>&nbsp;</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var d in Model)
+    {
+            <div class="scheduleDetail" id="detail@{@d.scheduleDetailID}">@d.startTime.ToShortTimeString(), @d.endTime.ToShortTimeString()</div>
+    }
+        @for(int i = 0; i < 24; i++)
+        {
+            <tr>
+                <th>
+                    @i.00
+                </th>
+                    @for (int day = 1; day <= 7; day++)
+                    {
+
+                        @*if (((int)Model.FirstOrDefault().startTime.DayOfWeek == day)
+                            && (Model.FirstOrDefault().startTime.Hour == i))
+                        {
+                            @Html.Raw("<td class=\"schedule_cell\" style=\"background-color:#CCDFE6\">&nbsp;</td>");
+                        }
+                        else
+                        {
+                            @Html.Raw("<td class=\"schedule_cell\">&nbsp;</td>");
+                        }*@
+                        @Html.Raw("<td class=\"schedule_cell\"><div>&nbsp;</div></td>");
+
+                    }
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,88 +1,134 @@
-﻿@*Emelies temporary test view for calendar stuff.*@
+﻿<!doctype html>
+<meta charset="UTF8">
 
-@model IEnumerable<LMSProject.Models.scheduleDetail>
+<html ng-app="calendar">
 
-@{
-    ViewBag.Title = "Calendar";
-}
-<style>
-    table,th,td {
-        border: 1px dotted black;
-    }
-    th,td {
-        width: 100px;
-        height: 100px;
-        margin: 0px;
-        padding: 0px;
-        vertical-align: top;
-    }
-    .scheduleDetail{
-        background-color:red;
-        position: absolute;
-        width: 100px;
-        /*padding-left:*/ 
-    }
+<head>
+    <title>Calendar</title>
+    <!-- <script src="angular.js"></script> -->
+<script>
 
-    .calendarHeader > th
-    {
-        display:grid;
-    height: 30px;
-    }
-    table > td
-    {
-        padding-bottom:50px;
-    }
+</script>
+</head>
+<body ng-controller="CalendarController">
+    <canvas id="canvas" width="722" height="1002"></canvas>
+</body>
 
-    .schedule_cell 
-    {
-            
-    }
-    @foreach(var d in Model)
-    {
-        string css_id = String.Format("#detail{0} {1}\n margin-left: {2}px;\nmargin-top:{3}px;\n{4}\n", d.scheduleDetailID, '{', (int)d.startTime.DayOfWeek * 100 + 100, d.startTime.Hour * 100 + 30 + ((100 / 60) * d.startTime.Minute),'}');
-        @Html.Raw(css_id);
-    }
-</style>
-<h2>Calendar</h2>
+<script>
+var tableWidth = 720;
+var tableHeight = 1000;
+var tableOffsetX = 20;
+var tableOffsetY = 0;
+var cellDimensionsX = 100;
+var cellDimensionsY = 50;
+var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-@foreach (var d in Model)
+var drawScheduleDetails = function(smodels)
 {
-    <div class="scheduleDetail" id="detail@{@d.scheduleDetailID}">@d.startTime.DayOfWeek</div>
-}
-<table>
-    <thead>
-        <tr class="calendarHeader">
-            <th>&nbsp;</th>
-            <th>Sunday</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for(int i = 0; i < 24; i++)
-        {
-            <tr>
-                <th>
-                    @i.ToString("f2")
-                </th>
-                    @for (int day = 1; day <= 7; day++)
-                    {
+	context.beginPath();
 
-                        if (((int)Model.FirstOrDefault().startTime.DayOfWeek == day)
-                            && (Model.FirstOrDefault().startTime.Hour == i))
-                        {
-                            @Html.Raw("<td class=\"schedule_cell\" style=\"background-color:#CCDFE6\">&nbsp;</td>");
-                        }
-                        else
-                        {
-                            @Html.Raw("<td class=\"schedule_cell\">&nbsp;</td>");
-                        }
-                    }
-            </tr>
-        }
-    </tbody>
-</table>
+	console.log("drawScheduleDetails()");
+	for(var i = 0; i < smodels.length; i++)
+	{
+		context.lineWidth = 2;
+		context.strokeStyle = 'blue';
+		context.rect(
+				smodels[i].DayOfTheWeek * cellDimensionsX + tableOffsetX,
+				smodels[i].Hours * cellDimensionsY + tableOffsetY,
+				cellDimensionsX,
+				cellDimensionsY
+			);
+		console.log("rect");
+	}
+
+	context.stroke();
+}
+
+var drawTimetable = function()
+{
+	// Border
+	context.beginPath();
+	context.rect(tableOffsetX,tableOffsetY,tableWidth, tableHeight);
+	context.lineWidth = 1;
+	context.strokeStyle = 'black';
+
+	// Header
+
+	context.font = "18px Arial";
+	for(var i = 0; i < 7; i++)
+	{
+		var cellOffsetX = i * cellDimensionsX;
+		context.rect(
+			tableOffsetX + cellOffsetX,
+			tableOffsetY,
+			cellDimensionsX,
+			cellDimensionsY);
+		context.fillText(daysOfTheWeek[i], cellOffsetX+25, tableOffsetY+30);
+	}
+
+	// Body
+	context.font = "12px Arial";
+
+	var tableBodyOffsetY = tableOffsetY + cellDimensionsY;
+	for(var y = 0; y < 20; y++)
+	{
+		var cellY = tableBodyOffsetY + cellDimensionsY * y;
+		context.fillText((y+5) + ".00", 23,cellY+12);
+		for(var x = 0; x < 7; x++)
+		{
+			var cellX = tableOffsetX + x * cellDimensionsX;
+			context.rect(cellX, cellY,
+				cellDimensionsX,
+				cellDimensionsY
+				);
+		}
+	}
+
+	context.stroke();
+
+	// Draw the schedule posts
+	drawScheduleDetails(models);
+}
+
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+var calendar = angular.module("calendar", []);
+var models = [];
+// calendar.factory("CalendarService", function($http)
+// {
+
+// });
+calendar.controller("CalendarController", function($scope, $http)
+{
+	$scope.getScheduleDetails = function()
+	{
+		$http(
+		{
+			method: 'GET',
+			url: '/CalendarTest/getSchedule'
+		}).then(function successCallback(response)
+		{
+			models = response.data;
+			console.log("Got the data!");
+			console.log(models);
+			// drawTimetable(models);
+		},
+		function failureCallback(response)
+		{
+			console.log("Failed to get data");
+		});
+	}
+
+	$scope.getScheduleDetails();
+	$
+});
+
+
+// drawTimetable();
+// drawScheduleDetails(models);
+setTimeout(drawTimetable, 4000);
+</script>
+</html>
+
