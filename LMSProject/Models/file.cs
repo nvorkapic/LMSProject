@@ -25,6 +25,8 @@ namespace LMSProject.Models
 		[ForeignKey("taskID")]
 		public virtual task tasks { get; set; }
 		public int? taskID { get; set; }
-		
+
+		[NotMapped]
+		public HttpPostedFileBase attachment { get; set; }
 	}
 }

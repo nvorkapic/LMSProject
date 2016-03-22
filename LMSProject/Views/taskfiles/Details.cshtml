@@ -1,0 +1,50 @@
+﻿@model LMSProject.Models.file
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>file</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.folders.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.folders.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tasks.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tasks.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.path)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.fileID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

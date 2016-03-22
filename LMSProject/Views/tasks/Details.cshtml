@@ -1,0 +1,34 @@
+﻿@model LMSProject.Models.task
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>task</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolClasses.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.schoolClasses.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.taskID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

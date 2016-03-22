@@ -172,20 +172,22 @@
     <Compile Include="Controllers\IUserRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\schoolClassesController.cs" />
+    <Compile Include="Controllers\taskfilesController.cs" />
+    <Compile Include="Controllers\tasksController.cs" />
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DataAccess\LMSContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ContextOriginal\201603181414414_Original.cs" />
-    <Compile Include="Migrations\ContextOriginal\201603181414414_Original.Designer.cs">
-      <DependentUpon>201603181414414_Original.cs</DependentUpon>
+    <Compile Include="Migrations\ContextOriginal\201603211231513_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201603211231513_Original.Designer.cs">
+      <DependentUpon>201603211231513_Original.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
-    <Compile Include="Migrations\ContextUsers\201603181415049_Users.cs" />
-    <Compile Include="Migrations\ContextUsers\201603181415049_Users.Designer.cs">
-      <DependentUpon>201603181415049_Users.cs</DependentUpon>
+    <Compile Include="Migrations\ContextUsers\201603211232100_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201603211232100_Users.Designer.cs">
+      <DependentUpon>201603211232100_Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1101,6 +1103,16 @@
     <Content Include="Views\CalendarTest\_oldIndex.cshtml" />
     <Content Include="Views\CalendarTest\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\tasks\Create.cshtml" />
+    <Content Include="Views\tasks\Delete.cshtml" />
+    <Content Include="Views\tasks\Details.cshtml" />
+    <Content Include="Views\tasks\Edit.cshtml" />
+    <Content Include="Views\tasks\Index.cshtml" />
+    <Content Include="Views\taskfiles\Create.cshtml" />
+    <Content Include="Views\taskfiles\Delete.cshtml" />
+    <Content Include="Views\taskfiles\Details.cshtml" />
+    <Content Include="Views\taskfiles\Edit.cshtml" />
+    <Content Include="Views\taskfiles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1113,11 +1125,11 @@
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextOriginal\201603181414414_Original.resx">
-      <DependentUpon>201603181414414_Original.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextOriginal\201603211231513_Original.resx">
+      <DependentUpon>201603211231513_Original.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextUsers\201603181415049_Users.resx">
-      <DependentUpon>201603181415049_Users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextUsers\201603211232100_Users.resx">
+      <DependentUpon>201603211232100_Users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
