@@ -1,0 +1,67 @@
+﻿@model IEnumerable<LMSProject.Models.user>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.schoolClasses.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.schoolClasses.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+    </table>
+    <hr />
+    <table class="table">
+
+        @{
+            List<LMSProject.Models.ApplicationUser> InternalUsersList = (List<LMSProject.Models.ApplicationUser>)ViewBag.InternalUsers;
+        }
+
+        @foreach (var UserItem in InternalUsersList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => UserItem.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => UserItem.Roles)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+
+
+    </table>
