@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LMSProject.DataAccess;
 using LMSProject.Models;
+using System.IO;
 
 namespace LMSProject.Controllers
 {
@@ -57,6 +58,8 @@ namespace LMSProject.Controllers
             {
                 db.folders.Add(folder);
                 db.SaveChanges();
+				var dirpath = Server.MapPath("~/Folders/" + folder.folderTypeID + "/" + folder.schoolClassID + "/" + folder.path + "/");
+				Directory.CreateDirectory(dirpath);
                 return RedirectToAction("Index");
             }
 
