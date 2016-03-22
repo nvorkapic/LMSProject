@@ -59,22 +59,18 @@ namespace LMSProject.Controllers
 				try
 				{
 					var fileName = Path.GetFileName(file.attachment.FileName);
-					//var myFolderPath = "Image"; // CAUTION  Must add rpo code to get folder path !!!
-					var myFolderPath = db.folders.Where(e => e.folderTypeID == file.folderID).First().path.ToString(); 
-					var path = Path.Combine(Server.MapPath("~/" + myFolderPath + "/"), fileName);
+					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;				   
+					var path = Path.Combine(Server.MapPath(myFolderPath), fileName);
 					file.attachment.SaveAs(path);
+					file.path = myFolderPath;
+					db.files.Add(file);
+					db.SaveChanges();
+					return RedirectToAction("Index");
 				}
 				catch (Exception err) { 
 					return Content("File save error !!!!! " + err.Message);
 				}
 			}
-
-            if (ModelState.IsValid)
-            {
-                db.files.Add(file);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
             ViewBag.folderID = new SelectList(db.folders, "folderID", "name", file.folderID);
             ViewBag.taskID = new SelectList(db.tasks, "taskID", "name", file.taskID);

@@ -56,16 +56,23 @@ namespace LMSProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.folders.Add(folder);
-                db.SaveChanges();
-				var dirpath = Server.MapPath("~/Folders/" + folder.folderTypeID + "/" + folder.schoolClassID + "/" + folder.path + "/");
+                
+				var foldername = db.folderTypes.Where(x => x.folderTypeID == folder.folderTypeID).First().name;
+				var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
+
+				var dirpath = Server.MapPath("~/Holders/" + foldername + "/" + schoolclassname + "/" + folder.name + "/");
+
+				folder.path = "~/Holders/" + foldername + "/" + schoolclassname + "/" + folder.name + "/";
 				Directory.CreateDirectory(dirpath);
-                return RedirectToAction("Index");
+				db.folders.Add(folder);
+				db.SaveChanges();
+               return RedirectToAction("Index");
             }
 
             ViewBag.folderTypeID = new SelectList(db.folderTypes, "folderTypeID", "name", folder.folderTypeID);
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", folder.schoolClassID);
             return View(folder);
+		
         }
 
         // GET: folders/Edit/5
