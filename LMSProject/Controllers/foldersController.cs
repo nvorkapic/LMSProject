@@ -130,10 +130,22 @@ namespace LMSProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            folder folder = db.folders.Find(id);
-            db.folders.Remove(folder);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+			folder folder = db.folders.Find(id);
+			try
+			{
+				Directory.Delete(Server.MapPath(folder.path));
+				db.folders.Remove(folder);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			catch (Exception err)
+			{
+				ViewBag.Message=err.Message;
+				return Content(err.Message);
+			}
+
+		
         }
 
         protected override void Dispose(bool disposing)

@@ -62,7 +62,7 @@ namespace LMSProject.Controllers
 					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;				   
 					var path = Path.Combine(Server.MapPath(myFolderPath), fileName);
 					file.attachment.SaveAs(path);
-					file.path = myFolderPath;
+					file.path = myFolderPath + file.attachment.FileName;
 					db.files.Add(file);
 					db.SaveChanges();
 					return RedirectToAction("Index");
@@ -134,6 +134,8 @@ namespace LMSProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             file file = db.files.Find(id);
+			var fileplacement = file.path; 
+			System.IO.File.Delete(Server.MapPath(file.path));//to add file name
             db.files.Remove(file);
             db.SaveChanges();
             return RedirectToAction("Index");
