@@ -31,6 +31,12 @@ namespace LMSProject.Models
 		[NotMapped]
 		public virtual IdentityRole Role { get; set; }
 
+        // to create new users
+        [NotMapped]
+        public string UserName { get; set; }
+        [NotMapped]
+        public string UserPassword { get; set; }
+
 
 		//[Key]
 		//[Column(Order = 0)]
