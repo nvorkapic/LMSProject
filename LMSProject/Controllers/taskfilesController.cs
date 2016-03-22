@@ -10,6 +10,7 @@ using LMSProject.DataAccess;
 using LMSProject.Models;
 using System.IO;
 
+
 namespace LMSProject.Controllers
 {
     public class taskfilesController : Controller
@@ -55,10 +56,17 @@ namespace LMSProject.Controllers
         {
 			if (file.attachment != null && file.attachment.ContentLength > 0)
 			{
-				var fileName = Path.GetFileName(file.attachment.FileName);
-				var path = Path.Combine(Server.MapPath("~/Image/"), fileName);
-				file.attachment.SaveAs(path);
-				return Content("File Saved, hurray !!!!!");
+				try
+				{
+					var fileName = Path.GetFileName(file.attachment.FileName);
+					//var myFolderPath = "Image"; // CAUTION  Must add rpo code to get folder path !!!
+					var myFolderPath = db.folders.Where(e => e.folderTypeID == file.folderID).First().path.ToString(); 
+					var path = Path.Combine(Server.MapPath("~/" + myFolderPath + "/"), fileName);
+					file.attachment.SaveAs(path);
+				}
+				catch (Exception err) { 
+					return Content("File save error !!!!! " + err.Message);
+				}
 			}
 
             if (ModelState.IsValid)
@@ -73,19 +81,6 @@ namespace LMSProject.Controllers
             return View(file);
         }
 
-		[HttpPost]
-		public ActionResult Upload(HttpPostedFileBase file)
-		{
-			if (file != null && file.ContentLength > 0)
-			{
-				var fileName = Path.GetFileName(file.FileName);
-				var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-				file.SaveAs(path);
-				return Content("File Saved, hurray !!!!!");
-			}
-
-			return Content("Oooohhhh nooooooooo !!!!!");
-		}
 
         // GET: taskfiles/Edit/5
         public ActionResult Edit(int? id)
