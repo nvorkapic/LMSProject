@@ -177,6 +177,7 @@
     <Compile Include="Controllers\tasksController.cs" />
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\usersController.cs" />
     <Compile Include="DataAccess\LMSContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1125,6 +1126,11 @@
     <Content Include="Views\CalendarTest\Edit.cshtml" />
     <Content Include="Views\CalendarTest\Index.cshtml" />
     <Content Include="Views\CalendarTest\ErrorOverlapping.cshtml" />
+    <Content Include="Views\users\Create.cshtml" />
+    <Content Include="Views\users\Delete.cshtml" />
+    <Content Include="Views\users\Details.cshtml" />
+    <Content Include="Views\users\Edit.cshtml" />
+    <Content Include="Views\users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
