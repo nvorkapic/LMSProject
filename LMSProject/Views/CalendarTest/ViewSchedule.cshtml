@@ -80,11 +80,6 @@ var drawTimetable = function()
 	for(var i = 0; i < 7; i++)
 	{
 		var cellOffsetX = i * cellDimensionsX;
-		// context.rect(
-		// 	tableOffsetX + cellOffsetX,
-		// 	tableOffsetY,
-		// 	cellDimensionsX,
-		// 	cellDimensionsY);
 		context.fillText(daysOfTheWeek[i], cellOffsetX+tableOffsetX+20, tableOffsetY+30);
 	}
 
@@ -125,32 +120,6 @@ var context = canvas.getContext('2d');
 
 var calendar = angular.module("calendar", []);
 var models = [];
-// calendar.factory("CalendarService", function($http)
-// {
-
-// });
-// calendar.factory('myFactory', function($http)
-// {
-// 	var getData = function()
-// 	{
-// 		return $http({method: "GET", url: "/CalendarTest/getSchedule/5"}).then(function(result)
-// 		{
-// 			return result.data;
-// 		});
-// 	}
-
-// 	return { getData: getData };
-// });
-
-// var getDataSynchronously = function($scope)
-// {
-// 	var myDataPromise = calendar.factory.getData();
-// 	myDataPromise.then(function(result)
-// 	{
-// 		$scope.models = result;
-// 		console.log($scope.models);
-// 	});
-// }
 calendar.controller("CalendarController", function($scope, $http, $q)
 {
 	$scope.showCreate = false;
@@ -182,23 +151,7 @@ calendar.controller("CalendarController", function($scope, $http, $q)
 	}
 
 	$scope.getScheduleDetails();
-	// $scope.toggleShowCreate = function()
-	// {
-	// 	$scope.showCreate = !$scope.showCreate;
-	// }
-
-	// $scope.reloadPage = function()
-	// {
-	// 	window.location.reload();
-	// }
 });
-
-
-// drawTimetable();
-// drawScheduleDetails(models);
-// setTimeout(drawTimetable, 2000);
-// drawTimetable();
-// getDataSynchronously();
 </script>
 </html>
 

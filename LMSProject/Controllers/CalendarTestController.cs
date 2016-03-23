@@ -28,32 +28,6 @@ namespace LMSProject.Controllers
     public class CalendarTestController : Controller
     {
         private LMSContext db = new LMSContext();
-        //    private string[] labels = { "Chemistry", "Mathematics", "Physics" };
-        //    private Random ran = new Random();
-
-        //List<CalendarViewModel> d;
-        //public CalendarTestController()
-        //{
-        //    //schedule s = new schedule();
-        //    //d = new List<CalendarViewModel>();
-        //    //for (int i = 0; i < 10; i++)
-        //    //{
-        //    //    scheduleDetail detail = new scheduleDetail() { startTime = DateTime.Now, scheduleDetailID = i, schedules = s, scheduleID = 0, name = "Test", endTime = DateTime.Now };
-        //    //    detail.startTime = detail.startTime.AddMinutes(ran.Next(480));
-        //    //    detail.startTime = detail.startTime.AddDays(ran.Next(7));
-        //    //    detail.endTime = detail.startTime.AddMinutes(30 + ran.Next(100));
-        //    //    //detail.endTime = detail.startTime.AddHours(1);
-        //    //    CalendarViewModel cvm = new CalendarViewModel() {
-        //    //        Hours =  detail.startTime.Hour,
-        //    //        Label = labels[ran.Next(labels.Length)],
-        //    //        Minutes = (int) detail.startTime.Minute, DayOfTheWeek = (int) detail.startTime.DayOfWeek,
-        //    //        DurationInMinutes = (detail.endTime - detail.startTime).TotalMinutes,
-        //    //        TimeDisplayStart = detail.startTime.ToShortTimeString(),
-        //    //        TimeDisplayEnd =  detail.endTime.ToShortTimeString()};
-
-        //    //    d.Add(cvm);
-        //    //}
-        //}
         [Authorize]
         public JsonResult getSchedule(int id)
         {
@@ -179,14 +153,10 @@ namespace LMSProject.Controllers
                 {
                     return true;
                 }
-                //else
-                //{
-                //    return false;
-                //}
             }
             return false;
         }
-        // POST: schedules/Edit/5
+        // POST: scheduleDetails/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
