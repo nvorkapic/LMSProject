@@ -15,6 +15,7 @@ namespace LMSProject.Controllers
     {
         private LMSContext db = new LMSContext();
         private ApplicationDbContext dbUser = new ApplicationDbContext();
+        //private TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
 
         // GET: users
         public ActionResult Index()
@@ -52,12 +53,30 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,schoolClassID,RoleId")] user user)
+        public ActionResult Create([Bind(Include = "UserId,schoolClassID,RoleId,UserName,UserPassword")] user user)
         {
             if (ModelState.IsValid)
             {
-                db.users.Add(user);
-                db.SaveChanges();
+                //TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
+                try
+                {
+                    //HttpContext.User.Identity.
+                    //manually call the reopistory to save user in user tables
+                    TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
+
+                    myUserRepo.AddUser(user.UserName, user.UserName, user.UserPassword);
+                    user.UserId = myUserRepo.GetUserIdByName(user.UserName);
+                    myUserRepo.AddUserToRole(user.UserId, user.RoleId);
+
+                    //Auto added by VS
+                    db.users.Add(user);
+                    db.SaveChanges();
+                }
+                catch (Exception err)
+                {
+                    return Content("Mayor Error in create user:" + err.Message);
+                }
+
                 return RedirectToAction("Index");
             }
 

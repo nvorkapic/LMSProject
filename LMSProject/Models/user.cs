@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -19,11 +20,13 @@ namespace LMSProject.Models
 
 		[Key]
 		[Column(Order = 1)]
+        [DisplayName("Schoolclass")]
 		public int schoolClassID { get; set; }
 
 		[ForeignKey("schoolClassID")]
 		public virtual schoolClass schoolClasses { get; set; }
 
+        [DisplayName("Role")]
 		public string RoleId { get; set; }
 
 		[NotMapped]
@@ -33,8 +36,10 @@ namespace LMSProject.Models
 
         // to create new users
         [NotMapped]
+        [DisplayName("Email")]
         public string UserName { get; set; }
         [NotMapped]
+        [DisplayName("Password")]
         public string UserPassword { get; set; }
 
 
