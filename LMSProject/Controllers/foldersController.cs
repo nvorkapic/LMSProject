@@ -141,8 +141,10 @@ namespace LMSProject.Controllers
 			}
 			catch (Exception err)
 			{
-				ViewBag.Message=err.Message;
-				return Content(err.Message);
+
+				TempData["Success"] = true;
+				ViewBag.ErrorMessage = err.Message;
+				return RedirectToAction("Delete");
 			}
 
 		

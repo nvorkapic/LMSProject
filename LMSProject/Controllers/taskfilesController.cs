@@ -133,12 +133,19 @@ namespace LMSProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            file file = db.files.Find(id);
+			try { 
+			file file = db.files.Find(id);
 			var fileplacement = file.path; 
 			System.IO.File.Delete(Server.MapPath(file.path));//to add file name
             db.files.Remove(file);
             db.SaveChanges();
             return RedirectToAction("Index");
+				}
+			catch (Exception err)
+			{
+				Session["Success"] = true;
+				return RedirectToAction("Delete");
+			}
         }
 
         protected override void Dispose(bool disposing)
