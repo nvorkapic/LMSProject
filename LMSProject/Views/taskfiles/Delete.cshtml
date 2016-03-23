@@ -4,6 +4,12 @@
     ViewBag.Title = "Delete";
 }
 
+<script class="warning">
+    if ('@Session["Success"]' == 'True') {
+        alert('There is a problem removing this file. Please contact Administrator.');
+    }
+</script>
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
