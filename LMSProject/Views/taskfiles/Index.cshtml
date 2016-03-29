@@ -39,6 +39,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.path)
+            <p>@Html.ActionLink("Download "+ item.name + " File", "Download", new { filePath = item.path })</p>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.fileID }) |

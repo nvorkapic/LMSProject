@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using LMSProject.DataAccess;
 using LMSProject.Models;
 using System.IO;
+using System.Net.Mime;
 
 
 namespace LMSProject.Controllers
@@ -141,12 +142,23 @@ namespace LMSProject.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
 				}
-			catch (Exception err)
+			catch
 			{
 				Session["Success"] = true;
 				return RedirectToAction("Delete");
 			}
         }
+
+		[HttpGet]
+		public FileResult Download(string filePath)
+		{
+
+			var fileName = Path.GetFileName(Server.MapPath(filePath));
+			var directoryName = filePath.Replace(fileName,"").ToString();
+			var file = File(filePath, directoryName, fileName);
+			return file;
+
+		}
 
         protected override void Dispose(bool disposing)
         {
