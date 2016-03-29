@@ -1,13 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Web;
+//using System.Web.Mvc;
+//using Microsoft.AspNet.Identity.Owin;
+//using Microsoft.AspNet.Identity;
+//using Microsoft.Owin.Security;
+//using Microsoft.AspNet.Identity.EntityFramework;
+//using LMSProject.Models;
+
+using System;
+using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity.EntityFramework;
 using LMSProject.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace LMSProject.Controllers
 {
@@ -20,9 +34,13 @@ namespace LMSProject.Controllers
 
         public TeacherStudentRepository()
         {
-            roleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-            userManager = HttpContext.GetOwinContext().Get<ApplicationUserManager>();
-            signinManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            var roleManager2 = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            var userManager2 = HttpContext.GetOwinContext().Get<ApplicationUserManager>();
+            var signinManager2 = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+
+            //roleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            //userManager = HttpContext.GetOwinContext().Get<ApplicationUserManager>();
+            //signinManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
         }
 
         public IEnumerable<IdentityRole> GetAllRoles()
@@ -56,9 +74,9 @@ namespace LMSProject.Controllers
             return results;
         }
 
-        public void AddUserToRole(string userId, string role)
+        public void AddUserToRole(string userId, string roleId)
         {
-            IdentityRole _role = roleManager.FindByName(role);
+            IdentityRole _role = roleManager.FindById(roleId);
             IdentityUser _user = userManager.FindById(userId);
 
             IdentityUserRole _userRole = new IdentityUserRole()
@@ -88,14 +106,23 @@ namespace LMSProject.Controllers
                 UserName = userName,
                 Email = email
             };
+            IdentityResult UserResult;
 
-            userManager.Create(user, password);
+            UserResult = userManager.Create(user, password);
+
+            
         }
 
         public IdentityUser GetUserById(string Id)
         {
             var results = userManager.Users.Where(p => p.Id == Id);
             return results.FirstOrDefault();
+        }
+
+        public string GetUserIdByName(string name) {
+
+            var results = userManager.Users.Where(p => p.UserName == name).FirstOrDefault().Id;
+            return results;
         }
 
     }
