@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using LMSProject.DataAccess;
 using LMSProject.Models;
 using System.IO;
+using System.Net.Mime;
 
 
 namespace LMSProject.Controllers
@@ -59,10 +60,13 @@ namespace LMSProject.Controllers
 				try
 				{
 					var fileName = Path.GetFileName(file.attachment.FileName);
-					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;				   
+					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;
+			   
 					var path = Path.Combine(Server.MapPath(myFolderPath), fileName);
+
 					file.attachment.SaveAs(path);
 					file.path = myFolderPath + file.attachment.FileName;
+
 					db.files.Add(file);
 					db.SaveChanges();
 					return RedirectToAction("Index");
@@ -147,6 +151,17 @@ namespace LMSProject.Controllers
 				return RedirectToAction("Delete");
 			}
         }
+
+		[HttpGet]
+		public FileResult Download(string filePath)
+		{
+
+			var fileName = Path.GetFileName(Server.MapPath(filePath));
+			var directoryName = filePath.Replace(fileName,"").ToString();
+			var file = File(filePath, directoryName, fileName);
+			return file;
+
+		}
 
         protected override void Dispose(bool disposing)
         {
