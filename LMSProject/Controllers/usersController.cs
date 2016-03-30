@@ -15,7 +15,8 @@ namespace LMSProject.Controllers
     {
         private LMSContext db = new LMSContext();
         private ApplicationDbContext dbUser = new ApplicationDbContext();
-        //private TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
+
+        private TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
 
         // GET: users
         public ActionResult Index()
@@ -58,24 +59,21 @@ namespace LMSProject.Controllers
             if (ModelState.IsValid)
             {
                 //TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
-                //try
-                //{
-                    //HttpContext.User.Identity.
-                    //manually call the reopistory to save user in user tables
-                    TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
-
+                try
+                {
                     myUserRepo.AddUser(user.UserName, user.UserName, user.UserPassword);
                     user.UserId = myUserRepo.GetUserIdByName(user.UserName);
                     myUserRepo.AddUserToRole(user.UserId, user.RoleId);
+                }
+                catch (Exception err)
+                {
+                    return Content("Mayor Error in create user:" + err.Message);
+                }
 
-                    //Auto added by VS
-                    db.users.Add(user);
-                    db.SaveChanges();
-                //}
-                //catch (Exception err)
-                //{
-                //    return Content("Mayor Error in create user:" + err.Message);
-                //}
+                //Auto added by VS
+                db.users.Add(user);
+                db.SaveChanges();
+
 
                 return RedirectToAction("Index");
             }

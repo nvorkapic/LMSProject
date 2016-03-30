@@ -74,15 +74,14 @@ namespace LMSProject.Controllers
         public void AddUserToRole(string userId, string roleId)
         {
             IdentityRole _role = roleManager.FindById(roleId);
-            IdentityUser _user = myUserManager.FindById(userId);
+            //IdentityUser _user = myUserManager.FindById(userId);
+            //IdentityUserRole _userRole = new IdentityUserRole()
+            //{
+            //    RoleId = _role.Id,
+            //    UserId = _user.Id
+            //};
 
-            IdentityUserRole _userRole = new IdentityUserRole()
-            {
-                RoleId = _role.Id,
-                UserId = _user.Id
-            };
-
-            _role.Users.Add(_userRole);
+            myUserManager.AddToRole(userId, _role.Name);
         }
 
         public void AddRole(string role)
@@ -106,8 +105,7 @@ namespace LMSProject.Controllers
             IdentityResult UserResult;
 
             UserResult = myUserManager.Create(user, password);
-
-            
+           
         }
 
         public IdentityUser GetUserById(string Id)
