@@ -60,10 +60,13 @@ namespace LMSProject.Controllers
 				try
 				{
 					var fileName = Path.GetFileName(file.attachment.FileName);
-					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;				   
+					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;
+			   
 					var path = Path.Combine(Server.MapPath(myFolderPath), fileName);
+
 					file.attachment.SaveAs(path);
 					file.path = myFolderPath + file.attachment.FileName;
+
 					db.files.Add(file);
 					db.SaveChanges();
 					return RedirectToAction("Index");
