@@ -31,6 +31,8 @@ namespace LMSProject.Controllers
 
         private ApplicationRoleManager roleManager;
         private UserManager<ApplicationUser> myUserManager;
+        private ApplicationDbContext dbUser = new ApplicationDbContext();
+        private LMSContext db = new LMSContext();
 
         public TeacherStudentRepository()
         {
@@ -118,6 +120,56 @@ namespace LMSProject.Controllers
 
             var results = myUserManager.Users.Where(p => p.UserName == name).FirstOrDefault().Id;
             return results;
+        }
+
+        public string getRoleName(string RoleId)
+        {
+            var roleObject = roleManager.FindById(RoleId);
+            return roleObject.Name;
+        }
+
+        public List<userViewModel> getUserViewModel() { 
+        
+            List<userViewModel> userInfo = (from mUM in myUserManager.Users
+                                            select (new userViewModel { 
+                                                UserId = mUM.Id , 
+                                                UserName = mUM.UserName, 
+                                                RoleId = mUM.Roles.FirstOrDefault().RoleId
+                                            })).ToList();
+
+            
+            foreach (var item in userInfo) {
+                
+                item.RoleName = this.getRoleName(item.RoleId);
+
+                int maxClasses = 5;
+                int maxClassesCount = 0;
+
+                var usersSchoolClasses = from UsrSC in db.users
+                                         where UsrSC.UserId == item.UserId
+                                         select UsrSC.schoolClasses.name;
+
+
+                foreach (var SCitem in usersSchoolClasses) {
+
+                    if (String.IsNullOrEmpty(item.schoolClasses)){
+                        item.schoolClasses += SCitem;
+                    }
+                    else
+                    {
+                        item.schoolClasses += "," + SCitem;
+                    }
+
+                    maxClassesCount++;
+                    if (maxClassesCount > maxClasses) {
+                        item.schoolClasses += " ...";
+                        break;
+                    }
+                }
+
+            }
+
+            return userInfo;
         }
 
     }

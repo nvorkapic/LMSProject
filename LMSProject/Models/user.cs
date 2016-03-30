@@ -11,8 +11,6 @@ namespace LMSProject.Models
 {
 	public class user
 	{
-		//[Key]
-		//public int UserIdKey { get; set; }
 
 		[Key]
 		[Column(Order = 0)]
@@ -29,10 +27,10 @@ namespace LMSProject.Models
         [DisplayName("Role")]
 		public string RoleId { get; set; }
 
-		[NotMapped]
-		public virtual ApplicationUser User { get; set; }
-		[NotMapped]
-		public virtual IdentityRole Role { get; set; }
+        //[NotMapped]
+        //public virtual ApplicationUser User { get; set; }
+        //[NotMapped]
+        //public virtual IdentityRole Role { get; set; }
 
         // to create new users
         [NotMapped]
@@ -41,25 +39,17 @@ namespace LMSProject.Models
         [NotMapped]
         [DisplayName("Password")]
         public string UserPassword { get; set; }
-
-
-		//[Key]
-		//[Column(Order = 0)]
-		//public string UserId { get; set; }
-
-		//[ForeignKey("UserId")]
-		//public virtual ApplicationUser User { get; set; }
-
-		//[Key]
-		//[Column(Order = 1)]
-		//public int schoolClassID { get; set; }
-
-		//[ForeignKey("schoolClassID")]
-		//public virtual schoolClass schoolClasses { get; set; }
-
-		// //public string RoleId { get; set; }
-		//[ForeignKey("Id")]
-		//public virtual IdentityRole IdentityRole { get; set; }
-		//public String Id { get; set; }
 	}
+
+    public class userViewModel
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string schoolClasses { get; set; }
+
+    }
+
+
 }
