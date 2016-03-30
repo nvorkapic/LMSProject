@@ -58,8 +58,8 @@ namespace LMSProject.Controllers
             if (ModelState.IsValid)
             {
                 //TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
-                try
-                {
+                //try
+                //{
                     //HttpContext.User.Identity.
                     //manually call the reopistory to save user in user tables
                     TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
@@ -71,11 +71,11 @@ namespace LMSProject.Controllers
                     //Auto added by VS
                     db.users.Add(user);
                     db.SaveChanges();
-                }
-                catch (Exception err)
-                {
-                    return Content("Mayor Error in create user:" + err.Message);
-                }
+                //}
+                //catch (Exception err)
+                //{
+                //    return Content("Mayor Error in create user:" + err.Message);
+                //}
 
                 return RedirectToAction("Index");
             }

@@ -141,7 +141,7 @@ namespace LMSProject.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
 				}
-			catch (Exception err)
+			catch
 			{
 				Session["Success"] = true;
 				return RedirectToAction("Delete");
