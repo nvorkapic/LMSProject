@@ -47,7 +47,36 @@
 <br />
 <hr />
 <br />
+<table class="table">
+    <tr>
+        <th>
+            School Classes
+        </th>
+        <th></th>
+    </tr>
 
+    @{
+        List<LMSProject.Models.user> MyUserSchoolClasses = (List<LMSProject.Models.user>)ViewBag.UserSchoolClasses;
+    }
+
+    @if (MyUserSchoolClasses != null) 
+    { 
+        foreach (var item in MyUserSchoolClasses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(myItem => item.schoolClasses.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Add", "AddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID }) |
+                    @Html.ActionLink("Delete", "DeleteAddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<hr />
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
     @Html.ActionLink("Back to List", "Index")

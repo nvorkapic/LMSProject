@@ -207,5 +207,20 @@ namespace LMSProject.Controllers
 
             return userInfo;
         }
+
+        public List<int> getCurrentUserSchoolClasses()
+        {
+            string currentUserid = User.Identity.GetUserId().ToString();
+
+            if (string.IsNullOrEmpty(currentUserid))
+            {
+                return null;
+            }
+
+            return (from cUSC in db.users
+                          where cUSC.UserId == currentUserid
+                          select cUSC.schoolClassID).ToList();
+
+        }
     }
 }
