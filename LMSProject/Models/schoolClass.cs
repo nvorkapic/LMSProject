@@ -15,6 +15,7 @@ namespace LMSProject.Models
 		[Required]
 		public string name { get; set; }
 
+
 		public virtual ICollection<user> Users {get;set;}
 		
 		public schoolClass()

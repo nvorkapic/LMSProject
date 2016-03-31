@@ -1089,11 +1089,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\schoolClasses\Create.cshtml" />
-    <Content Include="Views\schoolClasses\Delete.cshtml" />
-    <Content Include="Views\schoolClasses\Details.cshtml" />
-    <Content Include="Views\schoolClasses\Edit.cshtml" />
-    <Content Include="Views\schoolClasses\Index.cshtml" />
     <Content Include="Views\folderTypes\Create.cshtml" />
     <Content Include="Views\folderTypes\Delete.cshtml" />
     <Content Include="Views\folderTypes\Details.cshtml" />
@@ -1133,6 +1128,11 @@
     <Content Include="Views\users\Details.cshtml" />
     <Content Include="Views\users\Edit.cshtml" />
     <Content Include="Views\users\Index.cshtml" />
+    <Content Include="Views\schoolClasses\Create.cshtml" />
+    <Content Include="Views\schoolClasses\Delete.cshtml" />
+    <Content Include="Views\schoolClasses\Details.cshtml" />
+    <Content Include="Views\schoolClasses\Edit.cshtml" />
+    <Content Include="Views\schoolClasses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
