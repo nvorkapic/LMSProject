@@ -48,7 +48,9 @@ namespace LMSProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.UserSchoolClasses = db.users.Find(id);
+            ViewBag.UserSchoolClasses = (from usr in db.users
+                                        where usr.UserId == id
+                                        select usr).ToList();
             //if (user == null)
             //{
             //    return HttpNotFound();
