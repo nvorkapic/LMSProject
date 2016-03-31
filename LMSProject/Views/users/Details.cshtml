@@ -1,4 +1,4 @@
-﻿@model LMSProject.Models.user
+﻿@model LMSProject.Models.userViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,24 +11,44 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.schoolClasses.name)
+            @Html.DisplayNameFor(model => model.UserId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.schoolClasses.name)
+            @Html.DisplayFor(model => model.UserId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RoleId)
+            @Html.DisplayNameFor(model => model.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RoleId)
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolClasses)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.schoolClasses)
         </dd>
 
     </dl>
 </div>
+<br />
+<hr />
+<br />
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

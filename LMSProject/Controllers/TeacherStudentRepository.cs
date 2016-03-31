@@ -172,5 +172,40 @@ namespace LMSProject.Controllers
             return userInfo;
         }
 
+        public userViewModel getUserDetailViewModel(string p_UserId)
+        {
+
+            userViewModel userInfo = (from mUM in myUserManager.Users
+                                            where mUM.Id == p_UserId
+                                            select (new userViewModel
+                                            {
+                                                UserId = mUM.Id,
+                                                UserName = mUM.UserName,
+                                                RoleId = mUM.Roles.FirstOrDefault().RoleId
+                                            })).FirstOrDefault();
+
+
+            userInfo.RoleName = this.getRoleName(userInfo.RoleId);
+
+            var usersSchoolClasses = from UsrSC in db.users
+                                     where UsrSC.UserId == userInfo.UserId
+                                     select UsrSC.schoolClasses.name;
+
+
+            foreach (var SCitem in usersSchoolClasses)
+            {
+                if (String.IsNullOrEmpty(userInfo.schoolClasses))
+                {
+                    userInfo.schoolClasses += SCitem;
+                }
+                else
+                {
+                    userInfo.schoolClasses += "," + SCitem;
+                }
+
+            }
+
+            return userInfo;
+        }
     }
 }

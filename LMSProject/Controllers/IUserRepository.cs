@@ -21,5 +21,6 @@ namespace LMSProject.Controllers
         string GetUserIdByName(string name);
         string getRoleName(string RoleId);
         List<userViewModel> getUserViewModel();
+        userViewModel getUserDetailViewModel(string p_UserId);
     }
 }
