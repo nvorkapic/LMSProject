@@ -12,6 +12,7 @@ using System.IO;
 
 namespace LMSProject.Controllers
 {
+	[Authorize(Roles="Teacher")]
     public class foldersController : Controller
     {
         private LMSContext db = new LMSContext();

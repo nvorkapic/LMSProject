@@ -14,9 +14,11 @@ using System.Net.Mime;
 
 namespace LMSProject.Controllers
 {
+	[Authorize]
     public class taskfilesController : Controller
     {
         private LMSContext db = new LMSContext();
+
 
         // GET: taskfiles
         public ActionResult Index()

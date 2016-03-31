@@ -11,6 +11,7 @@ using LMSProject.Models;
 
 namespace LMSProject.Controllers
 {
+	[Authorize(Roles="Teacher")]
     public class usersController : Controller
     {
         private LMSContext db = new LMSContext();
