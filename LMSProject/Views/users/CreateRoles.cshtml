@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "CreateRoles";
+}
+
+<h2>Create the two default roles</h2>
+
+@using (Html.BeginForm("CreateRolesPost", "users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create Default Roles" class="btn btn-default" />
+            </div>
+        </div>
+        <br />
+        <br />
+
+    </div>
+    
+}
+

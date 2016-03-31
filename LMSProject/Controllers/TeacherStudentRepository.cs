@@ -31,6 +31,8 @@ namespace LMSProject.Controllers
 
         private ApplicationRoleManager roleManager;
         private UserManager<ApplicationUser> myUserManager;
+        private ApplicationDbContext dbUser = new ApplicationDbContext();
+        private LMSContext db = new LMSContext();
 
         public TeacherStudentRepository()
         {
@@ -74,15 +76,14 @@ namespace LMSProject.Controllers
         public void AddUserToRole(string userId, string roleId)
         {
             IdentityRole _role = roleManager.FindById(roleId);
-            IdentityUser _user = myUserManager.FindById(userId);
+            //IdentityUser _user = myUserManager.FindById(userId);
+            //IdentityUserRole _userRole = new IdentityUserRole()
+            //{
+            //    RoleId = _role.Id,
+            //    UserId = _user.Id
+            //};
 
-            IdentityUserRole _userRole = new IdentityUserRole()
-            {
-                RoleId = _role.Id,
-                UserId = _user.Id
-            };
-
-            _role.Users.Add(_userRole);
+            myUserManager.AddToRole(userId, _role.Name);
         }
 
         public void AddRole(string role)
@@ -106,8 +107,7 @@ namespace LMSProject.Controllers
             IdentityResult UserResult;
 
             UserResult = myUserManager.Create(user, password);
-
-            
+           
         }
 
         public IdentityUser GetUserById(string Id)
@@ -120,6 +120,56 @@ namespace LMSProject.Controllers
 
             var results = myUserManager.Users.Where(p => p.UserName == name).FirstOrDefault().Id;
             return results;
+        }
+
+        public string getRoleName(string RoleId)
+        {
+            var roleObject = roleManager.FindById(RoleId);
+            return roleObject.Name;
+        }
+
+        public List<userViewModel> getUserViewModel() { 
+        
+            List<userViewModel> userInfo = (from mUM in myUserManager.Users
+                                            select (new userViewModel { 
+                                                UserId = mUM.Id , 
+                                                UserName = mUM.UserName, 
+                                                RoleId = mUM.Roles.FirstOrDefault().RoleId
+                                            })).ToList();
+
+            
+            foreach (var item in userInfo) {
+                
+                item.RoleName = this.getRoleName(item.RoleId);
+
+                int maxClasses = 5;
+                int maxClassesCount = 0;
+
+                var usersSchoolClasses = from UsrSC in db.users
+                                         where UsrSC.UserId == item.UserId
+                                         select UsrSC.schoolClasses.name;
+
+
+                foreach (var SCitem in usersSchoolClasses) {
+
+                    if (String.IsNullOrEmpty(item.schoolClasses)){
+                        item.schoolClasses += SCitem;
+                    }
+                    else
+                    {
+                        item.schoolClasses += "," + SCitem;
+                    }
+
+                    maxClassesCount++;
+                    if (maxClassesCount > maxClasses) {
+                        item.schoolClasses += " ...";
+                        break;
+                    }
+                }
+
+            }
+
+            return userInfo;
         }
 
     }

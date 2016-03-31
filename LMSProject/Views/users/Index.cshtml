@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LMSProject.Models.user>
+﻿@model IEnumerable<LMSProject.Models.userViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.schoolClasses.name)
+            @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RoleId)
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.schoolClasses)
         </th>
         <th></th>
     </tr>
@@ -24,21 +27,24 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.schoolClasses.name)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleId)
+                @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.schoolClasses)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
             </td>
         </tr>
     }
 
     </table>
-    <hr />
+    @*<hr />
     <table class="table">
 
         @{
@@ -64,4 +70,4 @@
 
 
 
-    </table>
+    </table>*@

@@ -15,14 +15,29 @@ namespace LMSProject.Controllers
     {
         private LMSContext db = new LMSContext();
         private ApplicationDbContext dbUser = new ApplicationDbContext();
-        //private TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
+
+        private TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
 
         // GET: users
         public ActionResult Index()
         {
-            ViewBag.InternalUsers = (List<ApplicationUser>)(dbUser.Users.ToList());
-            var users = db.users.Include(u => u.schoolClasses);
-            return View(users.ToList());
+            //ViewBag.InternalUsers = (List<ApplicationUser>)(dbUser.Users.ToList());
+            //var users = db.users.Include(u => u.schoolClasses);
+
+            //var Results = from g in DB.Galleries
+            //  join m in DB.Media on g.GalleryID equals m.GalleryID
+            //  where g.GalleryID == GalleryID
+            //  orderby m.MediaDate descending, m.MediaID descending
+            //  select new { g.GalleryTitle, Media = m };
+
+            //dbUser.Roles.
+            //var userInfo = from dbu in dbUser.Users
+            //               join dbr in dbUser.
+
+            //List<userViewModel> userInfo = new List<userViewModel>();
+
+            //return View(userInfo.ToList());
+            return View(myUserRepo.getUserViewModel());
         }
 
         // GET: users/Details/5
@@ -58,24 +73,21 @@ namespace LMSProject.Controllers
             if (ModelState.IsValid)
             {
                 //TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
-                //try
-                //{
-                    //HttpContext.User.Identity.
-                    //manually call the reopistory to save user in user tables
-                    TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
-
+                try
+                {
                     myUserRepo.AddUser(user.UserName, user.UserName, user.UserPassword);
                     user.UserId = myUserRepo.GetUserIdByName(user.UserName);
                     myUserRepo.AddUserToRole(user.UserId, user.RoleId);
+                }
+                catch (Exception err)
+                {
+                    return Content("Mayor Error in create user:" + err.Message);
+                }
 
-                    //Auto added by VS
-                    db.users.Add(user);
-                    db.SaveChanges();
-                //}
-                //catch (Exception err)
-                //{
-                //    return Content("Mayor Error in create user:" + err.Message);
-                //}
+                //Auto added by VS
+                db.users.Add(user);
+                db.SaveChanges();
+
 
                 return RedirectToAction("Index");
             }
@@ -141,6 +153,31 @@ namespace LMSProject.Controllers
             db.users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        // GET: users/Create Roles Backend
+        public ActionResult CreateRoles()
+        {
+            return View();
+        }
+
+        // POST: users/Create Roles Backend
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateRolesPost()
+        {
+            if (dbUser.Roles.Count() <= 0) {
+
+                myUserRepo.AddRole("Student");
+                myUserRepo.AddRole("Teacher");
+                return Content("Added Roles for Teacher and Student");
+            }
+            else
+            {
+                return Content("Roles do already exist in the database !!!!");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

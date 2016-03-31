@@ -1128,6 +1128,7 @@
     <Content Include="Views\users\Details.cshtml" />
     <Content Include="Views\users\Edit.cshtml" />
     <Content Include="Views\users\Index.cshtml" />
+    <Content Include="Views\users\CreateRoles.cshtml" />
     <Content Include="Views\schoolClasses\Create.cshtml" />
     <Content Include="Views\schoolClasses\Delete.cshtml" />
     <Content Include="Views\schoolClasses\Details.cshtml" />
