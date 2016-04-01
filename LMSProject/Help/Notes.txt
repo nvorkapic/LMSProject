@@ -60,3 +60,11 @@ Update-Database -ConfigurationTypeName ConfigurationUsers -Force -Verbose
 -----------------------------------
 
 Hello :)
+
+--------------------------------------
+var foo = from codeData in channel.AsQueryable<CodeData>()
+          where codeIDs.Contains(codeData.CodeId)
+          select codeData;
+
+var foo = channel.AsQueryable<CodeData>()
+                 .Where(codeData => codeIDs.Contains(codeData.CodeId));

@@ -18,12 +18,15 @@ namespace LMSProject.Controllers
     public class taskfilesController : Controller
     {
         private LMSContext db = new LMSContext();
-
+        private TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
 
         // GET: taskfiles
         public ActionResult Index()
         {
-            var files = db.files.Include(f => f.folders).Include(f => f.tasks);
+
+            List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
+
+            var files = db.files.Include(f => f.folders).Include(f => f.tasks).Where(x => userCurrentSchollclasses.Contains(x.folders.schoolClassID));
             return View(files.ToList());
         }
 

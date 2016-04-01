@@ -208,9 +208,9 @@ namespace LMSProject.Controllers
             return userInfo;
         }
 
-        public List<int> getCurrentUserSchoolClasses()
+        public List<int> getCurrentUserSchoolClasses(string p_userName)
         {
-            string currentUserid = User.Identity.GetUserId().ToString();
+            string currentUserid = this.GetUserIdByName(p_userName);
 
             if (string.IsNullOrEmpty(currentUserid))
             {
