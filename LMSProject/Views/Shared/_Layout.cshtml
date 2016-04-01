@@ -7,28 +7,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
-    <script type="text/javascript">
-  var index = 1,
-      video = document.getElementById('Androm_Spin');
-
-  video.addEventListener('ended', rotate_video, false);
-
-  function rotate_video() {
-    video.setAttribute('src', playlist[index]);
-    video.load();
-    index++;
-    if (index >= playlist.length) { index = 0; }
-  }
-    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="activebackground">
-                <video id="vidbckg" autoplay="" loop="" muted="">
-                    <source src="~/Help/Androm_Spin.mov" type="video/quicktime" />
-                </video>
-            </div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
