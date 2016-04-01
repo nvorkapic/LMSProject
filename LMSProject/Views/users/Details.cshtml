@@ -47,6 +47,12 @@
 <br />
 <hr />
 <br />
+
+@{ 
+    Html.RenderPartial("AddUserSchoolClass", new LMSProject.Models.user());  
+}
+
+
 <table class="table">
     <tr>
         <th>
@@ -68,7 +74,7 @@
                     @Html.DisplayFor(myItem => item.schoolClasses.name)
                 </td>
                 <td>
-                    @Html.ActionLink("Add", "AddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID }) |
+                    @*@Html.ActionLink("Add", "AddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID }) |*@
                     @Html.ActionLink("Delete", "DeleteAddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID })
                 </td>
             </tr>

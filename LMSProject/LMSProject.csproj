@@ -1134,6 +1134,7 @@
     <Content Include="Views\schoolClasses\Details.cshtml" />
     <Content Include="Views\schoolClasses\Edit.cshtml" />
     <Content Include="Views\schoolClasses\Index.cshtml" />
+    <Content Include="Views\users\AddUserSchoolClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

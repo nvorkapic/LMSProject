@@ -184,6 +184,22 @@ namespace LMSProject.Controllers
             
         }
 
+
+        // GET: users/Create
+        public ActionResult AddUserSchoolClass()
+        {
+            //ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name");
+            //ViewBag.SchoolClassSelectList = (IEnumerable<SelectListItem>)new SelectList(db.schoolClasses, "schoolClassID", "name");
+
+            IEnumerable<SelectListItem> mySchoolClassSelectList = from mySC in db.schoolClasses
+                                                                  select new SelectListItem { Value = mySC.schoolClassID.ToString(), Text = mySC.name };
+
+            ViewBag.SchoolClassSelectList = mySchoolClassSelectList;
+
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
