@@ -56,6 +56,15 @@ namespace LMSProject.Controllers
             //    return HttpNotFound();
             //}userViewModel
 
+            List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClassesByID(id);
+
+            IEnumerable<SelectListItem> mySchoolClassSelectList = from mySC in db.schoolClasses
+                                                                  where !userCurrentSchollclasses.Contains(mySC.schoolClassID)
+                                                                  select new SelectListItem { Value = mySC.schoolClassID.ToString(), Text = mySC.name };
+
+            ViewBag.SchoolClassSelectList = mySchoolClassSelectList;
+
+
             return View(myUserRepo.getUserDetailViewModel(id));
         }
 

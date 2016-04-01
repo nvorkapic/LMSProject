@@ -222,5 +222,18 @@ namespace LMSProject.Controllers
                           select cUSC.schoolClassID).ToList();
 
         }
+
+        public List<int> getCurrentUserSchoolClassesByID(string currentUserid)
+        {
+            if (string.IsNullOrEmpty(currentUserid))
+            {
+                return null;
+            }
+
+            return (from cUSC in db.users
+                    where cUSC.UserId == currentUserid
+                    select cUSC.schoolClassID).ToList();
+
+        }
     }
 }
