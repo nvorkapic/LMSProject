@@ -48,16 +48,24 @@ namespace LMSProject.Controllers
         // GET: taskfiles/Create
         public ActionResult Create()
         {
-            ViewBag.folderID = new SelectList(db.folders, "folderID", "name");
+            //ViewBag.folderID = new SelectList(db.folders, "folderID", "name");
 
             List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
-			IEnumerable<SelectListItem> myFolderSelectableList = from myfolder in db.folders
+			
+            IEnumerable<SelectListItem> myFolderSelectableList = from myfolder in db.folders
 																 where userCurrentSchollclasses.Contains(myfolder.schoolClassID)
 																 select new SelectListItem { Value = myfolder.folderID.ToString(), Text = myfolder.name };
 			ViewBag.SelectListFolderID = myFolderSelectableList;
 
 
-            ViewBag.taskID = new SelectList(db.tasks, "taskID", "name");
+
+            IEnumerable<SelectListItem> mytaskSelectableList = from mytask in db.tasks
+                                                               where userCurrentSchollclasses.Contains(mytask.schoolClassID)
+                                                               select new SelectListItem { Value = mytask.taskID.ToString(), Text = mytask.name };
+            ViewBag.SelectListtaskID = mytaskSelectableList;
+
+
+            //ViewBag.taskID = new SelectList(db.tasks, "taskID", "name");
             return View();
         }
 
