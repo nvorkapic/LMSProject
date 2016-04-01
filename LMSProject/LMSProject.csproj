@@ -252,7 +252,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Help\Androm_Spin.mov" />
     <Content Include="Help\CheatSheet.txt" />
     <Content Include="Help\LMS_ver02.png" />
     <Content Include="Help\Notes.txt" />
