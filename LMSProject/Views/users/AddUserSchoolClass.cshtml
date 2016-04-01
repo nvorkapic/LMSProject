@@ -9,7 +9,7 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.schoolClassID, "schoolClassID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">*@
-                @Html.DropDownListFor(model => model.schoolClassID.ToString(), (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownListFor(model => model.schoolClassID, (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList, htmlAttributes: new { @class = "form-control" })*@
                 @*@Html.DropDownListFor(model => model.folderID, (IEnumerable<SelectListItem>)ViewBag.SelectListFolderID, htmlAttributes: new { @class = "form-control" })*@
                 @*@Html.ValidationMessageFor(model => model.schoolClassID, "", new { @class = "text-danger" })*@
             @*</div>*@
