@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.activebackground {
+    position:absolute;
+    height:100%;
+    width:100%;
+}
+.activebackground video{
+    position:absolute;
+    text-align:center;
+
+}

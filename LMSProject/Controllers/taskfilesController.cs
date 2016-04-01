@@ -181,7 +181,6 @@ namespace LMSProject.Controllers
 			var directoryName = filePath.Replace(fileName,"").ToString();
 			var file = File(filePath, directoryName, fileName);
 			return file;
-
 		}
 
         protected override void Dispose(bool disposing)
