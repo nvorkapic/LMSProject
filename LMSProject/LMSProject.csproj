@@ -180,6 +180,7 @@
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\usersController.cs" />
+    <Compile Include="Controllers\UserViewModelFullViewsController.cs" />
     <Compile Include="DataAccess\LMSContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -205,6 +206,7 @@
     <Compile Include="Models\schoolClass.cs" />
     <Compile Include="Models\task.cs" />
     <Compile Include="Models\user.cs" />
+    <Compile Include="Models\UserViewModelFullView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1135,6 +1137,7 @@
     <Content Include="Views\schoolClasses\Edit.cshtml" />
     <Content Include="Views\schoolClasses\Index.cshtml" />
     <Content Include="Views\users\AddUserSchoolClass.cshtml" />
+    <Content Include="Views\UserViewModelFullViews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
