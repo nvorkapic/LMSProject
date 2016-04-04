@@ -67,11 +67,17 @@ namespace LMSProject.Controllers
             }
         }
 
-        public IEnumerable<string> GetRolesOfUser(string userId)
+
+        public string GetRoleByUserName(string UserName)
         {
-            var results = myUserManager.GetRoles(userId);
-            return results;
+            return myUserManager.GetRoles(this.GetUserIdByName(UserName)).FirstOrDefault().ToString(); 
         }
+
+        public string GetRoleByUserId(string UserId)
+        {
+            return myUserManager.GetRoles(UserId).FirstOrDefault().ToString();
+        }
+
 
         public void AddUserToRole(string userId, string roleId)
         {

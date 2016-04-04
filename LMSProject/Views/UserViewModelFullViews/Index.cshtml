@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LMSProject.Models.UserViewModelFullView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome</h2>
+
+<h1>
+    @ViewBag.RoleName: @ViewBag.UserName
+</h1>
+<p>
+    UserID: @ViewBag.UserId
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            School Classes
+        </th>
+    </tr>
+
+@foreach (var item in (IEnumerable<SelectListItem>)ViewBag.schoolClassList) {
+    <tr>
+        <td>
+            @Html.DisplayFor(x => item.Text)
+        </td>
+    </tr>
+}
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            Folders
+        </th>
+    </tr>
+
+    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.folderList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(x => item.Text)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            Tasks
+        </th>
+    </tr>
+
+    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.TaskList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(x => item.Text)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            Submited Files
+        </th>
+    </tr>
+
+    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.fileList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(x => item.Text)
+            </td>
+        </tr>
+    }
+
+</table>
+
