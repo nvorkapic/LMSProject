@@ -51,10 +51,6 @@ namespace LMSProject.Controllers
             ViewBag.UserSchoolClasses = (from usr in db.users
                                         where usr.UserId == id
                                         select usr).ToList();
-            //if (user == null)
-            //{
-            //    return HttpNotFound();
-            //}userViewModel
 
 
             //Data to partial view to add new schoolclass
@@ -67,12 +63,7 @@ namespace LMSProject.Controllers
             ViewBag.SchoolClassSelectList = mySchoolClassSelectList;
             ViewBag.HiddenUserId = id;
             ViewBag.HiddenRoleId = myUserRepo.GetRoleIdByUserId(id);
-            //ViewBag.HiddenRoleId = 
-
-
             //END Data to partial view to add new schoolclass
-
-
 
             return View(myUserRepo.getUserDetailViewModel(id));
         }
@@ -80,9 +71,19 @@ namespace LMSProject.Controllers
         // GET: users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add()
+        public ActionResult Add([Bind(Include = "schoolClassID")] user user, string HiddenUserId, string HiddenRoleId)
         {
-            return Content("Test Add function call");
+
+            user.UserId = HiddenUserId;
+
+            user.RoleId = HiddenRoleId;
+
+            //Auto added by VS
+            db.users.Add(user);
+            db.SaveChanges();
+
+            //return Content("Test Add function call U: " + user.UserId + " ,R: " + user.RoleId + " ,SC: " + user.schoolClassID);
+            return RedirectToAction("Details", new { id = user.UserId });
         }
 
 
