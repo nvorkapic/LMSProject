@@ -36,6 +36,11 @@ namespace LMSProject.Controllers
                           select d;
             foreach(var d in details)
             {
+                string task_string = "";
+                if(d.tasks != null)
+                {
+                    task_string = d.tasks.name;
+                }
                 viewModels.Add(new CalendarViewModel
                 {
                     DayOfTheWeek = (int)d.startTime.DayOfWeek,
@@ -46,7 +51,7 @@ namespace LMSProject.Controllers
                     TimeDisplayStart = d.startTime.ToShortTimeString(),
                     TimeDisplayEnd = d.endTime.ToShortTimeString(),
                     Room = d.room,
-					Task = d.tasks.name ?? ""
+                    Task = task_string
                 });
             }
                 return Json(viewModels, JsonRequestBehavior.AllowGet);
@@ -64,6 +69,11 @@ namespace LMSProject.Controllers
                             select d;
             foreach (var d in details)
             {
+                string task_string = "";
+                if (d.tasks != null)
+                {
+                    task_string = d.tasks.name;
+                }
                 viewModels.Add(new CalendarViewModel
                 {
                     DayOfTheWeek = (int)d.startTime.DayOfWeek,
@@ -74,7 +84,7 @@ namespace LMSProject.Controllers
                     TimeDisplayStart = d.startTime.ToShortTimeString(),
                     TimeDisplayEnd = d.endTime.ToShortTimeString(),
                     Room = d.room,
-					Task = d.tasks.name ?? ""
+                    Task = task_string
                 });
             }
             return Json(viewModels, JsonRequestBehavior.AllowGet);
