@@ -82,7 +82,6 @@ namespace LMSProject.Controllers
             db.users.Add(user);
             db.SaveChanges();
 
-            //return Content("Test Add function call U: " + user.UserId + " ,R: " + user.RoleId + " ,SC: " + user.schoolClassID);
             return RedirectToAction("Details", new { id = user.UserId });
         }
 
