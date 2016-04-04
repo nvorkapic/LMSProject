@@ -1,6 +1,6 @@
 ﻿@model LMSProject.Models.user
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Add", "users", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.DropDownListFor(model => model.schoolClassID, (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList, htmlAttributes: new { @class = "dropdown" })
