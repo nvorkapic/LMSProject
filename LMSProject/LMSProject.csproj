@@ -184,14 +184,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ContextOriginal\201603211231513_Original.cs" />
-    <Compile Include="Migrations\ContextOriginal\201603211231513_Original.Designer.cs">
-      <DependentUpon>201603211231513_Original.cs</DependentUpon>
+    <Compile Include="Migrations\ContextOriginal\201604041229187_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201604041229187_Original.Designer.cs">
+      <DependentUpon>201604041229187_Original.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
-    <Compile Include="Migrations\ContextUsers\201603211232100_Users.cs" />
-    <Compile Include="Migrations\ContextUsers\201603211232100_Users.Designer.cs">
-      <DependentUpon>201603211232100_Users.cs</DependentUpon>
+    <Compile Include="Migrations\ContextUsers\201604041230132_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201604041230132_Users.Designer.cs">
+      <DependentUpon>201604041230132_Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1145,11 +1145,11 @@
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextOriginal\201603211231513_Original.resx">
-      <DependentUpon>201603211231513_Original.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextOriginal\201604041229187_Original.resx">
+      <DependentUpon>201604041229187_Original.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextUsers\201603211232100_Users.resx">
-      <DependentUpon>201603211232100_Users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextUsers\201604041230132_Users.resx">
+      <DependentUpon>201604041230132_Users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

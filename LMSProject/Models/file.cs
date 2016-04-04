@@ -26,6 +26,9 @@ namespace LMSProject.Models
 		public virtual task tasks { get; set; }
 		public int? taskID { get; set; }
 
+		[Required]
+		public string userID { get; set; }
+
 		[NotMapped]
 		public HttpPostedFileBase attachment { get; set; }
 	}

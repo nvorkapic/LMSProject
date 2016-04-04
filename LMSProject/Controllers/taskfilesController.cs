@@ -87,7 +87,7 @@ namespace LMSProject.Controllers
 
 					file.attachment.SaveAs(path);
 					file.path = myFolderPath + file.attachment.FileName;
-
+					file.userID = myUserRepo.GetUserIdByName(User.Identity.Name);
 					db.files.Add(file);
 					db.SaveChanges();
 					return RedirectToAction("Index");

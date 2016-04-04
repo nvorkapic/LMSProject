@@ -26,10 +26,17 @@ namespace LMSProject.Controllers
 			ViewBag.UserName = User.Identity.Name;
 			ViewBag.UserId = myUserRepo.GetUserIdByName(User.Identity.Name);
 
-			ViewBag.fileList = new SelectList(db.files, "fileID", "name");
+			
 
 			List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
 
+
+			IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
+														   join us in db.users on fil.userID equals us.UserId
+														   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path };										   
+			ViewBag.fileList = myfileSelectList;
+			
+			
 			IEnumerable<SelectListItem> mySchoolClassSelectList = from mySC in db.schoolClasses
 																  where userCurrentSchollclasses.Contains(mySC.schoolClassID)
 																  select new SelectListItem { Value = mySC.schoolClassID.ToString(), Text = mySC.name };
@@ -43,7 +50,7 @@ namespace LMSProject.Controllers
 			
 			IEnumerable<SelectListItem> mytaskSelectableList = from mytask in db.tasks
 															   where userCurrentSchollclasses.Contains(mytask.schoolClassID)
-															   select new SelectListItem { Value = mytask.taskID.ToString(), Text = mytask.name };
+															   select new SelectListItem { Value = mytask.taskID.ToString(), Text = mytask.name + " for " + mytask.schoolClasses.name };
 			ViewBag.TaskList = mytaskSelectableList;
 
 			return View();

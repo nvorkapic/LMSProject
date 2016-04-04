@@ -16,6 +16,7 @@ namespace LMSProject.Migrations.ContextOriginal
                         name = c.String(nullable: false),
                         path = c.String(nullable: false),
                         taskID = c.Int(),
+                        userID = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.fileID)
                 .ForeignKey("dbo.folders", t => t.folderID)
@@ -58,6 +59,18 @@ namespace LMSProject.Migrations.ContextOriginal
                 .PrimaryKey(t => t.schoolClassID);
             
             CreateTable(
+                "dbo.users",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        schoolClassID = c.Int(nullable: false),
+                        RoleId = c.String(),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.schoolClassID })
+                .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
+                .Index(t => t.schoolClassID);
+            
+            CreateTable(
                 "dbo.tasks",
                 c => new
                     {
@@ -98,23 +111,10 @@ namespace LMSProject.Migrations.ContextOriginal
                 .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
                 .Index(t => t.schoolClassID);
             
-            CreateTable(
-                "dbo.users",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        schoolClassID = c.Int(nullable: false),
-                        RoleId = c.String(),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.schoolClassID })
-                .ForeignKey("dbo.schoolClasses", t => t.schoolClassID)
-                .Index(t => t.schoolClassID);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.users", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.scheduleDetails", "taskID", "dbo.tasks");
             DropForeignKey("dbo.scheduleDetails", "scheduleID", "dbo.schedules");
             DropForeignKey("dbo.schedules", "schoolClassID", "dbo.schoolClasses");
@@ -122,20 +122,21 @@ namespace LMSProject.Migrations.ContextOriginal
             DropForeignKey("dbo.tasks", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.files", "folderID", "dbo.folders");
             DropForeignKey("dbo.folders", "schoolClassID", "dbo.schoolClasses");
+            DropForeignKey("dbo.users", "schoolClassID", "dbo.schoolClasses");
             DropForeignKey("dbo.folders", "folderTypeID", "dbo.folderTypes");
-            DropIndex("dbo.users", new[] { "schoolClassID" });
             DropIndex("dbo.schedules", new[] { "schoolClassID" });
             DropIndex("dbo.scheduleDetails", new[] { "taskID" });
             DropIndex("dbo.scheduleDetails", new[] { "scheduleID" });
             DropIndex("dbo.tasks", new[] { "schoolClassID" });
+            DropIndex("dbo.users", new[] { "schoolClassID" });
             DropIndex("dbo.folders", new[] { "schoolClassID" });
             DropIndex("dbo.folders", new[] { "folderTypeID" });
             DropIndex("dbo.files", new[] { "taskID" });
             DropIndex("dbo.files", new[] { "folderID" });
-            DropTable("dbo.users");
             DropTable("dbo.schedules");
             DropTable("dbo.scheduleDetails");
             DropTable("dbo.tasks");
+            DropTable("dbo.users");
             DropTable("dbo.schoolClasses");
             DropTable("dbo.folderTypes");
             DropTable("dbo.folders");
