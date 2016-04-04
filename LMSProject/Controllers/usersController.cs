@@ -66,7 +66,10 @@ namespace LMSProject.Controllers
 
             ViewBag.SchoolClassSelectList = mySchoolClassSelectList;
             ViewBag.HiddenUserId = id;
-            ViewBag.HiddenRoleId = myUserRepo.GetRoleByUserId(id);
+            ViewBag.HiddenRoleId = myUserRepo.GetRoleIdByUserId(id);
+            //ViewBag.HiddenRoleId = 
+
+
             //END Data to partial view to add new schoolclass
 
 
@@ -199,7 +202,13 @@ namespace LMSProject.Controllers
 
                 myUserRepo.AddRole("Student");
                 myUserRepo.AddRole("Teacher");
-                return Content("Added Roles for Teacher and Student");
+
+                myUserRepo.AddUser("root", "root", "manager");
+                string myUserId = myUserRepo.GetUserIdByName("root");
+                myUserRepo.AddUserToRole(myUserId, myUserRepo.GetRoleIdByRoleName("Teacher"));
+
+                return Content("Added Roles for Teacher and Student and root user");
+
             }
             else
             {

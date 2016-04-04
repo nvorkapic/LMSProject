@@ -14,6 +14,8 @@ namespace LMSProject.Controllers
         bool IsUserInRole(string userId, string role);
         string GetRoleByUserName(string UserName);
         string GetRoleByUserId(string UserId);
+        string GetRoleIdByUserId(string UserId);
+        string GetRoleIdByRoleName(string RoleName);
         void AddUserToRole(string userId, string roleId);
         void AddRole(string role);
         void AddUser(ApplicationUser user);

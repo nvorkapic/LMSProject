@@ -3,6 +3,9 @@
 @using (Html.BeginForm("Add", "users", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    <input type="text" name="HiddenUserId" value="@ViewBag.HiddenUserId" />
+    <input type="text" name="HiddenRoleId" value="@ViewBag.HiddenRoleId" />
+    
     @Html.DropDownListFor(model => model.schoolClassID, (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList, htmlAttributes: new { @class = "dropdown" })
     <input type="submit" value="Add" />
     @*<input type="submit" value="Create" class="btn btn-default" />*@

@@ -79,6 +79,20 @@ namespace LMSProject.Controllers
         }
 
 
+        public string GetRoleIdByUserId(string UserId)
+        {
+            var roleObject = roleManager.FindByName(myUserManager.GetRoles(UserId).FirstOrDefault().ToString());
+            return roleObject.Id;
+        }
+
+        public string GetRoleIdByRoleName(string RoleName)
+        {
+            var roleObject = roleManager.FindByName(RoleName);
+            return roleObject.Id;
+        }
+
+
+
         public void AddUserToRole(string userId, string roleId)
         {
             IdentityRole _role = roleManager.FindById(roleId);
