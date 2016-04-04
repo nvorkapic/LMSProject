@@ -30,10 +30,13 @@ namespace LMSProject.Controllers
 
 			List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
 
-
+			string userIDbyName = myUserRepo.GetUserIdByName(User.Identity.Name);
 			IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
-														   join us in db.users on fil.userID equals us.UserId
-														   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name};										   
+														   where fil.userID == userIDbyName
+														   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name};
+			//IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
+			//											   where fil.userID == myUserRepo.GetUserIdByName(User.Identity.Name)
+			//											   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name };							   
 			ViewBag.fileList = myfileSelectList;
 			
 			
