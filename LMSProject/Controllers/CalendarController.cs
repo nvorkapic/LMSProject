@@ -46,7 +46,7 @@ namespace LMSProject.Controllers
                     TimeDisplayStart = d.startTime.ToShortTimeString(),
                     TimeDisplayEnd = d.endTime.ToShortTimeString(),
                     Room = d.room,
-                    Task = d.tasks?.name ?? ""
+					Task = d.tasks.name ?? ""
                 });
             }
                 return Json(viewModels, JsonRequestBehavior.AllowGet);
@@ -74,7 +74,7 @@ namespace LMSProject.Controllers
                     TimeDisplayStart = d.startTime.ToShortTimeString(),
                     TimeDisplayEnd = d.endTime.ToShortTimeString(),
                     Room = d.room,
-                    Task = d.tasks?.name ?? ""
+					Task = d.tasks.name ?? ""
                 });
             }
             return Json(viewModels, JsonRequestBehavior.AllowGet);

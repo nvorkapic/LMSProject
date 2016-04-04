@@ -188,6 +188,7 @@ namespace LMSProject.Controllers
 
 
         // GET: users/Create Roles Backend
+		[AllowAnonymous]
         public ActionResult CreateRoles()
         {
             return View();
@@ -196,6 +197,7 @@ namespace LMSProject.Controllers
         // POST: users/Create Roles Backend
         [HttpPost]
         [ValidateAntiForgeryToken]
+		[AllowAnonymous]
         public ActionResult CreateRolesPost()
         {
             if (dbUser.Roles.Count() <= 0) {
@@ -203,8 +205,8 @@ namespace LMSProject.Controllers
                 myUserRepo.AddRole("Student");
                 myUserRepo.AddRole("Teacher");
 
-                myUserRepo.AddUser("root", "root", "manager");
-                string myUserId = myUserRepo.GetUserIdByName("root");
+				myUserRepo.AddUser("admin@root.app", "admin@root.app", "manager");
+				string myUserId = myUserRepo.GetUserIdByName("admin@root.app");
                 myUserRepo.AddUserToRole(myUserId, myUserRepo.GetRoleIdByRoleName("Teacher"));
 
                 return Content("Added Roles for Teacher and Student and root user");
