@@ -216,16 +216,16 @@ namespace LMSProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            schedule schedule = db.schedules.Find(id);
-            if (schedule == null)
+            scheduleDetail scheduleDetail = db.scheduleDetails.Find(id);
+            if (scheduleDetail == null)
             {
                 return HttpNotFound();
             }
             //ViewData["scheduleDetailID"] = new SelectList(db.scheduleDetails.Where(p => p.scheduleDetailID == id).ToList(), "scheduleDetailID", "schoolClasses.name", scheduleDetail.scheduleDetailID);
-            //ViewData["scheduleID"] = new SelectList(db.schedules, "scheduleID", "schoolClasses.name");
-            //ViewData["taskID"] = new SelectList(db.tasks.Where(p => p.schoolClassID == schedule.schoolClassID).ToList(), "taskID", "name");
+            ViewData["scheduleID"] = new SelectList(db.schedules, "scheduleID", "schoolClasses.name");
+            ViewData["taskID"] = new SelectList(db.tasks.Where(p => p.schoolClassID == scheduleDetail.schedules.schoolClassID).ToList(), "taskID", "name");
             ViewData["schoolClassID"] = new SelectList(db.schoolClasses, "schoolClassID", "name");
-            return View(schedule);
+            return View(scheduleDetail);
         }
 
         private bool IsOverlappingWithAnother(scheduleDetail a)
@@ -247,13 +247,13 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "scheduleDetailID,scheduleID,starTime,endTime,name,room")] scheduleDetail scheduleDetail)
+        public ActionResult Edit([Bind(Include = "scheduleID,starTime,endTime,name,room")] scheduleDetail scheduleDetail)
         {
             if (ModelState.IsValid)
             {
                 if(IsOverlappingWithAnother(scheduleDetail))
                 {
-                    RedirectToAction("ErrorOverlapping");
+                    return Content("ErrorOverlapping");
                 }
                 db.Entry(scheduleDetail).State = EntityState.Modified;
                 db.SaveChanges();
