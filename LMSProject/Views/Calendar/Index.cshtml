@@ -24,8 +24,9 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.scheduleID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.scheduleID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.scheduleID })
+            @Html.ActionLink("View Schedule", "ViewSchedule", new { id=item.scheduleID }) |
+            @Html.ActionLink("Manage Schedule", "ManageScheduleDetails", new { id = item.scheduleID }) |
+            @Html.ActionLink("Delete schedule", "DeleteSchedule", new { id=item.scheduleID })
         </td>
     </tr>
 }
