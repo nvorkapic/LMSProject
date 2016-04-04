@@ -45,10 +45,39 @@ namespace LMSProject.Controllers
                     DurationInMinutes = (d.endTime - d.startTime).TotalMinutes,
                     TimeDisplayStart = d.startTime.ToShortTimeString(),
                     TimeDisplayEnd = d.endTime.ToShortTimeString(),
-                    Room = d.room
+                    Room = d.room,
+                    Task = d.tasks?.name ?? ""
                 });
             }
                 return Json(viewModels, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult getScheduleForStudent(string userId)
+        {
+            List<CalendarViewModel> viewModels = new List<CalendarViewModel>();
+
+            var details = from u in db.users
+                            from s in db.schedules
+                            from d in db.scheduleDetails
+                            where u.UserId == userId &&
+                            s.schoolClassID == u.schoolClassID && 
+                            d.scheduleID == s.scheduleID
+                            select d;
+            foreach (var d in details)
+            {
+                viewModels.Add(new CalendarViewModel
+                {
+                    DayOfTheWeek = (int)d.startTime.DayOfWeek,
+                    Hours = d.startTime.Hour,
+                    Minutes = d.startTime.Minute,
+                    Label = d.name,
+                    DurationInMinutes = (d.endTime - d.startTime).TotalMinutes,
+                    TimeDisplayStart = d.startTime.ToShortTimeString(),
+                    TimeDisplayEnd = d.endTime.ToShortTimeString(),
+                    Room = d.room,
+                    Task = d.tasks?.name ?? ""
+                });
+            }
+            return Json(viewModels, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Teacher")]
         public ActionResult Index()
@@ -62,6 +91,11 @@ namespace LMSProject.Controllers
             return View(id);
         }
 
+        [HttpGet]
+        public ActionResult ViewStudentSchedule(string id)
+        {
+            return View((object) id);
+        }
         [Authorize(Roles = "Teacher")]
         [HttpPost]
         public ActionResult CreateScheduleDetail(scheduleDetail detail)
