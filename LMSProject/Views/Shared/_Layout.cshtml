@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
 </head>
-<body>
+<body id="mainbody">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -21,15 +21,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Roles", "CreateRoles", "users")</li>
-                    <li>@Html.ActionLink("School Classes", "Index", "schoolClasses")</li>
-                    <li>@Html.ActionLink("Users", "Index", "users")</li>
-                    <li>@Html.ActionLink("Folder Types", "Index", "folderTypes")</li>
-                    <li>@Html.ActionLink("Folders", "Index", "folders")</li>
-                    <li>@Html.ActionLink("Tasks", "Index", "tasks")</li>
-                    <li>@Html.ActionLink("Task Files", "Index", "taskfiles")</li>
-                    <li>@Html.ActionLink("Schedules", "Index", "Calendar")</li>
-                    <li>@Html.ActionLink("User View", "Index", "UserViewModelFullViews")</li>
+                        <li>@Html.ActionLink("Initialization", "CreateRoles", "users")</li>
+                        <li>@Html.ActionLink("School Classes", "Index", "schoolClasses")</li>
+                        <li>@Html.ActionLink("Users", "Index", "users")</li>
+                        <li>@Html.ActionLink("Folder Types", "Index", "folderTypes")</li>
+                        <li>@Html.ActionLink("Folders", "Index", "folders")</li>
+                        <li>@Html.ActionLink("Tasks", "Index", "tasks")</li>
+                        <li>@Html.ActionLink("Task Files", "Index", "taskfiles")</li>
+                        <li>@Html.ActionLink("Schedules", "Index", "Calendar")</li>
+                        <li>@Html.ActionLink("User View", "Index", "UserViewModelFullViews")</li> 
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

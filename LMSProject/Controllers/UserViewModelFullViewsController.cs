@@ -33,7 +33,7 @@ namespace LMSProject.Controllers
 
 			IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
 														   join us in db.users on fil.userID equals us.UserId
-														   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path };										   
+														   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name};										   
 			ViewBag.fileList = myfileSelectList;
 			
 			
