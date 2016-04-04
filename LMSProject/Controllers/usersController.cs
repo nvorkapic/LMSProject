@@ -69,6 +69,13 @@ namespace LMSProject.Controllers
         }
 
         // GET: users/Create
+        public ActionResult Add()
+        {
+            return Content("Test Add function call");
+        }
+
+
+        // GET: users/Create
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(dbUser.Roles, "Id", "Name");
@@ -197,9 +204,7 @@ namespace LMSProject.Controllers
         // GET: users/Create
         public ActionResult AddUserSchoolClass()
         {
-            //ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name");
-            //ViewBag.SchoolClassSelectList = (IEnumerable<SelectListItem>)new SelectList(db.schoolClasses, "schoolClassID", "name");
-
+            //CODE NOT RUN BCAS it is filled as partial view in the Detial Action (actually a bug in MVC), this is only used if this form called seperate.
             IEnumerable<SelectListItem> mySchoolClassSelectList = from mySC in db.schoolClasses
                                                                   select new SelectListItem { Value = mySC.schoolClassID.ToString(), Text = mySC.name };
 

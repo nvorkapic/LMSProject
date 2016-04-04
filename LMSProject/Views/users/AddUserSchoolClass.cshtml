@@ -4,5 +4,6 @@
 {
     @Html.AntiForgeryToken()
     @Html.DropDownListFor(model => model.schoolClassID, (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList, htmlAttributes: new { @class = "dropdown" })
-    <input type="submit" value="Create" class="btn btn-default" />
+    <input type="submit" value="Add" />
+    @*<input type="submit" value="Create" class="btn btn-default" />*@
 }
