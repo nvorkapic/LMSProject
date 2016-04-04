@@ -53,9 +53,6 @@
         <th>
             Tasks
         </th>
-        <th>
-            School Class
-        </th>
     </tr>
 
     @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.TaskList)
@@ -64,9 +61,6 @@
             <td>
                 @Html.DisplayFor(x => item.Text)
             </td>
-            <th>
-                @Html.DisplayFor(x => item.Text)
-            </th>
         </tr>
     }
 

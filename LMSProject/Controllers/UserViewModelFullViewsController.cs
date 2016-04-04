@@ -22,7 +22,7 @@ namespace LMSProject.Controllers
         public ActionResult Index()
         {
 
-			ViewBag.RoleName = myUserRepo.GetRolesOfUser(myUserRepo.GetUserIdByName(User.Identity.Name)).FirstOrDefault().ToString();
+			ViewBag.RoleName = myUserRepo.GetRoleByUserName(User.Identity.Name);
 			ViewBag.UserName = User.Identity.Name;
 			ViewBag.UserId = myUserRepo.GetUserIdByName(User.Identity.Name);
 
