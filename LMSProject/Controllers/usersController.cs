@@ -66,7 +66,7 @@ namespace LMSProject.Controllers
 
             ViewBag.SchoolClassSelectList = mySchoolClassSelectList;
             ViewBag.HiddenUserId = id;
-            //ViewBag.HiddenRoleId = myUserRepo.get
+            ViewBag.HiddenRoleId = myUserRepo.GetRoleByUserName(myUserRepo.GetUserById());
             //END Data to partial view to add new schoolclass
 
 

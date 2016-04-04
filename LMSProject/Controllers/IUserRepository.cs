@@ -13,6 +13,7 @@ namespace LMSProject.Controllers
         IEnumerable<IdentityUserRole> GetUsersByRole(string role);
         bool IsUserInRole(string userId, string role);
         string GetRoleByUserName(string UserName);
+        string GetRoleByUserId(string UserId);
         void AddUserToRole(string userId, string roleId);
         void AddRole(string role);
         void AddUser(ApplicationUser user);
