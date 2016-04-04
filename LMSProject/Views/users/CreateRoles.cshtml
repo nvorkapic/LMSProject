@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "CreateRoles";
+    ViewBag.Title = "Initialize Application";
 }
 
-<h2>Create the two default roles</h2>
+<h2>Press "Initialize" to use the LMS Application.</h2>
 
 @using (Html.BeginForm("CreateRolesPost", "users", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -14,7 +14,7 @@
         <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create Default Roles" class="btn btn-default" />
+                <input type="submit" value="Initialize" class="btn btn-default" />
             </div>
         </div>
         <br />
