@@ -129,7 +129,7 @@ calendar.controller("CalendarController", function($scope, $http, $q)
 		$http(
 		{
 			method: 'GET',
-			url: '/CalendarTest/getSchedule/@Model'
+			url: '/Calendar/getSchedule/@Model'
 		}).then(function successCallback(response)
 		{
 			deferred.resolve(response);
