@@ -9,9 +9,9 @@ namespace LMSProject.Controllers
 {
     public interface IUserRepository
     {
-        IEnumerable<IdentityRole> GetAllRoles();
-        IEnumerable<IdentityUserRole> GetUsersByRole(string role);
-        bool IsUserInRole(string userId, string role);
+        //IEnumerable<IdentityRole> GetAllRoles();
+        //IEnumerable<IdentityUserRole> GetUsersByRole(string role);
+        //bool IsUserInRole(string userId, string role);
         string GetRoleByUserName(string UserName);
         string GetRoleByUserId(string UserId);
         string GetRoleIdByUserId(string UserId);
@@ -28,5 +28,6 @@ namespace LMSProject.Controllers
         userViewModel getUserDetailViewModel(string p_UserId);
         List<int> getCurrentUserSchoolClasses(string p_userName);
         List<int> getCurrentUserSchoolClassesByID(string currentUserid);
+        void DeleteUser();
     }
 }

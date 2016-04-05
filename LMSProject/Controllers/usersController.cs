@@ -110,15 +110,12 @@ namespace LMSProject.Controllers
         }
 
         // POST: users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,schoolClassID,RoleId,UserName,UserPassword")] user user)
         {
             if (ModelState.IsValid)
             {
-                //TeacherStudentRepository myUserRepo = new TeacherStudentRepository();
                 try
                 {
                     myUserRepo.AddUser(user.UserName, user.UserName, user.UserPassword);
@@ -130,10 +127,8 @@ namespace LMSProject.Controllers
                     return Content("Mayor Error in create user:" + err.Message);
                 }
 
-                //Auto added by VS
                 db.users.Add(user);
                 db.SaveChanges();
-
 
                 return RedirectToAction("Index");
             }
@@ -159,8 +154,6 @@ namespace LMSProject.Controllers
         }
 
         // POST: users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,schoolClassID,RoleId")] user user)
@@ -175,30 +168,32 @@ namespace LMSProject.Controllers
             return View(user);
         }
 
-        // GET: users/Delete/5
+        // GET: Delete User
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
+            List<user> MyUserConns = (from dbu in db.users
+                                     where dbu.UserId == id
+                                     select dbu).ToList();
 
-        // POST: users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            user user = db.users.Find(id);
-            db.users.Remove(user);
-            db.SaveChanges();
+            if (MyUserConns.Count > 0)
+            {
+                foreach (user myUserItem in MyUserConns)
+                {
+                    db.users.Remove(myUserItem);
+                }
+
+                db.SaveChanges();
+            }
+
+
+
+
             return RedirectToAction("Index");
+
         }
 
 
