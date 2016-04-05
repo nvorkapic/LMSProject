@@ -42,30 +42,30 @@ namespace LMSProject.Controllers
             myUserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
         }
 
-        public IEnumerable<IdentityRole> GetAllRoles()
-        {
-            IEnumerable<IdentityRole> results;
-            results = roleManager.Roles.ToList();
-            return results;
-        }
+        //public IEnumerable<IdentityRole> GetAllRoles()
+        //{
+        //    IEnumerable<IdentityRole> results;
+        //    results = roleManager.Roles.ToList();
+        //    return results;
+        //}
 
-        public IEnumerable<IdentityUserRole> GetUsersByRole(string role)
-        {
-            var users = roleManager.Roles.Where(p => p.Name == role).FirstOrDefault();
-            return users.Users;
-        }
+        //public IEnumerable<IdentityUserRole> GetUsersByRole(string role)
+        //{
+        //    var users = roleManager.Roles.Where(p => p.Name == role).FirstOrDefault();
+        //    return users.Users;
+        //}
 
-        public bool IsUserInRole(string userId, string role)
-        {
-            if (myUserManager.GetRoles(userId).Contains(role))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool IsUserInRole(string userId, string role)
+        //{
+        //    if (myUserManager.GetRoles(userId).Contains(role))
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
 
         public string GetRoleByUserName(string UserName)
@@ -261,5 +261,11 @@ namespace LMSProject.Controllers
                     select cUSC.schoolClassID).ToList();
 
         }
+
+        public void DeleteUser()
+        {
+
+        }
+
     }
 }
