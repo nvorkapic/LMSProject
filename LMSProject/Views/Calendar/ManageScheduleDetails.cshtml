@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LMSProject.Models.scheduleDetail>
+﻿@model LMSProject.Controllers.ManageScheduleDetailsViewModel
 
 @{
     ViewBag.Title = "ManageScheduleDetails";
@@ -7,32 +7,32 @@
 <h2>ManageScheduleDetails</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateScheduleDetail", new { id = Model.scheduleID })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.schedules.scheduleID)
+            @Html.DisplayNameFor(model => model.details.FirstOrDefault().schedules.scheduleID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tasks.name)
+            @Html.DisplayNameFor(model => model.details.FirstOrDefault().tasks.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.startTime)
+            @Html.DisplayNameFor(model => model.details.FirstOrDefault().startTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.endTime)
+            @Html.DisplayNameFor(model => model.details.FirstOrDefault().endTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.DisplayNameFor(model => model.details.FirstOrDefault().name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.room)
+            @Html.DisplayNameFor(model => model.details.FirstOrDefault().room)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.details) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.schedules.scheduleID)
@@ -53,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.room)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.scheduleDetailID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.scheduleDetailID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.scheduleDetailID })
+            @Html.ActionLink("Edit", "EditScheduleDetail", new { id=item.scheduleDetailID }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.scheduleDetailID }) |*@
+            @Html.ActionLink("Delete", "DeleteScheduleDetail", new { id=item.scheduleDetailID })
         </td>
     </tr>
 }

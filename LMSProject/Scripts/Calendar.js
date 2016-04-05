@@ -73,13 +73,14 @@ var drawTimetable = function () {
 
     // Body
     context.lineWidth = 1;
-    context.strokeStyle = 'black';
-    context.fillStyle = 'black';
+    context.strokeStyle = 'gray';
+    context.fillStyle = 'gray';
     context.font = "12px Arial";
 
     var tableBodyOffsetY = tableOffsetY + cellDimensionsY;
     for (var y = 0; y < 18; y++) {
         var cellY = tableBodyOffsetY + cellDimensionsY * y;
+        context.fillStyle = 'black';
         context.fillText((y + 5) + ".00", 0, cellY + 5);
         for (var x = 0; x < 7; x++) {
             var cellX = tableOffsetX + x * cellDimensionsX;

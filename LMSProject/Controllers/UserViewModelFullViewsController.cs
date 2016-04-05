@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LMSProject.DataAccess;
 using LMSProject.Models;
+using System.IO;
 
 namespace LMSProject.Controllers
 {
@@ -31,23 +32,42 @@ namespace LMSProject.Controllers
 			List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
 
 			string userIDbyName = myUserRepo.GetUserIdByName(User.Identity.Name);
-			IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
-														   where fil.userID == userIDbyName
-														   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name};
+
+			IEnumerable<file> myfileSelectList = from fil in db.files
+												 where fil.userID == userIDbyName && fil.folders.folderTypeID == 1
+												select fil;
+
 			//IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
-			//											   where fil.userID == myUserRepo.GetUserIdByName(User.Identity.Name)
-			//											   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name };							   
+			//											   where fil.userID == userIDbyName
+			//											   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name };
+
+			//(IEnumerable<file>)ViewBag.fileList   new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name }
+			   
 			ViewBag.fileList = myfileSelectList;
+
+			IEnumerable<file> myfileSharedList = from fil in db.files
+												 where fil.userID == userIDbyName && fil.folders.folderTypeID == 2
+												 select fil;
+			ViewBag.fileShList = myfileSharedList;
+
+			IEnumerable<file> mySharedList = from fil in db.files
+												 where fil.userID != userIDbyName && fil.folders.folderTypeID == 2
+												 select fil;
+			ViewBag.SharedList = mySharedList;
 			
-			
+			//Does not work, find solution
+			IEnumerable<user> userList= from usi in db.users
+								select usi;
+			ViewBag.UserList = userList;
+
 			IEnumerable<SelectListItem> mySchoolClassSelectList = from mySC in db.schoolClasses
 																  where userCurrentSchollclasses.Contains(mySC.schoolClassID)
 																  select new SelectListItem { Value = mySC.schoolClassID.ToString(), Text = mySC.name };
 			ViewBag.schoolClassList = mySchoolClassSelectList;
 
-			IEnumerable<SelectListItem> myFolderSelectableList = from myfolder in db.folders
-																 where userCurrentSchollclasses.Contains(myfolder.schoolClassID)
-																 select new SelectListItem { Value = myfolder.folderID.ToString(), Text = myfolder.name };
+			IEnumerable<folder> myFolderSelectableList = from myfolder in db.folders
+														 where userCurrentSchollclasses.Contains(myfolder.schoolClassID)
+														 select myfolder;
 			ViewBag.folderList = myFolderSelectableList;
 
 			
@@ -59,6 +79,36 @@ namespace LMSProject.Controllers
 			return View();
         }
 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult UploadShared([Bind(Include = "fileID,folderID,name,path,taskID,attachment")] file file)
+		{
+			if (file.attachment != null && file.attachment.ContentLength > 0)
+			{
+				try
+				{
+					var fileName = Path.GetFileName(file.attachment.FileName);
+					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;
+
+					var path = Path.Combine(Server.MapPath(myFolderPath), fileName);
+
+					file.attachment.SaveAs(path);
+					file.path = myFolderPath + file.attachment.FileName;
+					file.userID = myUserRepo.GetUserIdByName(User.Identity.Name);
+					db.files.Add(file);
+					db.SaveChanges();
+					return RedirectToAction("Index");
+				}
+				catch (Exception err)
+				{
+					return Content("File save error !!!!! " + err.Message);
+				}
+			}
+
+			ViewBag.folderID = new SelectList(db.folders, "folderID", "name", file.folderID);
+			ViewBag.taskID = new SelectList(db.tasks, "taskID", "name", file.taskID);
+			return View(file);
+		}
 		//// GET: UserViewModelFullViews/Details/5
 		//public ActionResult Details(string id)
 		//{
