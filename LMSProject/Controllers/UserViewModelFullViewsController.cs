@@ -56,8 +56,7 @@ namespace LMSProject.Controllers
 			ViewBag.SharedList = mySharedList;
 			
 			//Does not work, find solution
-			IEnumerable<user> userList= from usi in db.users
-								select usi;
+			List<ApplicationUser> userList = myUserRepo.GetAllUsers();
 			ViewBag.UserList = userList;
 
 			IEnumerable<SelectListItem> mySchoolClassSelectList = from mySC in db.schoolClasses

@@ -139,9 +139,9 @@
     {
         <tr>
             <td>@{
-        foreach (var utem in (IEnumerable<LMSProject.Models.user>)ViewBag.UserList)
+        foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
         {
-            if (utem.UserId == item.userID) { myuserName = utem.UserName; } 
+            if (utem.Id == item.userID) { myuserName = utem.UserName; } 
         }
                 }
                 @Html.Raw(item.name + " in " + item.path + " from " + myuserName)
