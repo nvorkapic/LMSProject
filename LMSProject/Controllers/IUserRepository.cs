@@ -22,6 +22,7 @@ namespace LMSProject.Controllers
         void AddUser(string userName, string email, string password);
         IdentityUser GetUserById(string Id);
         string GetUserIdByName(string name);
+        List<ApplicationUser> GetAllUsers();
         string getRoleName(string RoleId);
         List<userViewModel> getUserViewModel();
         userViewModel getUserDetailViewModel(string p_UserId);

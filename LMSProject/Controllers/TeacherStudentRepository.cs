@@ -142,6 +142,12 @@ namespace LMSProject.Controllers
             return results;
         }
 
+        public List<ApplicationUser> GetAllUsers()
+        {
+            return myUserManager.Users.ToList();
+        }
+
+
         public string getRoleName(string RoleId)
         {
             var roleObject = roleManager.FindById(RoleId);

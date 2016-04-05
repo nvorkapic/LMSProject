@@ -224,12 +224,18 @@ namespace LMSProject.Controllers
 				string myUserId = myUserRepo.GetUserIdByName("admin@root.app");
                 myUserRepo.AddUserToRole(myUserId, myUserRepo.GetRoleIdByRoleName("Teacher"));
 
+                //Add default and only folderTypes
+                folderType myfolderTypePrivate = new folderType { folderTypeID = 1, name = "Private"};
+                folderType myfolderTypePublic = new folderType { folderTypeID = 2, name = "Public" };
+
+                db.SaveChanges();
+
                 return Content("Added Roles for Teacher and Student and root user");
 
             }
             else
             {
-                return Content("Roles do already exist in the database !!!!");
+                return Content("Roles and data do already exist in the database !!!!");
             }
             
         }
