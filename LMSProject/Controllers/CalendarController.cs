@@ -32,7 +32,8 @@ namespace LMSProject.Controllers
     public class CalendarController : Controller
     {
         private LMSContext db = new LMSContext();
-        [Authorize]
+
+        [Authorize(Roles = "Student, Teacher")]
         public JsonResult getSchedule(int id)
         {
             List<CalendarViewModel> viewModels = new List<CalendarViewModel>();
@@ -62,6 +63,7 @@ namespace LMSProject.Controllers
             }
                 return Json(viewModels, JsonRequestBehavior.AllowGet);
         }
+        [Authorize(Roles = "Student, Teacher")]
         public JsonResult getScheduleForStudent(string userId)
         {
             List<CalendarViewModel> viewModels = new List<CalendarViewModel>();
@@ -107,6 +109,7 @@ namespace LMSProject.Controllers
             return View(id);
         }
 
+        [Authorize(Roles = "Student, Teacher")]
         [HttpGet]
         public ActionResult ViewStudentSchedule(string id)
         {
@@ -140,6 +143,7 @@ namespace LMSProject.Controllers
         }
 
         // GET: schedules/Create
+        [Authorize(Roles = "Teacher")]
         public ActionResult CreateSchedule()
         {
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name");
@@ -151,6 +155,7 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult CreateSchedule([Bind(Include = "scheduleID,schoolClassID")] schedule schedule)
         {
             if (ModelState.IsValid)
@@ -165,6 +170,7 @@ namespace LMSProject.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Teacher")]
         public ActionResult CreateScheduleDetail(int id)
         {
             scheduleDetail detail = new scheduleDetail() { startTime = DateTime.Today.AddHours(9), name = "", endTime = DateTime.Today.AddHours(12), scheduleID = id};
@@ -175,6 +181,7 @@ namespace LMSProject.Controllers
         }
 
         // GET: Calendar/Delete/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult DeleteScheduleDetail(int? id)
         {
             if (id == null)
@@ -192,6 +199,7 @@ namespace LMSProject.Controllers
         // POST: Calendar/Delete/5
         [HttpPost, ActionName("DeleteScheduleDetail")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult DeleteScheduleDetailConfirmed(int id)
         {
             scheduleDetail scheduleDetail = db.scheduleDetails.Find(id);
@@ -201,6 +209,7 @@ namespace LMSProject.Controllers
         }
 
         // GET: Calendar/DeleteSchedule/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult DeleteSchedule(int? id)
         {
             if (id == null)
@@ -218,6 +227,7 @@ namespace LMSProject.Controllers
         // POST: Calendar/DeleteSchedule/5
         [HttpPost, ActionName("DeleteSchedule")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult DeleteScheduleConfirmed(int id)
         {
             schedule schedule = db.schedules.Find(id);
@@ -254,6 +264,7 @@ namespace LMSProject.Controllers
         }
 
         // GET: scheduleDetails/Edit/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult EditScheduleDetail(int? id)
         {
             if (id == null)
@@ -280,6 +291,7 @@ namespace LMSProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult EditScheduleDetail(scheduleDetail scheduleDetail)
         {
             //int scheduleDetailID = scheduleDetail.scheduleDetailID;
@@ -299,6 +311,7 @@ namespace LMSProject.Controllers
         }
 
         // GET: schedules/EditSchedule/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult EditSchedule(int? id)
         {
             if (id == null)
@@ -319,6 +332,7 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult EditSchedule([Bind(Include = "scheduleID,schoolClassID")] schedule schedule)
         {
             if (ModelState.IsValid)
@@ -333,6 +347,7 @@ namespace LMSProject.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Teacher")]
         public ActionResult ManageScheduleDetails(int id)
         {
             ManageScheduleDetailsViewModel viewModel = new ManageScheduleDetailsViewModel
@@ -341,11 +356,6 @@ namespace LMSProject.Controllers
                 scheduleID = id
             };
             return View(viewModel);
-        }
-
-        public ActionResult ErrorOverlapping()
-        {
-            return View();
         }
     }
 }
