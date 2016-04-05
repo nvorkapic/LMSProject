@@ -227,7 +227,8 @@ namespace LMSProject.Controllers
                 //Add default and only folderTypes
                 folderType myfolderTypePrivate = new folderType { folderTypeID = 1, name = "Private"};
                 folderType myfolderTypePublic = new folderType { folderTypeID = 2, name = "Public" };
-
+                db.folderTypes.Add(myfolderTypePrivate);
+                db.folderTypes.Add(myfolderTypePublic);
                 db.SaveChanges();
 
                 return Content("Added Roles for Teacher and Student and root user");
