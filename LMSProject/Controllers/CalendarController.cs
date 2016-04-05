@@ -10,6 +10,12 @@ using System.Data.Entity;
 
 namespace LMSProject.Controllers
 {
+    public class ManageScheduleDetailsViewModel
+    {
+        public IEnumerable<scheduleDetail> details;
+        public int scheduleID;
+    }
+
     public class CalendarViewModel
     {
         public int Hours { get; set; }
@@ -26,7 +32,8 @@ namespace LMSProject.Controllers
     public class CalendarController : Controller
     {
         private LMSContext db = new LMSContext();
-        [Authorize]
+
+        [Authorize(Roles = "Student, Teacher")]
         public JsonResult getSchedule(int id)
         {
             List<CalendarViewModel> viewModels = new List<CalendarViewModel>();
@@ -56,6 +63,7 @@ namespace LMSProject.Controllers
             }
                 return Json(viewModels, JsonRequestBehavior.AllowGet);
         }
+        [Authorize(Roles = "Student, Teacher")]
         public JsonResult getScheduleForStudent(string userId)
         {
             List<CalendarViewModel> viewModels = new List<CalendarViewModel>();
@@ -101,6 +109,7 @@ namespace LMSProject.Controllers
             return View(id);
         }
 
+        [Authorize(Roles = "Student, Teacher")]
         [HttpGet]
         public ActionResult ViewStudentSchedule(string id)
         {
@@ -110,6 +119,7 @@ namespace LMSProject.Controllers
         [HttpPost]
         public ActionResult CreateScheduleDetail(scheduleDetail detail)
         {
+            int detailID = detail.scheduleDetailID;
             ViewData["taskID"] = new List<SelectListItem> {
                 new SelectListItem { Text = "9A", Value = "1"},
                 new SelectListItem { Text = "9B", Value = "1"}
@@ -121,7 +131,7 @@ namespace LMSProject.Controllers
 
             if (ModelState.IsValid)
             {
-                if (IsOverlappingWithAnother(detail))
+                if (IsOverlappingWithAnother(detail,detailID))
                 {
                     return RedirectToAction("ErrorOverlapping");
                 }
@@ -133,7 +143,8 @@ namespace LMSProject.Controllers
         }
 
         // GET: schedules/Create
-        public ActionResult Create()
+        [Authorize(Roles = "Teacher")]
+        public ActionResult CreateSchedule()
         {
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name");
             return View();
@@ -144,7 +155,8 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "scheduleID,schoolClassID")] schedule schedule)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult CreateSchedule([Bind(Include = "scheduleID,schoolClassID")] schedule schedule)
         {
             if (ModelState.IsValid)
             {
@@ -158,17 +170,19 @@ namespace LMSProject.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Teacher")]
         public ActionResult CreateScheduleDetail(int id)
         {
-            scheduleDetail detail = new scheduleDetail() { startTime = DateTime.Today.AddHours(9), name = "Test", endTime = DateTime.Today.AddHours(12) };
+            scheduleDetail detail = new scheduleDetail() { startTime = DateTime.Today.AddHours(9), name = "", endTime = DateTime.Today.AddHours(12), scheduleID = id};
             ViewData["taskID"] = new SelectList(db.tasks.Where(p => p.schoolClassID == id).ToList(), "taskID", "name");
-            ViewData["scheduleID"] = new SelectList(db.schedules, "scheduleID", "schoolClasses.name");
+            ViewData["scheduleID"] = new SelectList(db.schedules, "scheduleID", "schoolClasses.name", detail.scheduleID);
 
             return View(detail);
         }
 
         // GET: Calendar/Delete/5
-        public ActionResult Delete(int? id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult DeleteScheduleDetail(int? id)
         {
             if (id == null)
             {
@@ -183,9 +197,10 @@ namespace LMSProject.Controllers
         }
 
         // POST: Calendar/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteScheduleDetail")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult DeleteScheduleDetailConfirmed(int id)
         {
             scheduleDetail scheduleDetail = db.scheduleDetails.Find(id);
             db.scheduleDetails.Remove(scheduleDetail);
@@ -194,6 +209,7 @@ namespace LMSProject.Controllers
         }
 
         // GET: Calendar/DeleteSchedule/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult DeleteSchedule(int? id)
         {
             if (id == null)
@@ -211,16 +227,45 @@ namespace LMSProject.Controllers
         // POST: Calendar/DeleteSchedule/5
         [HttpPost, ActionName("DeleteSchedule")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult DeleteScheduleConfirmed(int id)
         {
             schedule schedule = db.schedules.Find(id);
+            if (schedule == null)
+            {
+                return HttpNotFound();
+            }
+            List<scheduleDetail> details = db.scheduleDetails.Where(p => p.scheduleID == id).ToList();
+            foreach( var d in details )
+            {
+                db.scheduleDetails.Remove(d);
+            }
+            db.SaveChanges();
+
             db.schedules.Remove(schedule);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        private bool IsOverlappingWithAnother(scheduleDetail a, int detailID)
+        {
+            var details = from d in db.scheduleDetails
+                          where d.scheduleID == detailID
+                          select d;
+            foreach (scheduleDetail b in details.ToList())
+            {
+                if ((a.startTime < b.endTime && b.startTime < a.endTime)
+                    && a.scheduleDetailID != b.scheduleDetailID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         // GET: scheduleDetails/Edit/5
-        public ActionResult Edit(int? id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult EditScheduleDetail(int? id)
         {
             if (id == null)
             {
@@ -231,40 +276,32 @@ namespace LMSProject.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewData["scheduleDetailID"] = new SelectList(db.scheduleDetails.Where(p => p.scheduleDetailID == id).ToList(), "scheduleDetailID", "schoolClasses.name", scheduleDetail.scheduleDetailID);
-            ViewData["scheduleID"] = new SelectList(db.schedules, "scheduleID", "schoolClasses.name");
+            ViewData["scheduleDetailID"] = new SelectList(db.scheduleDetails.Where(p => p.scheduleDetailID == id).ToList(), "scheduleDetailID", "schoolClasses.name", scheduleDetail.scheduleDetailID);
+            ViewData["scheduleID"] = new SelectList(db.schedules, "scheduleID", "schoolClasses.name", scheduleDetail.scheduleID);
             ViewData["taskID"] = new SelectList(db.tasks.Where(p => p.schoolClassID == scheduleDetail.schedules.schoolClassID).ToList(), "taskID", "name");
             ViewData["schoolClassID"] = new SelectList(db.schoolClasses, "schoolClassID", "name");
+
             return View(scheduleDetail);
         }
 
-        private bool IsOverlappingWithAnother(scheduleDetail a)
-        {
-            var details = from d in db.scheduleDetails
-                          where d.scheduleID == a.scheduleID
-                          select d;
-            foreach(scheduleDetail b in details.ToList())
-            {
-                if (b.endTime > a.startTime && b.startTime < a.endTime)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
         // POST: scheduleDetails/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //public ActionResult EditScheduleDetail([Bind(Include = "scheduleID,starTime,endTime,name,room,taskID")] scheduleDetail scheduleDetail)
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "scheduleID,starTime,endTime,name,room")] scheduleDetail scheduleDetail)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult EditScheduleDetail(scheduleDetail scheduleDetail)
         {
+            //int scheduleDetailID = scheduleDetail.scheduleDetailID;
+            //if (IsOverlappingWithAnother(scheduleDetail, scheduleDetailID))
+            //{
+            //    return Content("Error: That scheduleDetail overlaps with another in the schedule.");
+            //}
+
             if (ModelState.IsValid)
             {
-                if(IsOverlappingWithAnother(scheduleDetail))
-                {
-                    return Content("ErrorOverlapping");
-                }
                 db.Entry(scheduleDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -273,15 +310,52 @@ namespace LMSProject.Controllers
             return View(scheduleDetail);
         }
 
-        [HttpGet]
-        public ActionResult ManageScheduleDetails(int id)
+        // GET: schedules/EditSchedule/5
+        [Authorize(Roles = "Teacher")]
+        public ActionResult EditSchedule(int? id)
         {
-            return View(db.scheduleDetails.Where(x => x.scheduleID == id).ToList());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            schedule schedule = db.schedules.Find(id);
+            if (schedule == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", schedule.schoolClassID);
+            return View(schedule);
         }
 
-        public ActionResult ErrorOverlapping()
+        // POST: schedules/EditSchedule/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult EditSchedule([Bind(Include = "scheduleID,schoolClassID")] schedule schedule)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                db.Entry(schedule).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", schedule.schoolClassID);
+            return View(schedule);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult ManageScheduleDetails(int id)
+        {
+            ManageScheduleDetailsViewModel viewModel = new ManageScheduleDetailsViewModel
+            {
+                details = db.scheduleDetails.Where(x => x.scheduleID == id).ToList(),
+                scheduleID = id
+            };
+            return View(viewModel);
         }
     }
 }

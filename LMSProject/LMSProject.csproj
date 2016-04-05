@@ -249,6 +249,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -280,6 +281,10 @@
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular-touch.js" />
     <Content Include="Scripts\angular-touch.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1114,9 +1119,9 @@
     <Content Include="Views\taskfiles\Edit.cshtml" />
     <Content Include="Views\taskfiles\Index.cshtml" />
     <Content Include="Views\Calendar\CreateScheduleDetail.cshtml" />
-    <Content Include="Views\Calendar\Create.cshtml" />
+    <Content Include="Views\Calendar\CreateSchedule.cshtml" />
     <Content Include="Views\Calendar\DeleteSchedule.cshtml" />
-    <Content Include="Views\Calendar\Delete.cshtml" />
+    <Content Include="Views\Calendar\DeleteScheduleDetail.cshtml" />
     <Content Include="Views\Calendar\ManageScheduleDetails.cshtml" />
     <Content Include="Views\Calendar\ErrorOverlapping.cshtml" />
     <Content Include="Views\users\Create.cshtml" />
@@ -1132,9 +1137,10 @@
     <Content Include="Views\schoolClasses\Index.cshtml" />
     <Content Include="Views\users\AddUserSchoolClass.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
-    <Content Include="Views\Calendar\Edit.cshtml" />
+    <Content Include="Views\Calendar\EditScheduleDetail.cshtml" />
     <Content Include="Views\Calendar\ViewStudentSchedule.cshtml" />
     <Content Include="Views\UserViewModelFullViews\Index.cshtml" />
+    <Content Include="Views\Calendar\EditSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
