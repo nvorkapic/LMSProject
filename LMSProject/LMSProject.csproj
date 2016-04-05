@@ -184,14 +184,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ContextOriginal\201604041229187_Original.cs" />
-    <Compile Include="Migrations\ContextOriginal\201604041229187_Original.Designer.cs">
-      <DependentUpon>201604041229187_Original.cs</DependentUpon>
+    <Compile Include="Migrations\ContextOriginal\201604051339001_Original.cs" />
+    <Compile Include="Migrations\ContextOriginal\201604051339001_Original.Designer.cs">
+      <DependentUpon>201604051339001_Original.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextOriginal\ConfigurationOriginal.cs" />
-    <Compile Include="Migrations\ContextUsers\201604041230132_Users.cs" />
-    <Compile Include="Migrations\ContextUsers\201604041230132_Users.Designer.cs">
-      <DependentUpon>201604041230132_Users.cs</DependentUpon>
+    <Compile Include="Migrations\ContextUsers\201604051339117_Users.cs" />
+    <Compile Include="Migrations\ContextUsers\201604051339117_Users.Designer.cs">
+      <DependentUpon>201604051339117_Users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextUsers\ConfigurationUsers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1108,11 +1108,6 @@
     <Content Include="Views\folders\Index.cshtml" />
     <Content Include="Views\Calendar\ViewSchedule.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\tasks\Create.cshtml" />
-    <Content Include="Views\tasks\Delete.cshtml" />
-    <Content Include="Views\tasks\Details.cshtml" />
-    <Content Include="Views\tasks\Edit.cshtml" />
-    <Content Include="Views\tasks\Index.cshtml" />
     <Content Include="Views\taskfiles\Create.cshtml" />
     <Content Include="Views\taskfiles\Delete.cshtml" />
     <Content Include="Views\taskfiles\Details.cshtml" />
@@ -1141,6 +1136,11 @@
     <Content Include="Views\Calendar\ViewStudentSchedule.cshtml" />
     <Content Include="Views\UserViewModelFullViews\Index.cshtml" />
     <Content Include="Views\Calendar\EditSchedule.cshtml" />
+    <Content Include="Views\tasks\Create.cshtml" />
+    <Content Include="Views\tasks\Delete.cshtml" />
+    <Content Include="Views\tasks\Details.cshtml" />
+    <Content Include="Views\tasks\Edit.cshtml" />
+    <Content Include="Views\tasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1153,11 +1153,11 @@
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextOriginal\201604041229187_Original.resx">
-      <DependentUpon>201604041229187_Original.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextOriginal\201604051339001_Original.resx">
+      <DependentUpon>201604051339001_Original.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextUsers\201604041230132_Users.resx">
-      <DependentUpon>201604041230132_Users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ContextUsers\201604051339117_Users.resx">
+      <DependentUpon>201604051339117_Users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

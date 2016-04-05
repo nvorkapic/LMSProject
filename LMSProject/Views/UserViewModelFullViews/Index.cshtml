@@ -73,15 +73,22 @@
         </th>
     </tr>
 
-    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.TaskList)
+    @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(x => item.Text)</td><td>
+            <td>@{
+        using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                @Html.AntiForgeryToken()
+                @Html.Raw(item.name)
                 <div class="col-md-10">
                     <input type="file" name="attachment" lang="en-gb"/>
-                                                         </div>
-                @Html.ActionLink("Upload file", "UploadTask", new { filePath = item.Selected }) 
+                    <input type="hidden" name="folderID" value="@item.folderID"/>
+                    <input type="hidden" name="taskID" value="@item.taskID" />
+                </div>
+                     <input type="submit" value="Add" />
+                }
+}
             </td>
         </tr>
     }

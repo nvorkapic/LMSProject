@@ -62,10 +62,10 @@ namespace LMSProject.Controllers
 														 select myfolder;
 			ViewBag.folderList = myFolderSelectableList;
 
-			
-			IEnumerable<SelectListItem> mytaskSelectableList = from mytask in db.tasks
-															   where userCurrentSchollclasses.Contains(mytask.schoolClassID)
-															   select new SelectListItem { Value = mytask.taskID.ToString(), Text = mytask.name + " for " + mytask.schoolClasses.name };
+
+			IEnumerable<task> mytaskSelectableList = from mytask in db.tasks
+													 where userCurrentSchollclasses.Contains(mytask.schoolClassID)
+													 select mytask;
 			ViewBag.TaskList = mytaskSelectableList;
 
 			return View();
@@ -92,6 +92,32 @@ namespace LMSProject.Controllers
 					return RedirectToAction("Index");
 			}
 			else 
+			{
+				return RedirectToAction("Index");
+			}
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult UploadTask([Bind(Include = "attachment,taskID, folderID")] file file)
+		{
+			if (file.attachment != null && file.attachment.ContentLength > 0)
+			{
+
+				var fileName = Path.GetFileName(file.attachment.FileName);
+				var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;
+
+				var path = Path.Combine(Server.MapPath(myFolderPath), fileName);
+
+				file.attachment.SaveAs(path);
+				file.path = myFolderPath + file.attachment.FileName;
+				file.userID = myUserRepo.GetUserIdByName(User.Identity.Name);
+				file.name = file.attachment.FileName;
+				db.files.Add(file);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			else
 			{
 				return RedirectToAction("Index");
 			}

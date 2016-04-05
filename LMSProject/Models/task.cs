@@ -19,5 +19,9 @@ namespace LMSProject.Models
 		[ForeignKey("schoolClassID")]
 		public virtual schoolClass schoolClasses { get; set; }
 		public int schoolClassID { get; set; }
+
+		[ForeignKey("folderID")]
+		public virtual folder folders { get; set; }
+		public int folderID { get; set; }
 	}
 }

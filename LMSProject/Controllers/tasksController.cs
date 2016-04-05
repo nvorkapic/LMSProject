@@ -11,7 +11,6 @@ using LMSProject.Models;
 
 namespace LMSProject.Controllers
 {
-	[Authorize(Roles = "Teacher")]
     public class tasksController : Controller
     {
         private LMSContext db = new LMSContext();
@@ -19,7 +18,7 @@ namespace LMSProject.Controllers
         // GET: tasks
         public ActionResult Index()
         {
-            var tasks = db.tasks.Include(t => t.schoolClasses);
+            var tasks = db.tasks.Include(t => t.folders).Include(t => t.schoolClasses);
             return View(tasks.ToList());
         }
 
@@ -41,6 +40,7 @@ namespace LMSProject.Controllers
         // GET: tasks/Create
         public ActionResult Create()
         {
+            ViewBag.folderID = new SelectList(db.folders, "folderID", "name");
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name");
             return View();
         }
@@ -50,7 +50,7 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "taskID,name,schoolClassID")] task task)
+        public ActionResult Create([Bind(Include = "taskID,name,schoolClassID,folderID")] task task)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +59,7 @@ namespace LMSProject.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.folderID = new SelectList(db.folders, "folderID", "name", task.folderID);
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", task.schoolClassID);
             return View(task);
         }
@@ -75,6 +76,7 @@ namespace LMSProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.folderID = new SelectList(db.folders, "folderID", "name", task.folderID);
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", task.schoolClassID);
             return View(task);
         }
@@ -84,7 +86,7 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "taskID,name,schoolClassID")] task task)
+        public ActionResult Edit([Bind(Include = "taskID,name,schoolClassID,folderID")] task task)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +94,7 @@ namespace LMSProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.folderID = new SelectList(db.folders, "folderID", "name", task.folderID);
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", task.schoolClassID);
             return View(task);
         }
