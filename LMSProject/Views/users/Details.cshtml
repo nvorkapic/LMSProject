@@ -72,8 +72,7 @@
                     @Html.DisplayFor(myItem => item.schoolClasses.name)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Add", "AddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID }) |*@
-                    @Html.ActionLink("Delete", "DeleteAddUserSchoolClass", new { p_UserId = item.UserId, p_schoolClassID = item.schoolClassID })
+                    @Html.ActionLink("Delete", "DeleteSchoolClassFromUser", new { userId = item.UserId, SchooClassId = item.schoolClassID })
                 </td>
             </tr>
         }

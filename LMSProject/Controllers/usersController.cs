@@ -68,10 +68,10 @@ namespace LMSProject.Controllers
             return View(myUserRepo.getUserDetailViewModel(id));
         }
 
-        // GET: users/Create
+        // Add schoolclass to user
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "schoolClassID")] user user, string HiddenUserId, string HiddenRoleId)
+        public ActionResult AddSchoolClassToUser([Bind(Include = "schoolClassID")] user user, string HiddenUserId, string HiddenRoleId)
         {
 
             user.UserId = HiddenUserId;
@@ -85,6 +85,21 @@ namespace LMSProject.Controllers
             return RedirectToAction("Details", new { id = user.UserId });
         }
 
+
+        // Delete schoolclass to user
+        public ActionResult DeleteSchoolClassFromUser(string userId, int SchooClassId)
+        {
+
+            user myUserEnt = (from dbu in db.users
+                              where dbu.UserId == userId && dbu.schoolClassID == SchooClassId
+                              select dbu).FirstOrDefault();
+                
+            //Auto added by VS
+            db.users.Remove(myUserEnt);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = userId });
+        }
 
         // GET: users/Create
         public ActionResult Create()
