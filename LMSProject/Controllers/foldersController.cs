@@ -53,26 +53,31 @@ namespace LMSProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "folderID,folderTypeID,schoolClassID,name,path")] folder folder)
+        public ActionResult Create([Bind(Include = "folderTypeID,schoolClassID, name")] folder folder)
         {
-            if (ModelState.IsValid)
-            {
-                
-				var foldername = db.folderTypes.Where(x => x.folderTypeID == folder.folderTypeID).First().name;
-				var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
+        
+                foreach (var item in db.folderTypes)
+                {
+                    //var foldername = db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name;
+                    //var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
 
-				var dirpath = Server.MapPath("~/Holders/" + foldername + "/" + schoolclassname + "/" + folder.name + "/");
+                    var dirpath = Server.MapPath("~/Holders/" + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/");
 
-				folder.path = "~/Holders/" + foldername + "/" + schoolclassname + "/" + folder.name + "/";
-				Directory.CreateDirectory(dirpath);
-				db.folders.Add(folder);
-				db.SaveChanges();
-               return RedirectToAction("Index");
+                    folder.path = "~/Holders/" + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/";
+                    folder.name = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name;
+                    folder.folderTypeID = item.folderTypeID;
+
+                Directory.CreateDirectory(dirpath);
+      
+                    db.folders.Add(folder);
+             
             }
-
-            ViewBag.folderTypeID = new SelectList(db.folderTypes, "folderTypeID", "name", folder.folderTypeID);
-            ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", folder.schoolClassID);
-            return View(folder);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            
+            //ViewBag.folderTypeID = new SelectList(db.folderTypes, "folderTypeID", "name", folder.folderTypeID);
+            //ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", folder.schoolClassID);
+            //return View(folder);
 		
         }
 
