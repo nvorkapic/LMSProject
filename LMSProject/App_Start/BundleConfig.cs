@@ -28,7 +28,10 @@ namespace LMSProject
 					  "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                "~/Scripts/angular.js"));
+                "~/Scripts/angular.js",
+                "~/Scripts/angular-animate.js",
+                "~/Scripts/angular-ui/ui-bootstrap-tpls.js"
+                ));
 		}
 	}
 }
