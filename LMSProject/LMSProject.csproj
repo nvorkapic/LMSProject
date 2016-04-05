@@ -1114,9 +1114,9 @@
     <Content Include="Views\taskfiles\Edit.cshtml" />
     <Content Include="Views\taskfiles\Index.cshtml" />
     <Content Include="Views\Calendar\CreateScheduleDetail.cshtml" />
-    <Content Include="Views\Calendar\Create.cshtml" />
+    <Content Include="Views\Calendar\CreateSchedule.cshtml" />
     <Content Include="Views\Calendar\DeleteSchedule.cshtml" />
-    <Content Include="Views\Calendar\Delete.cshtml" />
+    <Content Include="Views\Calendar\DeleteScheduleDetail.cshtml" />
     <Content Include="Views\Calendar\ManageScheduleDetails.cshtml" />
     <Content Include="Views\Calendar\ErrorOverlapping.cshtml" />
     <Content Include="Views\users\Create.cshtml" />
@@ -1132,9 +1132,10 @@
     <Content Include="Views\schoolClasses\Index.cshtml" />
     <Content Include="Views\users\AddUserSchoolClass.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
-    <Content Include="Views\Calendar\Edit.cshtml" />
+    <Content Include="Views\Calendar\EditScheduleDetail.cshtml" />
     <Content Include="Views\Calendar\ViewStudentSchedule.cshtml" />
     <Content Include="Views\UserViewModelFullViews\Index.cshtml" />
+    <Content Include="Views\Calendar\EditSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
