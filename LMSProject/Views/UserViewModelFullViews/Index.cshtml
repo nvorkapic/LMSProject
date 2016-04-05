@@ -37,20 +37,20 @@
         </th>
     </tr>
 
-    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.folderList)
+    @foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
     {
         <tr>
             <td>
-                @Html.DisplayFor(x => item.Text)
+                @Html.Raw(item.name)
             </td>
             <td>@{
-        if (item.Text.Contains("Shared"))
+        if (item.folderTypes.folderTypeID==2)
         {
 
             <div class="col-md-10">
-                <input type="file" name="attachment" lang="en-gb" />
+                <input type="file" name="attachment" lang="en-gb"/>
             </div>
-                    @Html.ActionLink("Upload", "UploadShared", new { filePath = item.Value })
+                    @Html.ActionLink("Upload", "UploadShared", new { folderID=item.folderID })
                    }
                 }
             </td>
@@ -84,19 +84,72 @@
 <table class="table userfullview">
     <tr>
         <th>
-            Submited Files
+            Submited Private Files
         </th>
     </tr>
 
-    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.fileList)
+    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileList)
     {
         <tr>
             <td>
-                @Html.DisplayFor(x => item.Text)
-                
+                    @Html.Raw(item.name + " in " + item.path + " for " + item.tasks.name)
+
+</td>
+            <td>@Html.ActionLink("Download", "Download", new { fileID = item.fileID }) |
+            @Html.ActionLink("Delete", "Delete", new { fileID = item.fileID }) </td>
+        </tr>
+    }
+
+</table>
+
+<table class="table userfullview">
+    <tr>
+        <th>
+            Submited Shared Files
+        </th>
+    </tr>
+
+    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileShList)
+    {
+        <tr>
+            <td>
+                @Html.Raw(item.name + " in " + item.path)
+
             </td>
-            <td>@Html.ActionLink("Download", "Download", new { fileID = item.Selected }) </td> |
-            <td>@Html.ActionLink("Delete", "Delete", new { fileID = item.Selected }) </td>
+            <td>
+                @Html.ActionLink("Download", "Download", new { fileID = item.fileID }) |
+            @Html.ActionLink("Delete", "Delete", new { fileID = item.fileID })
+        </td>
+    </tr>
+    }
+
+</table>
+
+<table class="table userfullview">
+    <tr>
+        <th>
+            Shared Files
+        </th>
+    </tr>
+    @{
+        string myuserName = "";
+    }
+
+    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.SharedList)
+    {
+        <tr>
+            <td>@{
+        foreach (var utem in (IEnumerable<LMSProject.Models.user>)ViewBag.UserList)
+        {
+            if (utem.UserId == item.userID) { myuserName = utem.UserName; } 
+        }
+                }
+                @Html.Raw(item.name + " in " + item.path + " from " + myuserName)
+
+            </td>
+            <td>
+                @Html.ActionLink("Download", "Download", new { fileID = item.fileID })
+            </td>
         </tr>
     }
 
