@@ -48,7 +48,7 @@
         {
 
             <div class="col-md-10">
-                <input type="file" name="attachment" />
+                <input type="file" name="attachment" lang="en-gb" />
             </div>
                     @Html.ActionLink("Upload", "UploadShared", new { filePath = item.Value })
                    }
@@ -72,7 +72,7 @@
             <td>
                 @Html.DisplayFor(x => item.Text)</td><td>
                 <div class="col-md-10">
-                    <input type="file" name="attachment" />
+                    <input type="file" name="attachment" lang="en-gb"/>
                                                          </div>
                 @Html.ActionLink("Upload file", "UploadTask", new { filePath = item.Selected }) 
             </td>
