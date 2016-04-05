@@ -37,3 +37,8 @@ textarea {
 .navbar-inverse .navbar-brand {
     color: black;
 }
+
+.userfullview {
+    width:auto;
+    padding-left:10px;
+}

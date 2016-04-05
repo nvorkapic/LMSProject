@@ -13,7 +13,7 @@
     UserID: @ViewBag.UserId
 </p>
 
-<table class="table">
+<table class="table userfullview">
     <tr>
         <th>
             School Classes
@@ -30,7 +30,7 @@
 
 </table>
 
-<table class="table">
+<table class="table userfullview">
     <tr>
         <th>
             Folders
@@ -43,12 +43,23 @@
             <td>
                 @Html.DisplayFor(x => item.Text)
             </td>
+            <td>@{
+        if (item.Text.Contains("Shared"))
+        {
+
+            <div class="col-md-10">
+                <input type="file" name="attachment" />
+            </div>
+                    @Html.ActionLink("Upload", "UploadShared", new { filePath = item.Value })
+                   }
+                }
+            </td>
         </tr>
     }
 
 </table>
 
-<table class="table">
+<table class="table userfullview">
     <tr>
         <th>
             Tasks
@@ -59,14 +70,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(x => item.Text)
+                @Html.DisplayFor(x => item.Text)</td><td>
+                <div class="col-md-10">
+                    <input type="file" name="attachment" />
+                                                         </div>
+                @Html.ActionLink("Upload file", "UploadTask", new { filePath = item.Selected }) 
             </td>
         </tr>
     }
 
 </table>
 
-<table class="table">
+<table class="table userfullview">
     <tr>
         <th>
             Submited Files
@@ -78,7 +93,10 @@
         <tr>
             <td>
                 @Html.DisplayFor(x => item.Text)
+                
             </td>
+            <td>@Html.ActionLink("Download", "Download", new { fileID = item.Selected }) </td> |
+            <td>@Html.ActionLink("Delete", "Delete", new { fileID = item.Selected }) </td>
         </tr>
     }
 
