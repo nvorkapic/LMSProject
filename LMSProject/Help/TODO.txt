@@ -1,2 +1,11 @@
 ﻿
 - Add folder handling physical creation and update in folderController
+
+
+-- CODE EXMPLE VIEW
+@Html.DropDownListFor(model => model.Item1.VehicleID, ((List<MvcGarageGroup.Models.VehicleListItem>)ViewBag.ToComboV).Select(item => new SelectListItem
+{
+    Value = item.VehicleID.ToString(),
+    Text = item.VehicleAndType.ToString(),
+}),
+new { @class = "inputDropDownList" })
