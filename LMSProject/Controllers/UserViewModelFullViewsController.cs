@@ -36,12 +36,6 @@ namespace LMSProject.Controllers
 			IEnumerable<file> myfileSelectList = from fil in db.files
 												 where fil.userID == userIDbyName && fil.folders.folderTypeID == 1
 												select fil;
-
-			//IEnumerable<SelectListItem> myfileSelectList = from fil in db.files
-			//											   where fil.userID == userIDbyName
-			//											   select new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name };
-
-			//(IEnumerable<file>)ViewBag.fileList   new SelectListItem { Value = fil.fileID.ToString(), Text = fil.fileID + " in " + fil.path + " for " + fil.tasks.name }
 			   
 			ViewBag.fileList = myfileSelectList;
 
@@ -55,7 +49,6 @@ namespace LMSProject.Controllers
 												 select fil;
 			ViewBag.SharedList = mySharedList;
 			
-			//Does not work, find solution
 			List<ApplicationUser> userList = myUserRepo.GetAllUsers();
 			ViewBag.UserList = userList;
 
@@ -80,12 +73,11 @@ namespace LMSProject.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult UploadShared([Bind(Include = "fileID,folderID,name,path,taskID,attachment")] file file)
+		public ActionResult UploadShared([Bind(Include = "attachment, folderID")] file file)
 		{
 			if (file.attachment != null && file.attachment.ContentLength > 0)
 			{
-				try
-				{
+			
 					var fileName = Path.GetFileName(file.attachment.FileName);
 					var myFolderPath = db.folders.Where(x => x.folderID == file.folderID).First().path;
 
@@ -94,20 +86,17 @@ namespace LMSProject.Controllers
 					file.attachment.SaveAs(path);
 					file.path = myFolderPath + file.attachment.FileName;
 					file.userID = myUserRepo.GetUserIdByName(User.Identity.Name);
+					file.name = file.attachment.FileName;
 					db.files.Add(file);
 					db.SaveChanges();
 					return RedirectToAction("Index");
-				}
-				catch (Exception err)
-				{
-					return Content("File save error !!!!! " + err.Message);
-				}
 			}
-
-			ViewBag.folderID = new SelectList(db.folders, "folderID", "name", file.folderID);
-			ViewBag.taskID = new SelectList(db.tasks, "taskID", "name", file.taskID);
-			return View(file);
+			else 
+			{
+				return RedirectToAction("Index");
+			}
 		}
+
 		//// GET: UserViewModelFullViews/Details/5
 		//public ActionResult Details(string id)
 		//{

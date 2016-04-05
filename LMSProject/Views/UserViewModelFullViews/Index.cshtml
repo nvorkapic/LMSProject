@@ -30,6 +30,7 @@
 
 </table>
 
+
 <table class="table userfullview">
     <tr>
         <th>
@@ -46,18 +47,24 @@
             <td>@{
         if (item.folderTypes.folderTypeID==2)
         {
-
+            
+            using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
             <div class="col-md-10">
                 <input type="file" name="attachment" lang="en-gb"/>
-            </div>
-                    @Html.ActionLink("Upload", "UploadShared", new { folderID=item.folderID })
-                   }
-                }
+                <input type="hidden" name="folderID" value="@item.folderID"/>
+            </div> 
+                <input type="submit" value="Add" />
+            }
+         }
+                 }
+
             </td>
         </tr>
     }
-
 </table>
+
 
 <table class="table userfullview">
     <tr>
@@ -139,6 +146,7 @@
     {
         <tr>
             <td>@{
+        myuserName = "";
         foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
         {
             if (utem.Id == item.userID) { myuserName = utem.UserName; } 
