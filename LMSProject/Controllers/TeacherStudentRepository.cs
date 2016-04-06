@@ -137,8 +137,15 @@ namespace LMSProject.Controllers
         }
 
         public string GetUserIdByName(string name) {
-
-            var results = myUserManager.Users.Where(p => p.UserName == name).FirstOrDefault().Id;
+            string results;
+            try
+            {
+                results = myUserManager.Users.Where(p => p.UserName == name).FirstOrDefault().Id;
+            }
+            catch(Exception e)
+            {
+                results = e.Message;
+            }
             return results;
         }
 
