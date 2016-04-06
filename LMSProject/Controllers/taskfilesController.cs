@@ -138,8 +138,9 @@ namespace LMSProject.Controllers
             ViewBag.taskID = new SelectList(db.tasks, "taskID", "name", file.taskID);
             return View(file);
         }
-
-        // GET: taskfiles/Delete/5
+	
+		
+		// GET: taskfiles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)

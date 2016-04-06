@@ -110,7 +110,7 @@
 
 </td>
             <td>@Html.ActionLink("Download","Download","taskfiles", new { filePath = item.path },null) |
-            @Html.ActionLink("Delete", "Delete", "taskfiles", new { id = item.fileID }, null) </td>
+            @Html.ActionLink("Delete", "DeleteFileNow",  new { id = item.fileID }) </td>
         </tr>
     }
 
@@ -132,7 +132,7 @@
             </td>
             <td>
                 @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null) |
-            @Html.ActionLink("Delete", "Delete", "taskfiles", new { id = item.fileID }, null)
+            @Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })
         </td>
     </tr>
     }
