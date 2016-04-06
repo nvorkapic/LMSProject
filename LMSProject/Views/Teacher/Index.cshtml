@@ -7,94 +7,154 @@
     .menu:hover
     {
         color: deeppink;
+        cursor:pointer;
     }
 </style>
 <h2>Teacher Admin View</h2>
+
 <div ng-app="TeacherView">
-    <table class="table userfullview">
-        <tr>
-            <th>
-                School Classes
-            </th>
-        </tr>
-
-        @foreach (var schoolclass in Model.Classes)
-        {
-            <tr>
-                <th>
-                    @Html.DisplayFor(x => schoolclass.Name)
-                </th>
-            </tr>
-
-            foreach (var student in schoolclass.Students)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(x => student.Name)
-                    </td>
-                </tr>
-            }
-        }
-    </table>
-
-
-    <table class="table userfullview">
-        <tr>
-            <th>
-                Private Folders
-            </th>
-        </tr>
-
-        @foreach (var folder in Model.PrivateFolders)
-        {
-            <tr>
-                <th>
-                    @Html.DisplayFor(x => folder.Name)
-                </th>
-                <td>
-                    @Html.DisplayFor(x => folder.Path)
-                </td>
-            </tr>
-
-            foreach (var file in folder.Files)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(x => file.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(x => file.Path)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(x => file.TaskName)
-                    </td>
-                </tr>
-            }
-        }
-    </table>
-
     <div ng-controller="MenuController">
-        <h2 ng-click="toggleSchedules()" class="menu">Schedules</h2>
-        <div ng-show="showschedules">
-            @Html.Action("_List", "Calendar")
+        <h2 ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</h2>
+        <div ng-show="showschoolclass">
+            <table class="table userfullview">
+
+                @foreach (var schoolclass in Model.Classes)
+            {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(x => schoolclass.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => schoolclass.Students.FirstOrDefault().Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => schoolclass.Students.FirstOrDefault().Role)
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                    if (schoolclass.Students.Count == 0)
+                    {
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                None
+                            </td>
+                            <td>
+                                None
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var student in schoolclass.Students)
+                        {
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>
+                                    @Html.DisplayFor(x => student.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => student.Role)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Remove from Class", "DeleteSchoolClassFromUser", "users", new { userId = student.id, SchooClassId = schoolclass.id }, null)
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+            </div>
+        <h2 ng-click="toggleFolders()" class="menu">Files &amp; Folders</h2>
+        <div ng-show="showfolders">
+            <table class="table userfullview">
+                <tr>
+                    <th>
+                        Private Folder
+                    </th>
+                    <th>
+                        File Name
+                    </th>
+                    <th>
+                        Path
+                    </th>
+                    <th>
+                        Task
+                    </th>
+                </tr>
+
+                @foreach (var folder in Model.PrivateFolders)
+            {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(x => folder.Name)
+                        </th>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => folder.Path)
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+
+                    foreach (var file in folder.Files)
+                    {
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => file.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => file.Path)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => file.TaskName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, null) |
+                                @Html.ActionLink("Delete", "DeleteFileNow", "UserViewModelFullViews", new { id = file.Id }, null)
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </table>
         </div>
-        <h2 ng-click="toggleUsers()" class="menu">Users</h2>
-        <div ng-show="showusers">
-            @Html.Action("_List", "users")
+
+            <h2 ng-click="toggleSchedules()" class="menu">Schedules</h2>
+            <div ng-show="showschedules">
+                @Html.Action("_List", "Calendar")
+            </div>
+            <h2 ng-click="toggleUsers()" class="menu">Users</h2>
+            <div ng-show="showusers">
+                @Html.Action("_List", "users")
+            </div>
+            <h2 ng-click="toggleClasses()" class="menu">Classes</h2>
+            <div ng-show="showclasses">
+                @Html.Action("_List", "schoolClasses")
+            </div>
+            <h2 ng-click="toggleTasks()" class="menu">Tasks</h2>
+            <div ng-show="showtasks">
+                @Html.Action("_List", "tasks")
+            </div>
+            <h2 ng-click="toggleTaskfiles()" class="menu">Taskfiles</h2>
+            <div ng-show="showtaskfiles">
+                @Html.Action("_List", "taskfiles")
+            </div>
         </div>
-        <h2 ng-click="toggleClasses()" class="menu">Classes</h2>
-        <div ng-show="showclasses">
-            @Html.Action("_List", "schoolClasses")
-        </div>
-        <h2 ng-click="toggleTasks()" class="menu">Tasks</h2>
-        <div ng-show="showtasks">
-            @Html.Action("_List", "tasks")
-        </div>
-        <h2 ng-click="toggleTaskfiles()" class="menu">Taskfiles</h2>
-        <div ng-show="showtaskfiles">
-            @Html.Action("_List", "taskfiles")
-        </div>
-    </div>
 </div>
 
 <script>
@@ -105,6 +165,8 @@
         $scope.showclasses = false;
         $scope.showtasks = false;
         $scope.showtaskfiles = false;
+        $scope.showschoolclass = false;
+        $scope.showfolders = false;
 
         $scope.toggleSchedules = function()
         {
@@ -125,6 +187,14 @@
 
         $scope.toggleTaskfiles = function () {
             $scope.showtaskfiles = !$scope.showtaskfiles;
+        }
+
+        $scope.toggleSchoolClass = function () {
+            $scope.showschoolclass = !$scope.showschoolclass;
+        }
+
+        $scope.toggleFolders = function () {
+            $scope.showfolders = !$scope.showfolders;
         }
     });
 </script>
