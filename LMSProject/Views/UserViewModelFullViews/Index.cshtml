@@ -109,8 +109,8 @@
                     @Html.Raw(item.name + " in " + item.path + " for " + item.tasks.name)
 
 </td>
-            <td>@Html.ActionLink("Download", "Download", new { fileID = item.fileID }) |
-            @Html.ActionLink("Delete", "Delete", new { fileID = item.fileID }) </td>
+            <td>@Html.ActionLink("Download","Download","taskfiles", new { filePath = item.path },null) |
+            @Html.ActionLink("Delete", "Delete", "taskfiles", new { id = item.fileID }, null) </td>
         </tr>
     }
 
@@ -131,8 +131,8 @@
 
             </td>
             <td>
-                @Html.ActionLink("Download", "Download", new { fileID = item.fileID }) |
-            @Html.ActionLink("Delete", "Delete", new { fileID = item.fileID })
+                @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null) |
+            @Html.ActionLink("Delete", "Delete", "taskfiles", new { id = item.fileID }, null)
         </td>
     </tr>
     }
@@ -163,7 +163,7 @@
 
             </td>
             <td>
-                @Html.ActionLink("Download", "Download", new { fileID = item.fileID })
+                @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)
             </td>
         </tr>
     }

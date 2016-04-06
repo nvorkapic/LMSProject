@@ -56,10 +56,6 @@ namespace LMSProject.Controllers
         public ActionResult Create([Bind(Include = "folderTypeID,schoolClassID, name")] folder folder)
         {
 
-			//if (db.folders.Where(x => x.schoolClassID == folder.schoolClassID).Count() != 0) {
-			//	return RedirectToAction("Index");
-			//}
-
 			int startPos = 1;
 			int stopPos = 2;
 	
