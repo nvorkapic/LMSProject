@@ -12,6 +12,7 @@ namespace LMSProject.Controllers
     {
         public string id { get; set; }
         public string Name { get; set; }
+        public string Role { get; set; }
     }
 
     public class TeacherClassViewModel
@@ -25,6 +26,7 @@ namespace LMSProject.Controllers
         public string Name { get; set; }
         public string Path { get; set; }
         public string  TaskName { get; set; }
+        public int Id { get; set; }
     }
     public class TeacherPrivateFolderViewModel
     {
@@ -56,10 +58,13 @@ namespace LMSProject.Controllers
 
             string TeacherUserId = userRepository.GetUserIdByName(User.Identity.Name);
 
-            var classes = from c in db.users
-                          where c.UserId == TeacherUserId
-                          select c.schoolClasses;
+            //var classes = from c in db.users
+            //              where c.UserId == TeacherUserId
+            //              select c.schoolClasses;
 
+
+            /// Classes and students.
+            var classes = db.schoolClasses.ToList();
             foreach (var c in classes)
             {
                 List<TeacherStudentViewModel> students = new List<TeacherStudentViewModel>();
@@ -69,17 +74,22 @@ namespace LMSProject.Controllers
 
                 foreach(var s in classStudents)
                 {
-                    students.Add(new TeacherStudentViewModel { id = s.UserId, Name = userRepository.getUserDetailViewModel(s.UserId).UserName });
+                    students.Add(new TeacherStudentViewModel {
+                        id = s.UserId,
+                        Name = userRepository.getUserDetailViewModel(s.UserId).UserName,
+                        Role = userRepository.GetRoleByUserId(s.UserId)
+                    });
                 }
 
                 viewModel.Classes.Add(new TeacherClassViewModel { id = c.schoolClassID, Name = c.name, Students = students });
             }
 
 
-            var myfileSelectList = from fil in db.files
-                                                 where fil.userID == TeacherUserId && fil.folders.folderTypeID == 1
-                                                 select fil;
-
+            /// Files and folders.
+            //var myfileSelectList = from fil in db.files
+            //                                     where fil.userID == TeacherUserId && fil.folders.folderTypeID == 1
+            //                                     select fil;
+            var myfileSelectList = db.files.ToList();
             foreach(var f in myfileSelectList)
             {
                 TeacherPrivateFolderViewModel foundFolder = new TeacherPrivateFolderViewModel {
@@ -105,7 +115,8 @@ namespace LMSProject.Controllers
                     {
                         Name = f.name,
                         Path = f.path,
-                        TaskName = tempTaskName
+                        TaskName = tempTaskName,
+                        Id = f.fileID
                     });
             }
             return View(viewModel);
