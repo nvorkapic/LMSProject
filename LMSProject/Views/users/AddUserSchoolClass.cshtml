@@ -7,5 +7,15 @@
     <input type="hidden" name="HiddenRoleId" value="@ViewBag.HiddenRoleId" />
 
     @Html.DropDownListFor(model => model.schoolClassID, (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList, htmlAttributes: new { @class = "dropdown" })
-    <input type="submit" value="Add" />
+
+    IEnumerable<SelectListItem> SchoolClassSelectList = (IEnumerable<SelectListItem>)ViewBag.SchoolClassSelectList;
+
+    if (SchoolClassSelectList.Count() <= 0)
+    {
+        <input type="submit" value="Add" disabled="disabled" />
+    }
+    else
+    {
+        <input type="submit" value="Add" />
+    }
 }
