@@ -28,6 +28,6 @@ namespace LMSProject.Controllers
         userViewModel getUserDetailViewModel(string p_UserId);
         List<int> getCurrentUserSchoolClasses(string p_userName);
         List<int> getCurrentUserSchoolClassesByID(string currentUserid);
-        void DeleteUser();
+        void DeleteUser(string userId);
     }
 }

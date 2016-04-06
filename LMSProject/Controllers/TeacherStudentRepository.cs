@@ -269,9 +269,9 @@ namespace LMSProject.Controllers
 
         }
 
-        public void DeleteUser()
+        public void DeleteUser(string userId)
         {
-
+            //myUserManager.Delete();
         }
 
     }
