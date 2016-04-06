@@ -72,7 +72,86 @@
             </div>
         <h2 ng-click="toggleFolders()" class="menu">Files &amp; Folders</h2>
         <div ng-show="showfolders">
-            <table class="table userfullview">
+            @foreach(var schoolClass in Model.Classes)
+            {
+                <table class="table userfullview">
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(p => schoolClass.Name)
+                        </th>
+                        <th>
+                            Path
+                        </th>
+                        <th>
+                            Task
+                        </th>
+                        <th>
+                            Folder Type
+                        </th>
+                    </tr>
+                    @if (schoolClass.Folders == null)
+                    {
+                        <tr>
+                            <th>
+                                None
+                            </th>
+                            <th>
+                                None
+                            </th>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var folder in schoolClass.Folders)
+                        {
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(p => folder.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(p => folder.Path)
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(p => folder.FolderType)
+                                </th>
+                            </tr>
+                            if(folder.Files.Count == 0)
+                            {
+                                <tr>
+                                    <td>
+                                        None
+                                    </td>
+                                    <td>
+                                        None
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var file in folder.Files)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(p => file.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(p => file.Path)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(p => file.TaskName)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+
+                </table>
+            }
+            @*<table class="table userfullview">
                 <tr>
                     <th>
                         Private Folder
@@ -131,7 +210,7 @@
                         </tr>
                     }
                 }
-            </table>
+            </table>*@
         </div>
 
             <h2 ng-click="toggleSchedules()" class="menu">Schedules</h2>
