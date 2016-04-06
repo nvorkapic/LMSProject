@@ -176,6 +176,7 @@
     <Compile Include="Controllers\schoolClassesController.cs" />
     <Compile Include="Controllers\taskfilesController.cs" />
     <Compile Include="Controllers\tasksController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TeacherStudentRepository.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\usersController.cs" />
@@ -1140,6 +1141,7 @@
     <Content Include="Views\tasks\Details.cshtml" />
     <Content Include="Views\tasks\Edit.cshtml" />
     <Content Include="Views\tasks\Index.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

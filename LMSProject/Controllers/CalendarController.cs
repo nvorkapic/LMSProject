@@ -113,7 +113,13 @@ namespace LMSProject.Controllers
         [HttpGet]
         public ActionResult ViewStudentSchedule(string id)
         {
-            return View((object) id);
+            return PartialView((object) id);
+        }
+
+        [HttpGet]
+        public ActionResult ViewFullStudentSchedule(string id)
+        {
+            return View("ViewStudentSchedule",(object)id);
         }
         [Authorize(Roles = "Teacher")]
         [HttpPost]
