@@ -41,6 +41,10 @@ namespace LMSProject.Controllers
             return View(myUserRepo.getUserViewModel());
         }
 
+        public ActionResult _List()
+        {
+            return PartialView(myUserRepo.getUserViewModel());
+        }
         // GET: users/Details/5
         public ActionResult Details(string id)
         {

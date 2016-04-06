@@ -20,20 +20,27 @@ namespace LMSProject.Controllers
         public int id { get; set; }
         public List<TeacherStudentViewModel> Students { get; set; }
     }
-    public class TeacherPrivateFolderViewModel
+    public class TeacherPrivateFileViewModel
     {
         public string Name { get; set; }
         public string Path { get; set; }
         public string  TaskName { get; set; }
     }
+    public class TeacherPrivateFolderViewModel
+    {
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public List<TeacherPrivateFileViewModel> Files { get; set; }
+    }
     public class TeacherViewModel
     {
         public List<TeacherClassViewModel> Classes { get; set; }
         public List<TeacherPrivateFolderViewModel> PrivateFolders { get; set; }
+        //public List<TeacherPrivateFileViewModel> PrivateFiles { get; set; }
     }
 
 
-
+    [Authorize(Roles ="Teacher")]
     public class TeacherController : Controller
     {
         private LMSContext db = new LMSContext();
@@ -45,6 +52,7 @@ namespace LMSProject.Controllers
         {
             TeacherViewModel viewModel = new TeacherViewModel() { Classes = new List<TeacherClassViewModel>() };
             viewModel.PrivateFolders = new List<TeacherPrivateFolderViewModel>();
+            //viewModel.PrivateFiles = new List<TeacherPrivateFileViewModel>();
 
             string TeacherUserId = userRepository.GetUserIdByName(User.Identity.Name);
 
@@ -67,13 +75,38 @@ namespace LMSProject.Controllers
                 viewModel.Classes.Add(new TeacherClassViewModel { id = c.schoolClassID, Name = c.name, Students = students });
             }
 
+
             var myfileSelectList = from fil in db.files
                                                  where fil.userID == TeacherUserId && fil.folders.folderTypeID == 1
                                                  select fil;
 
             foreach(var f in myfileSelectList)
             {
-                viewModel.PrivateFolders.Add(new TeacherPrivateFolderViewModel { Name = f.name, Path = f.path, TaskName = f.tasks.name });
+                TeacherPrivateFolderViewModel foundFolder = new TeacherPrivateFolderViewModel {
+                    Name = f.folders.name,
+                    Path = f.folders.path,
+                    Files = new List<TeacherPrivateFileViewModel>()
+                };
+
+                if (!viewModel.PrivateFolders.Contains(foundFolder))
+                {
+                    viewModel.PrivateFolders.Add(foundFolder);
+                }
+
+                TeacherPrivateFolderViewModel existingFolder = viewModel.PrivateFolders.Find(p => p.Name == f.name && p.Path == f.path);
+                string tempTaskName = "";
+                if (f.tasks != null)
+                {
+                    tempTaskName = f.tasks.name;
+                }
+
+                foundFolder.Files.Add(
+                    new TeacherPrivateFileViewModel
+                    {
+                        Name = f.name,
+                        Path = f.path,
+                        TaskName = tempTaskName
+                    });
             }
             return View(viewModel);
         }

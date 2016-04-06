@@ -15,13 +15,23 @@ namespace LMSProject.Controllers
     public class schoolClassesController : Controller
     {
         private LMSContext db = new LMSContext();
-
+        private IUserRepository userRepository = new TeacherStudentRepository();
         // GET: schoolClasses
         public ActionResult Index()
         {
             return View(db.schoolClasses.ToList());
         }
 
+        public ActionResult _List()
+        {
+            string TeacherUserId = userRepository.GetUserIdByName(User.Identity.Name);
+
+            var classes = from c in db.users
+                          where c.UserId == TeacherUserId
+                          select c.schoolClasses;
+
+            return PartialView(classes.ToList());
+        }
         // GET: schoolClasses/Details/5
         public ActionResult Details(int? id)
         {

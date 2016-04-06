@@ -22,6 +22,11 @@ namespace LMSProject.Controllers
             return View(tasks.ToList());
         }
 
+        public ActionResult _List()
+        {
+            var tasks = db.tasks.Include(t => t.folders).Include(t => t.schoolClasses);
+            return PartialView(tasks.ToList());
+        }
         // GET: tasks/Details/5
         public ActionResult Details(int? id)
         {

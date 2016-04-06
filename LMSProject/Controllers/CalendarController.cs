@@ -103,6 +103,12 @@ namespace LMSProject.Controllers
             
             return View(db.schedules.ToList());
         }
+
+        public ActionResult _List()
+        {
+            return PartialView(db.schedules.ToList());
+        }
+
         // GET: CalendarTest
         public ActionResult ViewSchedule(int id)
         {
@@ -126,21 +132,21 @@ namespace LMSProject.Controllers
         public ActionResult CreateScheduleDetail(scheduleDetail detail)
         {
             int detailID = detail.scheduleDetailID;
-            ViewData["taskID"] = new List<SelectListItem> {
-                new SelectListItem { Text = "9A", Value = "1"},
-                new SelectListItem { Text = "9B", Value = "1"}
-            };
-            ViewData["scheduleID"] = new List<SelectListItem> {
-                new SelectListItem { Text = "9A", Value = "5"},
-                new SelectListItem { Text = "9B", Value = "5"}
-            };
+            //ViewData["taskID"] = new List<SelectListItem> {
+            //    new SelectListItem { Text = "9A", Value = "1"},
+            //    new SelectListItem { Text = "9B", Value = "1"}
+            //};
+            //ViewData["scheduleID"] = new List<SelectListItem> {
+            //    new SelectListItem { Text = "9A", Value = "5"},
+            //    new SelectListItem { Text = "9B", Value = "5"}
+            //};
 
             if (ModelState.IsValid)
             {
-                if (IsOverlappingWithAnother(detail,detailID))
-                {
-                    return RedirectToAction("ErrorOverlapping");
-                }
+                //if (IsOverlappingWithAnother(detail,detailID))
+                //{
+                //    return Content("ErrorOverlapping");
+                //}
                 db.scheduleDetails.Add(detail);
                 db.SaveChanges();
                 return RedirectToAction("Index");

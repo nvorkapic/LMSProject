@@ -30,6 +30,13 @@ namespace LMSProject.Controllers
             return View(files.ToList());
         }
 
+        public ActionResult _List()
+        {
+            List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
+
+            var files = db.files.Include(f => f.folders).Include(f => f.tasks).Where(x => userCurrentSchollclasses.Contains(x.folders.schoolClassID));
+            return PartialView(files.ToList());
+        }
         // GET: taskfiles/Details/5
         public ActionResult Details(int? id)
         {

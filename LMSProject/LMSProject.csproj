@@ -1142,6 +1142,11 @@
     <Content Include="Views\tasks\Edit.cshtml" />
     <Content Include="Views\tasks\Index.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Calendar\_List.cshtml" />
+    <Content Include="Views\users\_List.cshtml" />
+    <Content Include="Views\schoolClasses\_List.cshtml" />
+    <Content Include="Views\tasks\_List.cshtml" />
+    <Content Include="Views\taskfiles\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

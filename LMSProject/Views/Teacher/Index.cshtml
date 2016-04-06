@@ -3,45 +3,128 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-@foreach (var schoolclass in Model.Classes)
-{
+<style>
+    .menu:hover
+    {
+        color: deeppink;
+    }
+</style>
+<h2>Teacher Admin View</h2>
+<div ng-app="TeacherView">
     <table class="table userfullview">
         <tr>
             <th>
-                @Html.DisplayFor(x => schoolclass.Name)
+                School Classes
             </th>
         </tr>
-                @foreach (var student in schoolclass.Students)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(x => student.Name)
-                        </td>
-                    </tr>
-                }
-    </table>
-}
 
-@foreach (var folder in Model.PrivateFolders)
-{
-    <table>
+        @foreach (var schoolclass in Model.Classes)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(x => schoolclass.Name)
+                </th>
+            </tr>
+
+            foreach (var student in schoolclass.Students)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => student.Name)
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+
+    <table class="table userfullview">
         <tr>
             <th>
                 Private Folders
             </th>
         </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(x => folder.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(x => folder.Path)
-            </td>
-            <td>
-                @Html.DisplayFor(x => folder.TaskName)
-            </td>
-        </tr>
+
+        @foreach (var folder in Model.PrivateFolders)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(x => folder.Name)
+                </th>
+                <td>
+                    @Html.DisplayFor(x => folder.Path)
+                </td>
+            </tr>
+
+            foreach (var file in folder.Files)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => file.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => file.Path)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => file.TaskName)
+                    </td>
+                </tr>
+            }
+        }
     </table>
-}
+
+    <div ng-controller="MenuController">
+        <h2 ng-click="toggleSchedules()" class="menu">Schedules</h2>
+        <div ng-show="showschedules">
+            @Html.Action("_List", "Calendar")
+        </div>
+        <h2 ng-click="toggleUsers()" class="menu">Users</h2>
+        <div ng-show="showusers">
+            @Html.Action("_List", "users")
+        </div>
+        <h2 ng-click="toggleClasses()" class="menu">Classes</h2>
+        <div ng-show="showclasses">
+            @Html.Action("_List", "schoolClasses")
+        </div>
+        <h2 ng-click="toggleTasks()" class="menu">Tasks</h2>
+        <div ng-show="showtasks">
+            @Html.Action("_List", "tasks")
+        </div>
+        <h2 ng-click="toggleTaskfiles()" class="menu">Taskfiles</h2>
+        <div ng-show="showtaskfiles">
+            @Html.Action("_List", "taskfiles")
+        </div>
+    </div>
+</div>
+
+<script>
+    var teacherview = angular.module("TeacherView", []);
+    teacherview.controller("MenuController", function ($scope) {
+        $scope.showschedules = false;
+        $scope.showusers = false;
+        $scope.showclasses = false;
+        $scope.showtasks = false;
+        $scope.showtaskfiles = false;
+
+        $scope.toggleSchedules = function()
+        {
+            $scope.showschedules = !$scope.showschedules;
+        }
+
+        $scope.toggleUsers = function () {
+            $scope.showusers = !$scope.showusers;
+        }
+
+        $scope.toggleClasses = function () {
+            $scope.showclasses = !$scope.showclasses;
+        }
+
+        $scope.toggleTasks = function () {
+            $scope.showtasks = !$scope.showtasks;
+        }
+
+        $scope.toggleTaskfiles = function () {
+            $scope.showtaskfiles = !$scope.showtaskfiles;
+        }
+    });
+</script>

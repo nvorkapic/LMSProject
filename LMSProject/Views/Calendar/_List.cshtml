@@ -1,0 +1,32 @@
+﻿@model IEnumerable<LMSProject.Models.schedule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @Html.ActionLink("Create New", "CreateSchedule")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.schoolClasses.name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.schoolClasses.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditSchedule", new { id=item.scheduleID }) |
+            @Html.ActionLink("View Schedule", "ViewSchedule", new { id=item.scheduleID }) |
+            @Html.ActionLink("Manage Schedule", "ManageScheduleDetails", new { id = item.scheduleID }) |
+            @Html.ActionLink("Delete schedule", "DeleteSchedule", new { id=item.scheduleID })
+        </td>
+    </tr>
+}
+
+</table>
