@@ -1,0 +1,47 @@
+﻿@model LMSProject.Controllers.TeacherViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var schoolclass in Model.Classes)
+{
+    <table class="table userfullview">
+        <tr>
+            <th>
+                @Html.DisplayFor(x => schoolclass.Name)
+            </th>
+        </tr>
+                @foreach (var student in schoolclass.Students)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(x => student.Name)
+                        </td>
+                    </tr>
+                }
+    </table>
+}
+
+@foreach (var folder in Model.PrivateFolders)
+{
+    <table>
+        <tr>
+            <th>
+                Private Folders
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(x => folder.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(x => folder.Path)
+            </td>
+            <td>
+                @Html.DisplayFor(x => folder.TaskName)
+            </td>
+        </tr>
+    </table>
+}
