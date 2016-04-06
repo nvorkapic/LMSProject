@@ -55,24 +55,43 @@ namespace LMSProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "folderTypeID,schoolClassID, name")] folder folder)
         {
-        
-                foreach (var item in db.folderTypes)
-                {
-                    var foldername = db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name;
-                    var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
 
-					var dirpath = Server.MapPath("~/Holders/" + foldername + "/" + schoolclassname + "/" + schoolclassname + "/");
+			//if (db.folders.Where(x => x.schoolClassID == folder.schoolClassID).Count() != 0) {
+			//	return RedirectToAction("Index");
+			//}
 
-					folder.path = "~/Holders/" + foldername + "/" + schoolclassname + "/" + schoolclassname + "/";
-					folder.name = schoolclassname + foldername;
-                    folder.folderTypeID = item.folderTypeID;
+			int startPos = 1;
+			int stopPos = 2;
+	
+			if (db.folders.Where(x => x.schoolClassID == folder.schoolClassID && x.folderTypeID == 1).Count() != 0)
+			{
+				startPos = 2;
+			}
+
+			if (db.folders.Where(x => x.schoolClassID == folder.schoolClassID && x.folderTypeID == 2).Count() != 0)
+			{
+				stopPos = 1;
+			}
+
+			for (int i = startPos; i <= stopPos; i++) //i loop through predefined and fixed FolderTypeID's
+			{	
+                var foldername = db.folderTypes.Where(x => x.folderTypeID == i).First().name;
+                var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
+
+				var dirpath = Server.MapPath("~/Holders/" + foldername + "/" + schoolclassname + "/" + foldername + schoolclassname + "/");
+
+				folder.path = "~/Holders/" + foldername + "/" + schoolclassname + "/" + foldername + schoolclassname + "/";
+				folder.name = schoolclassname + foldername;
+                folder.folderTypeID = i;
 
                 Directory.CreateDirectory(dirpath);
       
-                    db.folders.Add(folder);
-             
-            }
-            db.SaveChanges();
+                db.folders.Add(folder);
+				db.SaveChanges();
+			}
+
+			
+            
             return RedirectToAction("Index");
             
             //ViewBag.folderTypeID = new SelectList(db.folderTypes, "folderTypeID", "name", folder.folderTypeID);
