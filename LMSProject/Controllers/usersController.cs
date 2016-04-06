@@ -190,7 +190,7 @@ namespace LMSProject.Controllers
             }
 
 
-
+            myUserRepo.DeleteUser(id);
 
             return RedirectToAction("Index");
 
