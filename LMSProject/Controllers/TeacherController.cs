@@ -20,6 +20,8 @@ namespace LMSProject.Controllers
         public string Name { get; set; }
         public int id { get; set; }
         public List<TeacherStudentViewModel> Students { get; set; }
+        public List<TeacherFolderViewModel> Folders { get; set; }
+
     }
     public class TeacherPrivateFileViewModel
     {
@@ -28,16 +30,16 @@ namespace LMSProject.Controllers
         public string  TaskName { get; set; }
         public int Id { get; set; }
     }
-    public class TeacherPrivateFolderViewModel
+    public class TeacherFolderViewModel
     {
         public string Name { get; set; }
         public string Path { get; set; }
         public List<TeacherPrivateFileViewModel> Files { get; set; }
+        public string FolderType { get; set; }
     }
     public class TeacherViewModel
     {
         public List<TeacherClassViewModel> Classes { get; set; }
-        public List<TeacherPrivateFolderViewModel> PrivateFolders { get; set; }
         //public List<TeacherPrivateFileViewModel> PrivateFiles { get; set; }
     }
 
@@ -53,7 +55,7 @@ namespace LMSProject.Controllers
         public ActionResult Index()
         {
             TeacherViewModel viewModel = new TeacherViewModel() { Classes = new List<TeacherClassViewModel>() };
-            viewModel.PrivateFolders = new List<TeacherPrivateFolderViewModel>();
+            //viewModel = new List<TeacherPrivateFolderViewModel>();
             //viewModel.PrivateFiles = new List<TeacherPrivateFileViewModel>();
 
             string TeacherUserId = userRepository.GetUserIdByName(User.Identity.Name);
@@ -90,35 +92,69 @@ namespace LMSProject.Controllers
             //                                     where fil.userID == TeacherUserId && fil.folders.folderTypeID == 1
             //                                     select fil;
             var myfileSelectList = db.files.ToList();
-            foreach(var f in myfileSelectList)
+
+            foreach(var c in viewModel.Classes)
             {
-                TeacherPrivateFolderViewModel foundFolder = new TeacherPrivateFolderViewModel {
-                    Name = f.folders.name,
-                    Path = f.folders.path,
-                    Files = new List<TeacherPrivateFileViewModel>()
-                };
-
-                if (!viewModel.PrivateFolders.Contains(foundFolder))
+                var folders = db.folders.Where(p => p.schoolClassID == c.id);
+                c.Folders = new List<TeacherFolderViewModel>();
+                foreach (var f in folders)
                 {
-                    viewModel.PrivateFolders.Add(foundFolder);
-                }
+                    List<TeacherPrivateFileViewModel> folderFiles = new List<TeacherPrivateFileViewModel>();
+                    var files = db.files.Where(p => p.folderID == f.folderID);
+                    foreach(var file in files)
+                    {
+                        string tempTaskName = "";
+                        if (file.tasks != null)
+                        {
+                            tempTaskName = file.tasks.name;
+                        }
 
-                TeacherPrivateFolderViewModel existingFolder = viewModel.PrivateFolders.Find(p => p.Name == f.name && p.Path == f.path);
-                string tempTaskName = "";
-                if (f.tasks != null)
-                {
-                    tempTaskName = f.tasks.name;
-                }
-
-                foundFolder.Files.Add(
-                    new TeacherPrivateFileViewModel
+                        folderFiles.Add(new TeacherPrivateFileViewModel
+                        {
+                            Name = file.name,
+                            Path = file.path,
+                            TaskName = tempTaskName,
+                            Id = file.fileID
+                        });
+                    }
+                    c.Folders.Add(new TeacherFolderViewModel
                     {
                         Name = f.name,
                         Path = f.path,
-                        TaskName = tempTaskName,
-                        Id = f.fileID
+                        Files = folderFiles,
+                        FolderType = f.folderTypes.name
                     });
+                }
             }
+            //foreach(var f in myfileSelectList)
+            //{
+            //    TeacherPrivateFolderViewModel foundFolder = new TeacherPrivateFolderViewModel {
+            //        Name = f.folders.name,
+            //        Path = f.folders.path,
+            //        Files = new List<TeacherPrivateFileViewModel>()
+            //    };
+
+            //    if (!viewModel.PrivateFolders.Contains(foundFolder))
+            //    {
+            //        viewModel.PrivateFolders.Add(foundFolder);
+            //    }
+
+            //    TeacherPrivateFolderViewModel existingFolder = viewModel.PrivateFolders.Find(p => p.Name == f.name && p.Path == f.path);
+            //    string tempTaskName = "";
+            //    if (f.tasks != null)
+            //    {
+            //        tempTaskName = f.tasks.name;
+            //    }
+
+            //    foundFolder.Files.Add(
+            //        new TeacherPrivateFileViewModel
+            //        {
+            //            Name = f.name,
+            //            Path = f.path,
+            //            TaskName = tempTaskName,
+            //            Id = f.fileID
+            //        });
+            //}
             return View(viewModel);
         }
     }
