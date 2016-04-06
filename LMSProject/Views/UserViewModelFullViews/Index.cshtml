@@ -4,171 +4,190 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Welcome</h2>
-
-<h1>
-    @ViewBag.RoleName: @ViewBag.UserName
-</h1>
-<p>
-    UserID: @ViewBag.UserId
-</p>
-
-<table class="table userfullview">
-    <tr>
-        <th>
-            School Classes
-        </th>
-    </tr>
-
-@foreach (var item in (IEnumerable<SelectListItem>)ViewBag.schoolClassList) {
-    <tr>
-        <td>
-            @Html.DisplayFor(x => item.Text)
-        </td>
-    </tr>
-}
-
-</table>
-
-
-<table class="table userfullview">
-    <tr>
-        <th>
-            Folders
-        </th>
-    </tr>
-@{
-    foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
-    {
-        
-        if (item.folderTypes.folderTypeID == 2) {
-        <tr>
-            <td>
-        
-        
-            @Html.Raw(item.name)
-            @using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    <h1><span class="label label-primary" style="font-size:1.4em">W</span>
+    <span class="label label-primary" style="font-size:1.3em">E</span>
+    <span class="label label-primary" style="font-size:1.3em">L</span>
+    <span class="label label-primary" style="font-size:1.3em">C</span>
+    <span class="label label-primary" style="font-size:1.3em">O</span>
+    <span class="label label-primary" style="font-size:1.3em">M</span>
+    <span class="label label-primary" style="font-size:1.3em">E</span>
+    <span class="label label-danger">@ViewBag.RoleName</span> <span class="label label-success">@ViewBag.UserName</span></h1>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <table class="table userfullview" style="border:hidden">
+            <tr>
+                <th>
+                    <span class=" label label-primary" style="font-size:1.7em">
+                        SCHOOL CLASSES
+                    </span>
+                </th>
+            </tr>
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.schoolClassList)
             {
-                @Html.AntiForgeryToken()
-            <div class="col-md-10">
-                <input type="file" name="attachment" lang="en-gb"/>
-                <input type="hidden" name="folderID" value="@item.folderID"/>
-            </div> 
-                <input type="submit" value="Add" />
+                <tr style="border:hidden">
+                    <td>
+                        <span class="btn btn-pink">@Html.DisplayFor(x => item.Text)</span>
+                    </td>
+                </tr>
             }
-         
-         
-
-            </td>
-        </tr>
-    }
-    }
-}
-</table>
-
-
-<table class="table userfullview">
-    <tr>
-        <th>
-            Tasks
-        </th>
-    </tr>
-
-    @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
-    {
-        <tr>
-            <td>@{
-        using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        </table>
+    </div>
+    <div class="col-md-4">
+        <table class="table userfullview" style="border:hidden">
+            <tr>
+                <th>
+                    <span class=" label label-primary" style="font-size:1.7em">
+                        SHARED FOLDERS
+                    </span>
+                </th>
+            </tr>
+            @{
+                foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
                 {
-                @Html.AntiForgeryToken()
-                @Html.Raw(item.schoolClasses.name)<p> </p>
-                @Html.Raw(item.name)
-                
-                    <input type="file" name="attachment" style="display:inline"/>    <input type="submit" value="Add" style="display:inline" />
-                    <input type="hidden" name="folderID" value="@item.folderID"/>
-                    <input type="hidden" name="taskID" value="@item.taskID" />
-                   
+
+                    if (item.folderTypes.folderTypeID == 2)
+                    {
+                        <tr style="border:hidden">
+                            <td>
+
+
+                               <p class="btn btn-danger" style="display:inline">@Html.Raw(item.name)</p>
+                                @using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="file" class="btn btn-pink" name="attachment" style="display:inline; " />
+                                    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
+                                    <input type="hidden" name="folderID" value="@item.folderID" />
+                                }
+
+
+
+                            </td>
+                        </tr>
+                    }
                 }
-}
-            </td>
-        </tr>
-    }
+            }
+        </table>
+    </div>
+    <div class="col-md-4">
+        <table class="table userfullview" style="border:hidden">
+            <tr>
+                <th>
+                    <span class="label label-primary" style="font-size:1.7em">TASKS</span>
+                </th>
+            </tr>
 
-</table>
+            @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
+            {
+                <tr style="border:hidden">
+                    <td>
+                        @{
+                using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                            <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
+                            <p class="btn btn-info">@Html.Raw(item.name)</p>
 
-<table class="table userfullview">
-    <tr>
-        <th>
-            Submited Private Files
-        </th>
-    </tr>
+                            <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
+                            <input type="hidden" name="folderID" value="@item.folderID" />
+                            <input type="hidden" name="taskID" value="@item.taskID" />
+                }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table userfullview" style="border:hidden">
+            <tr>
+                <th>
+                    <span class=" label label-primary" style="font-size:1.5em">
+                        Submited Private Files
+                    </span>
+                </th>
+            </tr>
 
-    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileList)
-    {
-        <tr>
-            <td>
-                    @Html.Raw(item.name + " in " + item.path + " for " + item.tasks.name)
+            @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileList)
+            {
+                <tr style="border:hidden">
+                    <td>
+                        <p class="btn btn-pink">@Html.Raw(item.name)</p>
+                        <p class="btn btn-info">@Html.Raw(item.tasks.name)</p>
+                    </td>
+                    <td>
+                        <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
+                        <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span>
+                    </td>
+                </tr>
+            }
 
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table userfullview">
+            <tr>
+                <th>
+                    <span class=" label label-primary" style="font-size:1.5em">
+                        Submited Shared Files
+                    </span>
+                </th>
+            </tr>
+
+            @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileShList)
+            {
+                <tr>
+                    <td>
+                        <p class="btn btn-pink">@Html.Raw(item.name)</p>
+                        <p class="btn btn-info">@Html.Raw(item.folders.name)</p>
 </td>
-            <td>@Html.ActionLink("Download","Download","taskfiles", new { filePath = item.path },null) |
-            @Html.ActionLink("Delete", "DeleteFileNow",  new { id = item.fileID }) </td>
-        </tr>
-    }
+                    <td>
+                        <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
+                        <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span>
+</td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div>
+        <table class="table userfullview">
+            <tr>
+                <th>
+                    Shared Files
+                </th>
+            </tr>
+            @{
+                string myuserName = "";
+            }
 
-<table class="table userfullview">
-    <tr>
-        <th>
-            Submited Shared Files
-        </th>
-    </tr>
-
-    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileShList)
-    {
-        <tr>
-            <td>
-                @Html.Raw(item.name + " in " + item.path)
-
-            </td>
-            <td>
-                @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null) |
-            @Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })
-        </td>
-    </tr>
-    }
-
-</table>
-
-<table class="table userfullview">
-    <tr>
-        <th>
-            Shared Files
-        </th>
-    </tr>
-    @{
-        string myuserName = "";
-    }
-
-    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.SharedList)
-    {
-        <tr>
-            <td>@{
-        myuserName = "";
-        foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
-        {
-            if (utem.Id == item.userID) { myuserName = utem.UserName; } 
-        }
+            @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.SharedList)
+            {
+                <tr>
+                    <td>
+                        @{
+                myuserName = "";
+                foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
+                {
+                    if (utem.Id == item.userID) { myuserName = utem.UserName; }
                 }
-                @Html.Raw(item.name + " in " + item.path + " from " + myuserName)
+                        }
+                        @Html.Raw(item.name + " in " + item.path + " from " + myuserName)
 
-            </td>
-            <td>
-                @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)
-            </td>
-        </tr>
-    }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)
+                    </td>
+                </tr>
+            }
 
-</table>
-
+        </table>
+    </div>
+</div>
 @Html.Action("ViewStudentSchedule", "Calendar", new { id = ViewBag.UserId })
