@@ -58,13 +58,13 @@ namespace LMSProject.Controllers
         
                 foreach (var item in db.folderTypes)
                 {
-                    //var foldername = db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name;
-                    //var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
+                    var foldername = db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name;
+                    var schoolclassname = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name;
 
-                    var dirpath = Server.MapPath("~/Holders/" + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/");
+					var dirpath = Server.MapPath("~/Holders/" + foldername + "/" + schoolclassname + "/" + schoolclassname + "/");
 
-                    folder.path = "~/Holders/" + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + "/" + db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name + "/";
-                    folder.name = db.schoolClasses.Where(x => x.schoolClassID == folder.schoolClassID).First().name + db.folderTypes.Where(x => x.folderTypeID == item.folderTypeID).First().name;
+					folder.path = "~/Holders/" + foldername + "/" + schoolclassname + "/" + schoolclassname + "/";
+					folder.name = schoolclassname + foldername;
                     folder.folderTypeID = item.folderTypeID;
 
                 Directory.CreateDirectory(dirpath);
