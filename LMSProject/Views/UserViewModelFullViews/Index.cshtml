@@ -3,191 +3,225 @@
 @{
     ViewBag.Title = "Index";
 }
-
-    <h1><span class="label label-primary" style="font-size:1.4em">W</span>
-    <span class="label label-primary" style="font-size:1.3em">E</span>
-    <span class="label label-primary" style="font-size:1.3em">L</span>
-    <span class="label label-primary" style="font-size:1.3em">C</span>
-    <span class="label label-primary" style="font-size:1.3em">O</span>
-    <span class="label label-primary" style="font-size:1.3em">M</span>
-    <span class="label label-primary" style="font-size:1.3em">E</span>
-    <span class="label label-danger">@ViewBag.RoleName</span> <span class="label label-success">@ViewBag.UserName</span></h1>
-<br />
-<br />
-<div class="row">
-    <div class="col-md-3">
-        <table class="table userfullview" style="border:hidden">
-            <tr>
-                <th>
-                    <span class=" label label-primary" style="font-size:1.7em">
-                        SCHOOL CLASSES
-                    </span>
-                </th>
-            </tr>
-            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.schoolClassList)
+<div ng-app="UserViewModelFullView">
+    <div ng-controller="UserViewController">
+        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+            <div class="col-lg-12">
+                <h1>
+                    <span class="label label-primary" style="font-size:1.4em">W</span>
+                    <span class="label label-primary" style="font-size:1.3em">E</span>
+                    <span class="label label-primary" style="font-size:1.3em">L</span>
+                    <span class="label label-primary" style="font-size:1.3em">C</span>
+                    <span class="label label-primary" style="font-size:1.3em">O</span>
+                    <span class="label label-primary" style="font-size:1.3em">M</span>
+                    <span class="label label-primary" style="font-size:1.3em">E</span>
+                    <span class="label label-danger">@ViewBag.RoleName</span> <span class="label label-success">@ViewBag.UserName</span>
+                </h1>
+            </div>
+        </div>
+        <br />
+        <br /><br /><br />
+        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+            <div class="col-md-3">
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class=" label label-primary" style="font-size:1.7em">
+                                SCHOOL CLASSES
+                            </span>
+                        </th>
+                    </tr>
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.schoolClassList)
             {
-                <tr style="border:hidden">
-                    <td>
-                        <span class="btn btn-pink">@Html.DisplayFor(x => item.Text)</span>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-    <div class="col-md-4">
-        <table class="table userfullview" style="border:hidden">
-            <tr>
-                <th>
-                    <span class=" label label-primary" style="font-size:1.7em">
-                        SHARED FOLDERS
-                    </span>
-                </th>
-            </tr>
-            @{
-                foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
-                {
-
-                    if (item.folderTypes.folderTypeID == 2)
-                    {
                         <tr style="border:hidden">
                             <td>
-
-
-                               <p class="btn btn-danger" style="display:inline">@Html.Raw(item.name)</p>
-                                @using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <input type="file" class="btn btn-pink" name="attachment" style="display:inline; " />
-                                    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
-                                    <input type="hidden" name="folderID" value="@item.folderID" />
-                                }
-
-
-
+                                <span class="btn btn-pink">@Html.DisplayFor(x => item.Text)</span>
                             </td>
                         </tr>
                     }
-                }
-            }
-        </table>
-    </div>
-    <div class="col-md-4">
-        <table class="table userfullview" style="border:hidden">
-            <tr>
-                <th>
-                    <span class="label label-primary" style="font-size:1.7em">TASKS</span>
-                </th>
-            </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class=" label label-primary" style="font-size:1.7em">
+                                SHARED FOLDERS
+                            </span>
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
+                        {
 
-            @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
-            {
-                <tr style="border:hidden">
-                    <td>
-                        @{
-                using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-                            <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
-                            <p class="btn btn-info">@Html.Raw(item.name)</p>
+                            if (item.folderTypes.folderTypeID == 2)
+                            {
+                                <tr style="border:hidden">
+                                    <td>
 
-                            <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
-                            <input type="hidden" name="folderID" value="@item.folderID" />
-                            <input type="hidden" name="taskID" value="@item.taskID" />
-                }
+
+                                        <p class="btn btn-danger" style="display:inline">@Html.Raw(item.name)</p>
+                                        @using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <input type="file" class="btn btn-pink" name="attachment" style="display:inline; " />
+                                            <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
+                                            <input type="hidden" name="folderID" value="@item.folderID" />
+                                        }
+
+
+
+                                    </td>
+                                </tr>
+                            }
                         }
-                    </td>
-                </tr>
-            }
-        </table>
+                    }
+                </table>
+            </div>
+            <div class="col-md-4" >
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class="label label-primary" style="font-size:1.7em">TASKS</span>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
+            {
+                        <tr style="border:hidden">
+                            <td>
+                                @{
+                                    using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
+                                        <p class="btn btn-info">@Html.Raw(item.name)</p>
+
+                                        <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
+                                        <input type="hidden" name="folderID" value="@item.folderID" />
+                                        <input type="hidden" name="taskID" value="@item.taskID" />
+                                    }
+                                }
+                            </td>
+                        </tr>
+                                    }
+                </table>
+            </div>
+        </div>
+        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+            <div class="col-md-6" >
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class=" label label-primary" style="font-size:1.5em">
+                                Submited Private Files
+                            </span>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileList)
+            {
+                        <tr style="border:hidden">
+                            <td>
+                                <p class="btn btn-pink">@Html.Raw(item.name)</p>
+                                <p class="btn btn-info">@Html.Raw(item.tasks.name)</p>
+                            </td>
+                            <td>
+                                <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
+                                <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class="col-md-6" >
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class="label label-primary" style="font-size:1.5em">
+                                Submited Shared Files
+                            </span>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileShList)
+            {
+                        <tr style="border:hidden">
+                            <td>
+                                <p class="btn btn-pink">@Html.Raw(item.name)</p>
+                                <p class="btn btn-info">@Html.Raw(item.folders.name)</p>
+                            </td>
+                            <td>
+                                <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
+                                <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+            <div class="col-md-12">
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class="label label-primary" style="font-size:1.5em">
+                                Submited Files
+                            </span>
+                        </th>
+                    </tr>
+                    @{
+                        string myuserName = "";
+                    }
+
+                    @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.SharedList)
+            {
+                        <tr style="border:hidden">
+                            <td>
+                                @{
+                                    myuserName = "";
+                                    foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
+                                    {
+                                        if (utem.Id == item.userID) { myuserName = utem.UserName; }
+                                    }
+                                }
+                                <p class="btn btn-success">@Html.Raw(myuserName)</p><p class="btn btn-pink">@Html.Raw(item.name)</p>
+                                <p class="btn btn-default">@Html.Raw(item.path)</p>
+                            </td>
+                            <td>
+                                <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
+                            </td>
+                        </tr>
+                                    }
+
+                </table>
+            </div>
+        </div>
+        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+            <div class="col-md-12" >
+                <span class="btn btn-primary" style="font-size:1.5em" ng-click="toggleSchedule()">Schedule</span>
+                <div ng-show="showSchedule">
+                   
+                    @Html.Action("ViewStudentSchedule", "Calendar", new { id = ViewBag.UserId })
+                </div>
+                <div ng-hide="showTest">{{testText}}</div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <table class="table userfullview" style="border:hidden">
-            <tr>
-                <th>
-                    <span class=" label label-primary" style="font-size:1.5em">
-                        Submited Private Files
-                    </span>
-                </th>
-            </tr>
 
-            @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileList)
-            {
-                <tr style="border:hidden">
-                    <td>
-                        <p class="btn btn-pink">@Html.Raw(item.name)</p>
-                        <p class="btn btn-info">@Html.Raw(item.tasks.name)</p>
-                    </td>
-                    <td>
-                        <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
-                        <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span>
-                    </td>
-                </tr>
-            }
-
-        </table>
-    </div>
-    <div class="col-md-6">
-        <table class="table userfullview">
-            <tr>
-                <th>
-                    <span class=" label label-primary" style="font-size:1.5em">
-                        Submited Shared Files
-                    </span>
-                </th>
-            </tr>
-
-            @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileShList)
-            {
-                <tr>
-                    <td>
-                        <p class="btn btn-pink">@Html.Raw(item.name)</p>
-                        <p class="btn btn-info">@Html.Raw(item.folders.name)</p>
-</td>
-                    <td>
-                        <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
-                        <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span>
-</td>
-                </tr>
-            }
-
-        </table>
-    </div>
-</div>
-<div class="row">
-    <div>
-        <table class="table userfullview">
-            <tr>
-                <th>
-                    Shared Files
-                </th>
-            </tr>
-            @{
-                string myuserName = "";
-            }
-
-            @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.SharedList)
-            {
-                <tr>
-                    <td>
-                        @{
-                myuserName = "";
-                foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
-                {
-                    if (utem.Id == item.userID) { myuserName = utem.UserName; }
-                }
-                        }
-                        @Html.Raw(item.name + " in " + item.path + " from " + myuserName)
-
-                    </td>
-                    <td>
-                        @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)
-                    </td>
-                </tr>
-            }
-
-        </table>
-    </div>
-</div>
-@Html.Action("ViewStudentSchedule", "Calendar", new { id = ViewBag.UserId })
+<script>
+    var UserViewModelFullView = angular.module("UserViewModelFullView", []);
+    UserViewModelFullView.controller("UserViewController", function ($scope) {
+        $scope.showSchedule = false;
+        $scope.showTest = true;
+        $scope.testText = 'Outside';
+        $scope.toggleSchedule = function () {
+            $scope.testText ='Inside Function';
+            $scope.showSchedule = !$scope.showSchedule;
+            $scope.showTest = false;
+        }
+    });
+</script>
