@@ -37,18 +37,17 @@
             Folders
         </th>
     </tr>
-
-    @foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
+@{
+    foreach (var item in (IEnumerable<LMSProject.Models.folder>)ViewBag.folderList)
     {
+        
+        if (item.folderTypes.folderTypeID == 2) {
         <tr>
             <td>
-                @Html.Raw(item.name)
-            </td>
-            <td>@{
-        if (item.folderTypes.folderTypeID==2)
-        {
-            
-            using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        
+        
+            @Html.Raw(item.name)
+            @using (Html.BeginForm("UploadShared", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
             <div class="col-md-10">
@@ -57,12 +56,14 @@
             </div> 
                 <input type="submit" value="Add" />
             }
-         }
-                 }
+         
+         
 
             </td>
         </tr>
     }
+    }
+}
 </table>
 
 
@@ -80,13 +81,13 @@
         using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                 @Html.AntiForgeryToken()
+                @Html.Raw(item.schoolClasses.name)<p> </p>
                 @Html.Raw(item.name)
-                <div class="col-md-10">
-                    <input type="file" name="attachment" lang="en-gb"/>
+                
+                    <input type="file" name="attachment" style="display:inline"/>    <input type="submit" value="Add" style="display:inline" />
                     <input type="hidden" name="folderID" value="@item.folderID"/>
                     <input type="hidden" name="taskID" value="@item.taskID" />
-                </div>
-                     <input type="submit" value="Add" />
+                   
                 }
 }
             </td>
