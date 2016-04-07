@@ -15,75 +15,161 @@
 </div>
 <div>
     <div ng-controller="MenuController">
-    <div class="row styleRow">
-        <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</span>
-        <div ng-show="showschoolclass">
-            <table class="userfullview" style="border:none;">
+        <div class="row styleRow">
+            <div class="col-md-4">
+                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</span>
+                <div ng-show="showschoolclass">
+                    <table class="userfullview" style="border:none;">
 
-                @foreach (var schoolclass in Model.Classes)
-            {
-                    <tr>
-                        <th class="btn-lg btn-primary">
-                            @Html.DisplayFor(x => schoolclass.Name)
-                        </th>
-                        <th>
-                            
-                        </th>
-                        <th>
-                           
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                    if (schoolclass.Students.Count == 0)
-                    {
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                None
-                            </td>
-                            <td>
-                                None
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                    }
-                    else
-                    {
-                        foreach (var student in schoolclass.Students)
+                        @foreach (var schoolclass in Model.Classes)
                         {
                             <tr>
-                       
-                                <td class="btn btn-success" style="width:100%">
-                                    @Html.DisplayFor(x => student.Name)
-                                </td>
-                                <td>
-                                <td class="btn btn-info">
-                                    @Html.DisplayFor(x => student.Role)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Remove from Class", "DeleteSchoolClassFromUser", "users", new { userId = student.id, SchooClassId = schoolclass.id }, new {@class ="btn btn-danger"})
-                                </td>
-                                </td>
+                                <th class="btn-lg btn-primary">
+                                    @Html.DisplayFor(x => schoolclass.Name)
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
                             </tr>
+                            if (schoolclass.Students.Count == 0)
+                            {
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        None
+                                    </td>
+                                    <td>
+                                        None
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var student in schoolclass.Students)
+                                {
+                                    <tr>
+
+                                        <td class="btn btn-success" style="width:100%">
+                                            @Html.DisplayFor(x => student.Name)
+                                        </td>
+                                        <td>
+                                        <td class="btn btn-info">
+                                            @Html.DisplayFor(x => student.Role)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Remove from Class", "DeleteSchoolClassFromUser", "users", new { userId = student.id, SchooClassId = schoolclass.id }, new { @class = "btn btn-danger" })
+                                        </td>
+                                        </td>
+                                    </tr>
+                                }
+                            }
                         }
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleFolders()" class="menu">Files &amp; Folders</span>
+                <div ng-show="showfolders">
+                    @foreach (var schoolClass in Model.Classes)
+                    {
+                        <table class="table userfullview">
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(p => schoolClass.Name)
+                                </th>
+                                <th>
+                                    Path
+                                </th>
+                                <th>
+                                    Task
+                                </th>
+                                <th>
+                                    Folder Type
+                                </th>
+                            </tr>
+                            @if (schoolClass.Folders == null)
+                            {
+                                <tr>
+                                    <th>
+                                        None
+                                    </th>
+                                    <th>
+                                        None
+                                    </th>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var folder in schoolClass.Folders)
+                                {
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayFor(p => folder.Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayFor(p => folder.Path)
+                                        </th>
+                                        <th>
+                                            &nbsp;
+                                        </th>
+                                        <th>
+                                            @Html.DisplayFor(p => folder.FolderType)
+                                        </th>
+                                    </tr>
+                                    if (folder.Files.Count == 0)
+                                    {
+                                        <tr>
+                                            <td>
+                                                None
+                                            </td>
+                                            <td>
+                                                None
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var file in folder.Files)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.ActionLink(file.Name, "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(p => file.Path)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(p => file.TaskName)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
+                                                    @Html.ActionLink("Delete", "DeleteFileNow", new { id = file.Id }, new { @class = "btn btn-danger" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            }
+
+                        </table>
                     }
-                }
-            </table>
-            </div>
-            </div>
-            <div class="row styleRow">
-            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleFolders()" class="menu">Files &amp; Folders</span>
-            <div ng-show="showfolders">
-            @foreach(var schoolClass in Model.Classes)
-            {
-                <table class="table userfullview">
+                </div>
+                @*<table class="table userfullview">
                     <tr>
                         <th>
-                            @Html.DisplayFor(p => schoolClass.Name)
+                            Private Folder
+                        </th>
+                        <th>
+                            File Name
                         </th>
                         <th>
                             Path
@@ -91,139 +177,55 @@
                         <th>
                             Task
                         </th>
-                        <th>
-                            Folder Type
-                        </th>
-                    </tr>
-                    @if (schoolClass.Folders == null)
-                    {
-                        <tr>
-                            <th>
-                                None
-                            </th>
-                            <th>
-                                None
-                            </th>
-                        </tr>
-                    }
-                    else
-                    {
-                        foreach (var folder in schoolClass.Folders)
-                        {
-                            <tr>
-                                <th>
-                                    @Html.DisplayFor(p => folder.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayFor(p => folder.Path)
-                                </th>
-                                <th>
-                                    &nbsp;
-                                </th>
-                                <th>
-                                    @Html.DisplayFor(p => folder.FolderType)
-                                </th>
-                            </tr>
-                            if(folder.Files.Count == 0)
-                            {
-                                <tr>
-                                    <td>
-                                        None
-                                    </td>
-                                    <td>
-                                        None
-                                    </td>
-                                </tr>
-                            }
-                            else
-                            {
-                                foreach (var file in folder.Files)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.ActionLink(file.Name, "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(p => file.Path)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(p => file.TaskName)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
-                                            @Html.ActionLink("Delete", "DeleteFileNow", new { id = file.Id }, new {  @class="btn btn-danger"})
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        }
-                    }
-
-                </table>
-            }
-            </div>
-            @*<table class="table userfullview">
-                <tr>
-                    <th>
-                        Private Folder
-                    </th>
-                    <th>
-                        File Name
-                    </th>
-                    <th>
-                        Path
-                    </th>
-                    <th>
-                        Task
-                    </th>
-                </tr>
-
-                @foreach (var folder in Model.PrivateFolders)
-            {
-                    <tr>
-                        <th>
-                            @Html.DisplayFor(x => folder.Name)
-                        </th>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            @Html.DisplayFor(x => folder.Path)
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
                     </tr>
 
-                    foreach (var file in folder.Files)
-                    {
+                    @foreach (var folder in Model.PrivateFolders)
+                {
                         <tr>
+                            <th>
+                                @Html.DisplayFor(x => folder.Name)
+                            </th>
                             <td>
                                 &nbsp;
                             </td>
                             <td>
-                                @Html.DisplayFor(x => file.Name)
+                                @Html.DisplayFor(x => folder.Path)
                             </td>
                             <td>
-                                @Html.DisplayFor(x => file.Path)
+                                &nbsp;
                             </td>
                             <td>
-                                @Html.DisplayFor(x => file.TaskName)
+                                &nbsp;
                             </td>
-                            <td>
-                                @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, null) |
-                                @Html.ActionLink("Delete", "DeleteFileNow", "UserViewModelFullViews", new { id = file.Id }, null)
-                            </td>
-
                         </tr>
+
+                        foreach (var file in folder.Files)
+                        {
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => file.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => file.Path)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => file.TaskName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, null) |
+                                    @Html.ActionLink("Delete", "DeleteFileNow", "UserViewModelFullViews", new { id = file.Id }, null)
+                                </td>
+
+                            </tr>
+                        }
                     }
-                }
-            </table>*@
+                </table>*@
+            </div>
         </div>
-            <div class="row styleRow">
+         <div class="row styleRow">
                 <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchedules()">Schedules</span>
                 <div ng-show="showschedules">
                     @Html.Action("_List", "Calendar")
@@ -235,21 +237,22 @@
                 @Html.Action("_List", "users")
             </div>
                         </div>
+        <div class="row styleRow">
 
-                        <div class="row styleRow">
-            <span class=" btn btn-info" style="font-size:1.7em"  ng-click="toggleClasses()">Classes</span>
-            <div ng-show="showclasses">
-                @Html.Action("_List", "schoolClasses")
+            <div class="col-md-4 ">
+                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleClasses()">Classes</span>
+                <div ng-show="showclasses">
+                    @Html.Action("_List", "schoolClasses")
+                </div>
             </div>
-                        </div>
 
-                        <div class="row styleRow">
-            <span class="btn btn-info" style="font-size:1.7em" ng-click="toggleTasks()">Tasks</span>
-            <div ng-show="showtasks">
-                @Html.Action("_List", "tasks")
+            <div class="col-md-8">
+                <span class="btn btn-info" style="font-size:1.7em" ng-click="toggleTasks()">Tasks</span>
+                <div ng-show="showtasks">
+                    @Html.Action("_List", "tasks")
+                </div>
             </div>
-                        </div>
-
+        </div>
                         <div class="row styleRow">
             <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleTaskfiles()">Taskfiles</span>
             <div ng-show="showtaskfiles">
