@@ -219,12 +219,8 @@
     var UserViewModelFullView = angular.module('LMSProject');
     UserViewModelFullView.controller('UserViewController', function ($scope) {
         $scope.showSchedule = false;
-        $scope.showTest = true;
-        $scope.testText = 'Outside';
         $scope.toggleSchedule = function () {
-            $scope.testText ='Inside Function';
             $scope.showSchedule = !$scope.showSchedule;
-            $scope.showTest = false;
         }
     });
 </script>
