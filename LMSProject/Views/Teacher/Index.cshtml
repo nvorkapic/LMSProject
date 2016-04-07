@@ -72,63 +72,42 @@
             <div class="col-md-7">
                 <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleFolders()">FILES</span>
                 <div ng-show="showfolders">
-                    @foreach (var schoolClass in Model.Classes)
-                    {
-                        <table class="userfullview">
-                            <tr>
-                                <th class="btn-lg btn-primary" colspan="3" style="width:100%">
-                                    @Html.DisplayFor(p => schoolClass.Name)
-                                </th>
-                            </tr>
-                            @if (schoolClass.Folders.Count == 0)
-                            {
-                                <tr>
-                                    <th class="btn btn-default">
-                                        Empty
-                                    </th>
-                                </tr>
-                            }
-                            else
-                            {
-                                foreach (var folder in schoolClass.Folders)
-                                {
-                                    <tr>
-                                        <th class="btn btn-warning">
-                                            @Html.DisplayFor(p => folder.Name)
-                                        </th>         
-                                    </tr>
-                                    if (folder.Files.Count == 0)
-                                    {
-                                        <tr>
-                                            <td class="btn btn-default">
-                                                None
-                                            </td>
-                                        </tr>
-                                    }
-                                    else
-                                    {
-                                        foreach (var file in folder.Files)
-                                        {
-                                            <tr>
-                                                
-                                                <td class="btn btn-pink">
-                                                    @Html.ActionLink(file.Name, "Download", "taskfiles", new { filePath = file.Path})
-                                                </td>
-                                                <td class="btn btn-default">
-                                                    @Html.DisplayFor(p => file.Path)
-                                                </td>                                                
-                                                <td>
-                                                    @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
-                                                    @Html.ActionLink("Delete", "DeleteFileNow", new { id = file.Id }, new { @class = "btn btn-danger" })
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                }
-                            }
+                    <table class="table-condensed">
+                          @foreach (var item in Model.AllFiles) { 
+                              <tr>
+                                  <th class="btn-lg btn-primary" colspan="4">@Html.Raw(item.folders.schoolClasses.name.ToString())</th>
+                                  <th>
 
-                        </table>
-                    }
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                  <th>
+
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <td>
+                                  <td>
+                                      @{
+                                        string myuserName = "";
+                                        foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
+                                            {
+                                                if (utem.Id == item.userID) { myuserName = utem.UserName; }
+                                            }
+                                      }
+                                      <span class="btn btn-success">@Html.Raw(myuserName)</span>
+                                      <span class="btn btn-warning">@Html.Raw(item.folders.name)</span>
+                                  </td>
+                                  </td>
+                                  <td>
+                                      <span class="btn btn-default" style="width:100%">@Html.Raw(item.name)</span>
+                                  </td>
+                                  <td><span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
+                                      <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span></td>
+                              </tr>
+                          }
+                    </table> 
                 </div>
                 @*<table class="table userfullview">
                     <tr>

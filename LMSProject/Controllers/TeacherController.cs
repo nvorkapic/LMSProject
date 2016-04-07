@@ -41,6 +41,7 @@ namespace LMSProject.Controllers
     public class TeacherViewModel
     {
         public List<TeacherClassViewModel> Classes { get; set; }
+		public List<file> AllFiles { get; set; }
         //public List<TeacherPrivateFileViewModel> PrivateFiles { get; set; }
     }
 
@@ -130,6 +131,13 @@ namespace LMSProject.Controllers
                     });
                 }
             }
+
+			List<ApplicationUser> userList = userRepository.GetAllUsers();
+			ViewBag.UserList = userList;
+
+			viewModel.AllFiles = new List<file>();
+			viewModel.AllFiles.AddRange(db.files.ToList());
+
             //foreach(var f in myfileSelectList)
             //{
             //    TeacherPrivateFolderViewModel foundFolder = new TeacherPrivateFolderViewModel {
