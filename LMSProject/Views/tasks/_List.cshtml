@@ -5,11 +5,11 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table-condensed">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.folders.name)
         </th>
         <th>
@@ -17,24 +17,21 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.name)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.folders.name)
+            @Html.ActionLink(item.schoolClasses.name, "Details", "schoolClasses", new { id = item.schoolClassID }, new { @class = "btn btn-danger" })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.schoolClasses.name)
+            @Html.ActionLink(item.name, "Details", new { id = item.schoolClassID }, new { @class = "btn btn-info" })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.taskID }, new {@class ="btn btn-default"}) |
-            @Html.ActionLink("Details", "Details", new { id=item.taskID }, new {@class ="btn btn-default"}) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.taskID }, new {@class ="btn btn-default"}) 
+            @Html.ActionLink("Details", "Details", new { id=item.taskID }, new {@class ="btn btn-default"}) 
             @Html.ActionLink("Delete", "Delete", new { id=item.taskID }, new {@class ="btn btn-danger"})
         </td>
     </tr>
