@@ -18,19 +18,19 @@
     <div class="row styleRow">
         <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</span>
         <div ng-show="showschoolclass">
-            <table class="table userfullview">
+            <table class="userfullview" style="border:none;">
 
                 @foreach (var schoolclass in Model.Classes)
             {
                     <tr>
-                        <th>
+                        <th class="btn-lg btn-primary">
                             @Html.DisplayFor(x => schoolclass.Name)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(x => schoolclass.Students.FirstOrDefault().Name)
+                            
                         </th>
                         <th>
-                            @Html.DisplayNameFor(x => schoolclass.Students.FirstOrDefault().Role)
+                           
                         </th>
                         <th>
                             &nbsp;
@@ -56,15 +56,17 @@
                         foreach (var student in schoolclass.Students)
                         {
                             <tr>
-                                <td>&nbsp;</td>
-                                <td>
+                       
+                                <td class="btn btn-success" style="width:100%">
                                     @Html.DisplayFor(x => student.Name)
                                 </td>
                                 <td>
+                                <td class="btn btn-info">
                                     @Html.DisplayFor(x => student.Role)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Remove from Class", "DeleteSchoolClassFromUser", "users", new { userId = student.id, SchooClassId = schoolclass.id }, new {@class ="btn btn-danger"})
+                                </td>
                                 </td>
                             </tr>
                         }
