@@ -75,9 +75,9 @@
                     <table class="table-condensed">
                           @foreach (var item in Model.AllFiles) { 
                               <tr>
-                                  <th class="btn-lg btn-primary" colspan="4">@Html.Raw(item.folders.schoolClasses.name.ToString())</th>
+                                  <th class="btn-lg btn-primary" colspan="2">@Html.Raw(item.folders.schoolClasses.name.ToString())</th>
                                   <th>
-
+                                      <span class="btn btn-pink" style="width:100%" >@Html.Raw(item.name)</span>
                                   </th>
                                   <th>
 
@@ -97,14 +97,14 @@
                                             }
                                       }
                                       <span class="btn btn-success">@Html.Raw(myuserName)</span>
-                                      <span class="btn btn-warning">@Html.Raw(item.folders.name)</span>
+                                      
                                   </td>
-                                  </td>
-                                  <td>
-                                      <span class="btn btn-default" style="width:100%">@Html.Raw(item.name)</span>
+                                  <td><span class="btn btn-warning">@Html.Raw(item.folders.name)</span></td>
+                                  <td >
+                                      
                                   </td>
                                   <td><span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
-                                      <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID })</span></td>
+                                      <span class="btn btn-default">@Html.ActionLink("Delete", "DeleteFileNow", new { id = item.fileID },null)</span></td>
                               </tr>
                           }
                     </table> 
