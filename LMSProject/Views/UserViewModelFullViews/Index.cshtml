@@ -41,6 +41,36 @@
                     }
                 </table>
             </div>
+
+            <div class="col-md-4" >
+                <table class="table userfullview" style="border:hidden">
+                    <tr>
+                        <th>
+                            <span class="label label-primary" style="font-size:1.7em">TASKS</span>
+                        </th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
+            {
+                        <tr style="border:hidden">
+                            <td>
+                                @{
+                                    using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
+                                        <p class="btn btn-info">@Html.Raw(item.name)</p>
+
+                                        <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
+                                        <input type="hidden" name="folderID" value="@item.folderID" />
+                                        <input type="hidden" name="taskID" value="@item.taskID" />
+                                    }
+                                }
+                            </td>
+                        </tr>
+                                    }
+                </table>
+            </div>
             <div class="col-md-4">
                 <table class="table userfullview" style="border:hidden">
                     <tr>
@@ -76,35 +106,6 @@
                             }
                         }
                     }
-                </table>
-            </div>
-            <div class="col-md-4" >
-                <table class="table userfullview" style="border:hidden">
-                    <tr>
-                        <th>
-                            <span class="label label-primary" style="font-size:1.7em">TASKS</span>
-                        </th>
-                    </tr>
-
-                    @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
-            {
-                        <tr style="border:hidden">
-                            <td>
-                                @{
-                                    using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
-                                        <p class="btn btn-info">@Html.Raw(item.name)</p>
-
-                                        <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
-                                        <input type="hidden" name="folderID" value="@item.folderID" />
-                                        <input type="hidden" name="taskID" value="@item.taskID" />
-                                    }
-                                }
-                            </td>
-                        </tr>
-                                    }
                 </table>
             </div>
         </div>
