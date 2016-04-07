@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-<div ng-app="UserViewModelFullView">
+<div>
     <div ng-controller="UserViewController">
-        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+        <div class="row styleRow">
             <div class="col-lg-12">
                 <h1>
                     <span class="label label-primary" style="font-size:1.4em">W</span>
@@ -21,7 +21,7 @@
         </div>
         <br />
         <br /><br /><br />
-        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+        <div class="row styleRow">
             <div class="col-md-3">
                 <table class="table userfullview" style="border:hidden">
                     <tr>
@@ -32,7 +32,7 @@
                         </th>
                     </tr>
                     @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.schoolClassList)
-            {
+                    {
                         <tr style="border:hidden">
                             <td>
                                 <span class="btn btn-pink">@Html.DisplayFor(x => item.Text)</span>
@@ -42,7 +42,7 @@
                 </table>
             </div>
 
-            <div class="col-md-4" >
+            <div class="col-md-4">
                 <table class="table userfullview" style="border:hidden">
                     <tr>
                         <th>
@@ -51,24 +51,24 @@
                     </tr>
 
                     @foreach (var item in (IEnumerable<LMSProject.Models.task>)ViewBag.TaskList)
-            {
+                    {
                         <tr style="border:hidden">
                             <td>
                                 @{
-                                    using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
-                                        <p class="btn btn-info">@Html.Raw(item.name)</p>
+                        using (Html.BeginForm("UploadTask", "UserViewModelFullViews", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                                    <p class="btn btn-danger">@Html.Raw(item.schoolClasses.name)</p>
+                                    <p class="btn btn-info">@Html.Raw(item.name)</p>
 
-                                        <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
-                                        <input type="hidden" name="folderID" value="@item.folderID" />
-                                        <input type="hidden" name="taskID" value="@item.taskID" />
-                                    }
+                                    <input type="file" class="btn btn-pink" name="attachment" style="display:inline" />    <input type="submit" class="btn btn-info" value="Add" style="display:inline" />
+                                    <input type="hidden" name="folderID" value="@item.folderID" />
+                                    <input type="hidden" name="taskID" value="@item.taskID" />
+                        }
                                 }
                             </td>
                         </tr>
-                                    }
+                    }
                 </table>
             </div>
             <div class="col-md-4">
@@ -109,8 +109,9 @@
                 </table>
             </div>
         </div>
-        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
-            <div class="col-md-6" >
+
+        <div class="row styleRow">
+            <div class="col-md-6">
                 <table class="table userfullview" style="border:hidden">
                     <tr>
                         <th>
@@ -121,7 +122,7 @@
                     </tr>
 
                     @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileList)
-            {
+                    {
                         <tr style="border:hidden">
                             <td>
                                 <p class="btn btn-pink">@Html.Raw(item.name)</p>
@@ -136,7 +137,7 @@
 
                 </table>
             </div>
-            <div class="col-md-6" >
+            <div class="col-md-6">
                 <table class="table userfullview" style="border:hidden">
                     <tr>
                         <th>
@@ -147,7 +148,7 @@
                     </tr>
 
                     @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.fileShList)
-            {
+                    {
                         <tr style="border:hidden">
                             <td>
                                 <p class="btn btn-pink">@Html.Raw(item.name)</p>
@@ -163,7 +164,7 @@
                 </table>
             </div>
         </div>
-        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+        <div class="row styleRow">
             <div class="col-md-12">
                 <table class="table userfullview" style="border:hidden">
                     <tr>
@@ -178,15 +179,15 @@
                     }
 
                     @foreach (var item in (IEnumerable<LMSProject.Models.file>)ViewBag.SharedList)
-            {
+                    {
                         <tr style="border:hidden">
                             <td>
                                 @{
-                                    myuserName = "";
-                                    foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
-                                    {
-                                        if (utem.Id == item.userID) { myuserName = utem.UserName; }
-                                    }
+                        myuserName = "";
+                        foreach (var utem in (List<LMSProject.Models.ApplicationUser>)ViewBag.UserList)
+                        {
+                            if (utem.Id == item.userID) { myuserName = utem.UserName; }
+                        }
                                 }
                                 <p class="btn btn-success">@Html.Raw(myuserName)</p><p class="btn btn-pink">@Html.Raw(item.name)</p>
                                 <p class="btn btn-default">@Html.Raw(item.path)</p>
@@ -195,12 +196,13 @@
                                 <span class="btn btn-default">@Html.ActionLink("Download", "Download", "taskfiles", new { filePath = item.path }, null)</span>
                             </td>
                         </tr>
-                                    }
+                    }
 
                 </table>
             </div>
         </div>
-        <div class="row" style="background-color:rgba(255, 0, 220, 0.6); padding:10px 10px 30px 10px; border-radius:10px 10px;">
+
+        <div class="row styleRow">
             <div class="col-md-12" >
                 <span class="btn btn-primary" style="font-size:1.5em" ng-click="toggleSchedule()">Schedule</span>
                 <div ng-show="showSchedule">
@@ -214,8 +216,8 @@
 </div>
 
 <script>
-    var UserViewModelFullView = angular.module("UserViewModelFullView", []);
-    UserViewModelFullView.controller("UserViewController", function ($scope) {
+    var UserViewModelFullView = angular.module('LMSProject');
+    UserViewModelFullView.controller('UserViewController', function ($scope) {
         $scope.showSchedule = false;
         $scope.showTest = true;
         $scope.testText = 'Outside';
