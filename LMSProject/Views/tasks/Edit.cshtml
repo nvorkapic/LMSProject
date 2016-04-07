@@ -50,7 +50,23 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @{
+        if (Session["nav"] != null)
+        {
+            if (Session["nav"] == "frontend")
+            {
+                <p><a href="#" onclick="history.back();">Back</a></p>
+            }
+            else
+            {
+                @Html.ActionLink("Back to List", "Index")
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Back to List", "Index")
+        }
+    }
 </div>
 
 @section Scripts {

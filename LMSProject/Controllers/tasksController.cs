@@ -75,7 +75,21 @@ namespace LMSProject.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    if (Session["nav"] != null)
+                    {
+                        if ((string)Session["nav"] == "frontend")
+                        {
+                            return RedirectToAction("Index", "Teacher");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
             }
 
@@ -112,7 +126,21 @@ namespace LMSProject.Controllers
             {
                 db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Session["nav"] != null)
+                {
+                    if ((string)Session["nav"] == "frontend")
+                    {
+                        return RedirectToAction("Index", "Teacher");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             ViewBag.folderID = new SelectList(db.folders, "folderID", "name", task.folderID);
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", task.schoolClassID);
@@ -142,7 +170,21 @@ namespace LMSProject.Controllers
             task task = db.tasks.Find(id);
             db.tasks.Remove(task);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

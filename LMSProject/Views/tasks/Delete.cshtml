@@ -42,7 +42,23 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
+            @{
+        if (Session["nav"] != null)
+        {
+            if (Session["nav"] == "frontend")
+            {
+                <p><a href="#" onclick="history.back();">Back</a></p>
+            }
+            else
+            {
+                @Html.ActionLink("Back to List", "Index")
+            }
+        }
+        else
+        {
             @Html.ActionLink("Back to List", "Index")
+        }
+            }
         </div>
     }
 </div>
