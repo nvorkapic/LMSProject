@@ -5,25 +5,28 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new {@class ="btn btn-default"})
 </p>
-<table class="table">
+<table class="">
     <tr>
-        <th>
+<!--         <th class="label label-info">
             @Html.DisplayNameFor(model => model.name)
-        </th>
+        </th> -->
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+<!--         <td class="btn btn-info">
             @Html.DisplayFor(modelItem => item.name)
+        </td> -->
+        <td>
+        @Html.ActionLink(item.name, "Edit", new { id=item.schoolClassID }, new {@class ="btn btn-default"})
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.schoolClassID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.schoolClassID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.schoolClassID })
+<!--             @Html.ActionLink("Edit", "Edit", new { id=item.schoolClassID }, new {@class ="btn btn-default"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.schoolClassID }, new {@class ="btn btn-default"}) | -->
+            @Html.ActionLink("Delete", "Delete", new { id=item.schoolClassID }, new {@class ="btn btn-danger"})
         </td>
     </tr>
 }

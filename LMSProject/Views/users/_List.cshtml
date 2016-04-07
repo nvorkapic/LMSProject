@@ -33,10 +33,10 @@
                 @Html.DisplayFor(modelItem => item.schoolClasses)
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |*@
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                @Html.ActionLink("View Schedule", "ViewFullStudentSchedule", "Calendar", new { id = item.UserId }, null) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new {@class ="btn btn-default"}) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }, new {@class ="btn btn-default"}) |
+                @Html.ActionLink("View Schedule", "ViewFullStudentSchedule", "Calendar", new { id = item.UserId }, new {@class ="btn btn-default"}) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new {@class ="btn btn-danger"})
             </td>
         </tr>
     }

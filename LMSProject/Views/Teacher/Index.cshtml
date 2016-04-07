@@ -6,15 +6,17 @@
 <style>
     .menu:hover
     {
-        color: deeppink;
+        background-color: deeppink;
         cursor:pointer;
     }
 </style>
-<h2>Teacher Admin View</h2>
-
+<div style="text-align: center">
+<span class="label label-primary" style="font-size:1.7em;">Teacher Admin View</span>
+</div>
 <div>
     <div ng-controller="MenuController">
-        <h2 ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</h2>
+    <div class="row styleRow">
+        <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</span>
         <div ng-show="showschoolclass">
             <table class="table userfullview">
 
@@ -62,7 +64,7 @@
                                     @Html.DisplayFor(x => student.Role)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Remove from Class", "DeleteSchoolClassFromUser", "users", new { userId = student.id, SchooClassId = schoolclass.id }, null)
+                                    @Html.ActionLink("Remove from Class", "DeleteSchoolClassFromUser", "users", new { userId = student.id, SchooClassId = schoolclass.id }, new {@class ="btn btn-danger"})
                                 </td>
                             </tr>
                         }
@@ -70,8 +72,10 @@
                 }
             </table>
             </div>
-        <h2 ng-click="toggleFolders()" class="menu">Files &amp; Folders</h2>
-        <div ng-show="showfolders">
+            </div>
+            <div class="row styleRow">
+            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleFolders()" class="menu">Files &amp; Folders</span>
+            <div ng-show="showfolders">
             @foreach(var schoolClass in Model.Classes)
             {
                 <table class="table userfullview">
@@ -135,13 +139,17 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(p => file.Name)
+                                            @Html.ActionLink(file.Name, "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
                                         </td>
                                         <td>
                                             @Html.DisplayFor(p => file.Path)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(p => file.TaskName)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Download", "Download", "taskfiles", new { filePath = file.Path }, new { @class = "btn btn-default" })
+                                            @Html.ActionLink("Delete", "DeleteFileNow", new { id = file.Id }, new {  @class="btn btn-danger"})
                                         </td>
                                     </tr>
                                 }
@@ -151,6 +159,7 @@
 
                 </table>
             }
+            </div>
             @*<table class="table userfullview">
                 <tr>
                     <th>
@@ -212,27 +221,40 @@
                 }
             </table>*@
         </div>
-
-            <h2 ng-click="toggleSchedules()" class="menu">Schedules</h2>
-            <div ng-show="showschedules">
-                @Html.Action("_List", "Calendar")
+            <div class="row styleRow">
+                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchedules()">Schedules</span>
+                <div ng-show="showschedules">
+                    @Html.Action("_List", "Calendar")
+                </div>
             </div>
-            <h2 ng-click="toggleUsers()" class="menu">Users</h2>
+                        <div class="row styleRow">
+            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleUsers()">Users</span>
             <div ng-show="showusers">
                 @Html.Action("_List", "users")
             </div>
-            <h2 ng-click="toggleClasses()" class="menu">Classes</h2>
+                        </div>
+
+                        <div class="row styleRow">
+            <span class=" btn btn-info" style="font-size:1.7em"  ng-click="toggleClasses()">Classes</span>
             <div ng-show="showclasses">
                 @Html.Action("_List", "schoolClasses")
             </div>
-            <h2 ng-click="toggleTasks()" class="menu">Tasks</h2>
+                        </div>
+
+                        <div class="row styleRow">
+            <span class="btn btn-info" style="font-size:1.7em" ng-click="toggleTasks()">Tasks</span>
             <div ng-show="showtasks">
                 @Html.Action("_List", "tasks")
             </div>
-            <h2 ng-click="toggleTaskfiles()" class="menu">Taskfiles</h2>
+                        </div>
+
+                        <div class="row styleRow">
+            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleTaskfiles()">Taskfiles</span>
             <div ng-show="showtaskfiles">
                 @Html.Action("_List", "taskfiles")
             </div>
+                        </div>
+
         </div>
 </div>
 

@@ -43,10 +43,10 @@
             @Html.DisplayFor(modelItem => item.path)
         </td>
         <td>
-            @Html.ActionLink("Download", "Download", new { filePath = item.path }) |
-            @Html.ActionLink("Edit", "Edit", new { id=item.fileID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.fileID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.fileID }) 
+            @Html.ActionLink("Download", "Download", new { filePath = item.path }, new {@class ="btn btn-default"}) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.fileID }, new {@class ="btn btn-default"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.fileID }, new {@class ="btn btn-default"}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.fileID }, new {@class ="btn btn-danger"}) 
         </td>
     </tr>
 }
