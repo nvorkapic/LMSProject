@@ -169,5 +169,23 @@ namespace LMSProject.Controllers
             //}
             return View(viewModel);
         }
+		[HttpGet]
+		public ActionResult DeleteFileNow(int id)
+		{
+			try
+			{
+				file file = db.files.Find(id);
+				var fileplacement = file.path;
+				System.IO.File.Delete(Server.MapPath(file.path));//to add file name
+				db.files.Remove(file);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			catch
+			{
+				Session["Success"] = true;
+				return RedirectToAction("Delete");
+			}
+		}
     }
 }
