@@ -1,6 +1,6 @@
 ﻿@model LMSProject.Models.scheduleDetail
 
-<div ng-app="CreateScheduleDetail">
+<div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -79,9 +79,9 @@
 </div>
 
 <script>
-    angular.module('CreateScheduleDetail', ['ngAnimate','ui.bootstrap']);
-    angular.module('CreateScheduleDetail').controller("TimePickerController",function($scope)
-    {
-        $scope.starttime = new Date();
-    });
+    // angular.module('LMSProject', ['ngAnimate','ui.bootstrap']);
+    // angular.module('LMSProject').controller("TimePickerController", function ($scope)
+    // {
+    //     $scope.starttime = new Date();
+    // });
 </script>

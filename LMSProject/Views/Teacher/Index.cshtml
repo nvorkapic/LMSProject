@@ -12,7 +12,7 @@
 </style>
 <h2>Teacher Admin View</h2>
 
-<div ng-app="TeacherView">
+<div>
     <div ng-controller="MenuController">
         <h2 ng-click="toggleSchoolClass()" class="menu btn-block">School Classes</h2>
         <div ng-show="showschoolclass">
@@ -237,7 +237,7 @@
 </div>
 
 <script>
-    var teacherview = angular.module("TeacherView", []);
+    var teacherview = angular.module("LMSProject");
     teacherview.controller("MenuController", function ($scope) {
         $scope.showschedules = false;
         $scope.showusers = false;
