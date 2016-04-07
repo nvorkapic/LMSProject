@@ -136,6 +136,12 @@ namespace LMSProject.Controllers
             return results.FirstOrDefault();
         }
 
+        public string GetUsernameById(string Id)
+        {
+            var results = myUserManager.Users.Where(p => p.Id == Id);
+            return results.FirstOrDefault().UserName;
+        }
+
         public string GetUserIdByName(string name) {
             string results;
             try
@@ -152,6 +158,13 @@ namespace LMSProject.Controllers
         public List<ApplicationUser> GetAllUsers()
         {
             return myUserManager.Users.ToList();
+        }
+
+        public bool CheckifUserExistByName(string userName)
+        {
+            List<ApplicationUser> results = myUserManager.Users.Where(p => p.UserName == userName).ToList();
+
+            return (results.Count != 0);
         }
 
 

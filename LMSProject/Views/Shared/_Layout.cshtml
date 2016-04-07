@@ -16,29 +16,27 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <label class="btn btn-primary" style="display:inline-block;">@Html.ActionLink("LMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</label>
+                    <div class="dropdown">
+                        <label class="btn btn-primary" style="text-align:center; display:inline-block;">@Html.ActionLink("LMS Project", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</label>
+                        <button class="btn btn-pink" data-toggle="dropdown" style="height:65px; width:150px; padding-top:0px;"><span>Administration</span></button>
+                        <ul class="dropdown-menu">
+                            <li class="btn-pink dropdown" style="display:block">@Html.ActionLink("School Classes", "Index", "schoolClasses")</li>
+                            <li class="btn-pink dropdown" style="display:block">@Html.ActionLink("Users", "Index", "users")</li>
+                            <li class="btn-pink dropdown" style="display:block">@Html.ActionLink("Folders", "Index", "folders")</li>
+                            <li class="btn-pink dropdown" style="display:block">@Html.ActionLink("Tasks", "Index", "tasks")</li>
+                            <li class="btn-pink dropdown" style="display:block">@Html.ActionLink("Task Files", "Index", "taskfiles")</li>
+                            <li class="btn-pink dropdown" style="display:block">@Html.ActionLink("Schedules", "Index", "Calendar")</li>
+                        </ul>
+                    </div>
+                   
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="btn btn-danger">@Html.ActionLink("Initialization", "CreateRoles", "users")</li>
-                        <li class="btn btn-pink dropdown-menu">
-                        <ul>
-                            <li class="btn btn-pink dropdown">@Html.ActionLink("School Classes", "Index", "schoolClasses")</li>
-                            <li class="btn btn-pink dropdown">@Html.ActionLink("Users", "Index", "users")</li>
-                            <li class="btn btn-pink dropdown">@Html.ActionLink("Folders", "Index", "folders")</li>
-                            <li class="btn btn-pink dropdown">@Html.ActionLink("Tasks", "Index", "tasks")</li>
-                            <li class="btn btn-pink dropdown">@Html.ActionLink("Task Files", "Index", "taskfiles")</li>
-                            <li class="btn btn-pink dropdown">@Html.ActionLink("Schedules", "Index", "Calendar")</li> 
-                        </ul></li>
-                        
+                        <li class="btn btn-danger">@Html.ActionLink("Initialization", "CreateRoles", "users")</li>                       
                         <li class="btn btn-success">@Html.ActionLink("User View", "Index", "UserViewModelFullViews")</li>
                         <li class="btn btn-success">@Html.ActionLink("Teacher View", "Index", "Teacher")</li>
                     </ul>
+                 
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>

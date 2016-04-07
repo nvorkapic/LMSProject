@@ -90,9 +90,14 @@ textarea {
     top:50px;
     z-index:-10;
 
-    background-image:url(http://www.pixelstalk.net/wp-content/uploads/2016/03/Rainbow-wallpaper-hd-background.jpg);
+    background-image:url(../Help/background.jpg);
 }
 
 .styleRow {
     background-color:rgba(176, 130, 169, 0.60); padding:10px 10px 30px 10px; border-radius:10px 10px; border:solid; border-color:purple;
+}
+
+.dropdown-menu {
+    left: 140px;
+    background-color:rgba(176, 130, 169, 0.60);
 }

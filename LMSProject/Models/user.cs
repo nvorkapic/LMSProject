@@ -34,9 +34,12 @@ namespace LMSProject.Models
 
         // to create new users
         [NotMapped]
+        [EmailAddress]
         [DisplayName("Email")]
         public string UserName { get; set; }
         [NotMapped]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        [DataType(DataType.Password)]
         [DisplayName("Password")]
         public string UserPassword { get; set; }
 	}
