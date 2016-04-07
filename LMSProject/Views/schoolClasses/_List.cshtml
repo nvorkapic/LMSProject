@@ -21,11 +21,9 @@
             @Html.DisplayFor(modelItem => item.name)
         </td> -->
         <td>
-        @Html.ActionLink(item.name, "Edit", new { id=item.schoolClassID }, new {@class ="btn btn-default"})
+        @Html.ActionLink(item.name, "Edit", new { id=item.schoolClassID }, new {@class ="btn btn-default wide-button"})
         </td>
         <td>
-<!--             @Html.ActionLink("Edit", "Edit", new { id=item.schoolClassID }, new {@class ="btn btn-default"}) |
-            @Html.ActionLink("Details", "Details", new { id=item.schoolClassID }, new {@class ="btn btn-default"}) | -->
             @Html.ActionLink("Delete", "Delete", new { id=item.schoolClassID }, new {@class ="btn btn-danger"})
         </td>
     </tr>

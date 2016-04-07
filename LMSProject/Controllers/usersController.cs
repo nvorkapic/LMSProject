@@ -87,7 +87,22 @@ namespace LMSProject.Controllers
             db.users.Add(user);
             db.SaveChanges();
 
-            return RedirectToAction("Details", new { id = user.UserId });
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Details", new { id = user.UserId });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Details", new { id = user.UserId });
+            }
+
         }
 
 
@@ -103,7 +118,23 @@ namespace LMSProject.Controllers
             db.users.Remove(myUserEnt);
             db.SaveChanges();
 
-            return RedirectToAction("Details", new { id = userId });
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Details", new { id = userId });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Details", new { id = userId });
+            }
+
+            
         }
 
         // GET: users/Create
@@ -145,7 +176,21 @@ namespace LMSProject.Controllers
                 db.users.Add(user);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                if (Session["nav"] != null)
+                {
+                    if ((string)Session["nav"] == "frontend")
+                    {
+                        return RedirectToAction("Index", "Teacher");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", user.schoolClassID);
@@ -214,7 +259,7 @@ namespace LMSProject.Controllers
             myUserRepo.DeleteUser(id);
 
             if (Session["nav"] != null) {
-                if (Session["nav"] == "frontend")
+                if ((string)Session["nav"] == "frontend")
                 {
                     return RedirectToAction("Index","Teacher");
                 }

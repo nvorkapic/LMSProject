@@ -87,9 +87,23 @@ namespace LMSProject.Controllers
 				db.SaveChanges();
 			}
 
-			
-            
-            return RedirectToAction("Index");
+
+
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
             
             //ViewBag.folderTypeID = new SelectList(db.folderTypes, "folderTypeID", "name", folder.folderTypeID);
             //ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", folder.schoolClassID);

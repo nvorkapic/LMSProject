@@ -27,7 +27,7 @@
             @Html.ActionLink(item.schoolClasses.name, "Details", "schoolClasses", new { id = item.schoolClassID }, new { @class = "btn btn-danger" })
         </td>
         <td>
-            @Html.ActionLink(item.name, "Details", new { id = item.schoolClassID }, new { @class = "btn btn-info" })
+            @Html.ActionLink(item.name, "Details", new { id = item.schoolClassID }, new { @class = "btn btn-info wide-button" })
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.taskID }, new {@class ="btn btn-default"}) 

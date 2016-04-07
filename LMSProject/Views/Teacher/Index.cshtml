@@ -172,13 +172,13 @@
             </div>
         </div>
          <div class="row styleRow">
-                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchedules()">Schedules</span>
+                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleSchedules()">SCHEDULES</span>
                 <div ng-show="showschedules">
                     @Html.Action("_List", "Calendar")
                 </div>
             </div>
                         <div class="row styleRow">
-            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleUsers()">Users</span>
+            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleUsers()">MANAGE USERS</span>
             <div ng-show="showusers">
                 @Html.Action("_List", "users")
             </div>
@@ -186,25 +186,19 @@
         <div class="row styleRow">
 
             <div class="col-md-4 ">
-                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleClasses()">Classes</span>
+                <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleClasses()">CLASSES</span>
                 <div ng-show="showclasses">
                     @Html.Action("_List", "schoolClasses")
                 </div>
             </div>
 
             <div class="col-md-8">
-                <span class="btn btn-info" style="font-size:1.7em" ng-click="toggleTasks()">Tasks</span>
+                <span class="btn btn-info" style="font-size:1.7em" ng-click="toggleTasks()">TASKS</span>
                 <div ng-show="showtasks">
                     @Html.Action("_List", "tasks")
                 </div>
             </div>
         </div>
-                        <div class="row styleRow">
-            <span class=" btn btn-info" style="font-size:1.7em" ng-click="toggleTaskfiles()">Taskfiles</span>
-            <div ng-show="showtaskfiles">
-                @Html.Action("_List", "taskfiles")
-            </div>
-                        </div>
 
         </div>
 </div>

@@ -62,7 +62,21 @@ namespace LMSProject.Controllers
             {
                 db.tasks.Add(task);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Session["nav"] != null)
+                {
+                    if ((string)Session["nav"] == "frontend")
+                    {
+                        return RedirectToAction("Index", "Teacher");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.folderID = new SelectList(db.folders, "folderID", "name", task.folderID);

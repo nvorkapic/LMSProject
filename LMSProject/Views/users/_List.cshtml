@@ -4,11 +4,11 @@
     ViewBag.Title = "Index";
 }
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table-condensed">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th>
@@ -16,7 +16,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.schoolClasses)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -24,18 +24,17 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserName)
+                @Html.ActionLink(item.UserName, "Details","users", new { id = item.UserId }, new { @class = "btn btn-success wide-button" })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
+                <a class="btn btn-info wide-button">@item.RoleName</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.schoolClasses)
+                <a class="btn btn-warning wide-button">@item.schoolClasses</a>
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new {@class ="btn btn-default"}) |*@
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }, new {@class ="btn btn-default"}) |
-                @Html.ActionLink("View Schedule", "ViewFullStudentSchedule", "Calendar", new { id = item.UserId }, new {@class ="btn btn-default"}) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.UserId }, new {@class ="btn btn-default"})*@
+                @Html.ActionLink("View Schedule", "ViewFullStudentSchedule", "Calendar", new { id = item.UserId }, new {@class ="btn btn-default"})
                 @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new {@class ="btn btn-danger"})
             </td>
         </tr>
