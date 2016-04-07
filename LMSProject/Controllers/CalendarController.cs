@@ -100,7 +100,7 @@ namespace LMSProject.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult Index()
         {
-            
+            Session["nav"] = "backend";
             return View(db.schedules.ToList());
         }
 

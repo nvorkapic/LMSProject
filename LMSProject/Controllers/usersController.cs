@@ -38,6 +38,7 @@ namespace LMSProject.Controllers
             //List<userViewModel> userInfo = new List<userViewModel>();
 
             //return View(userInfo.ToList());
+            Session["nav"] = "backend";
             return View(myUserRepo.getUserViewModel());
         }
 

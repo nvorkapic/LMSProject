@@ -27,6 +27,7 @@ namespace LMSProject.Controllers
             List<int> userCurrentSchollclasses = myUserRepo.getCurrentUserSchoolClasses(User.Identity.Name);
 
             var files = db.files.Include(f => f.folders).Include(f => f.tasks).Where(x => userCurrentSchollclasses.Contains(x.folders.schoolClassID));
+            Session["nav"] = "backend";
             return View(files.ToList());
         }
 

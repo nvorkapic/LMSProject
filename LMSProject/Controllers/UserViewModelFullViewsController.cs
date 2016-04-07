@@ -22,6 +22,7 @@ namespace LMSProject.Controllers
         // GET: UserViewModelFullViews
         public ActionResult Index()
         {
+            Session["nav"] = "frontend";
 
 			ViewBag.RoleName = myUserRepo.GetRoleByUserName(User.Identity.Name);
 			ViewBag.UserName = User.Identity.Name;

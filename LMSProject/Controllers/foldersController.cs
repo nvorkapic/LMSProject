@@ -21,6 +21,7 @@ namespace LMSProject.Controllers
         public ActionResult Index()
         {
             var folders = db.folders.Include(f => f.folderTypes).Include(f => f.schoolClasses);
+            Session["nav"] = "backend";
             return View(folders.ToList());
         }
 

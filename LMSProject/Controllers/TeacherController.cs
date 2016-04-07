@@ -54,6 +54,7 @@ namespace LMSProject.Controllers
         // GET: Teacher
         public ActionResult Index()
         {
+            Session["nav"] = "frontend";
             TeacherViewModel viewModel = new TeacherViewModel() { Classes = new List<TeacherClassViewModel>() };
             //viewModel = new List<TeacherPrivateFolderViewModel>();
             //viewModel.PrivateFiles = new List<TeacherPrivateFileViewModel>();

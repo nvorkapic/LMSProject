@@ -19,6 +19,7 @@ namespace LMSProject.Controllers
         // GET: folderTypes
         public ActionResult Index()
         {
+            Session["nav"] = "backend";
             return View(db.folderTypes.ToList());
         }
 
