@@ -105,3 +105,12 @@ textarea {
 .wide-button{
     width: 100%;
 }
+
+.body-content{
+    background-color: rgba(176, 130, 169, 0.60);
+    color: white;
+}
+
+/*.body-content a {
+    color: rgb(255, 255, 255);
+}*/
