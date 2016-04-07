@@ -24,13 +24,13 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.UserName, "Details","users", new { id = item.UserId }, new { @class = "btn btn-success" })
+                @Html.ActionLink(item.UserName, "Details","users", new { id = item.UserId }, new { @class = "btn btn-success wide-button" })
             </td>
             <td>
-                <a class="btn btn-info">@item.RoleName</a>
+                <a class="btn btn-info wide-button">@item.RoleName</a>
             </td>
             <td>
-                <a class="btn btn-warning">@item.schoolClasses</a>
+                <a class="btn btn-warning wide-button">@item.schoolClasses</a>
             </td>
             <td>
                 @*@Html.ActionLink("Details", "Details", new { id = item.UserId }, new {@class ="btn btn-default"})*@
