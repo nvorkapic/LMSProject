@@ -74,7 +74,12 @@ textarea {
   z-index: -1000;
 }
 
-#mainbody {
-    background-color:pink;
-    background-position:center;
+.backgroundPic {
+    height:100%;
+    width:100%;
+    position:fixed;
+    top:50px;
+    z-index:-10;
+
+    background-image:url(http://www.pixelstalk.net/wp-content/uploads/2016/03/Rainbow-wallpaper-hd-background.jpg);
 }
