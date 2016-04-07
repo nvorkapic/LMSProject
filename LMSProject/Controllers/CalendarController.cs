@@ -149,7 +149,21 @@ namespace LMSProject.Controllers
                 //}
                 db.scheduleDetails.Add(detail);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Session["nav"] != null)
+                {
+                    if ((string)Session["nav"] == "frontend")
+                    {
+                        return RedirectToAction("Index", "Teacher");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View(detail);
         }
@@ -174,7 +188,21 @@ namespace LMSProject.Controllers
             {
                 db.schedules.Add(schedule);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Session["nav"] != null)
+                {
+                    if ((string)Session["nav"] == "frontend")
+                    {
+                        return RedirectToAction("Index", "Teacher");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.schoolClassID = new SelectList(db.schoolClasses, "schoolClassID", "name", schedule.schoolClassID);
@@ -217,7 +245,21 @@ namespace LMSProject.Controllers
             scheduleDetail scheduleDetail = db.scheduleDetails.Find(id);
             db.scheduleDetails.Remove(scheduleDetail);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // GET: Calendar/DeleteSchedule/5
@@ -257,7 +299,22 @@ namespace LMSProject.Controllers
             db.schedules.Remove(schedule);
 
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
         private bool IsOverlappingWithAnother(scheduleDetail a, int detailID)
         {

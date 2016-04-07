@@ -64,7 +64,21 @@ namespace LMSProject.Controllers
             {
                 db.schoolClasses.Add(schoolClass);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Session["nav"] != null)
+                {
+                    if ((string)Session["nav"] == "frontend")
+                    {
+                        return RedirectToAction("Index", "Teacher");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(schoolClass);
@@ -124,7 +138,21 @@ namespace LMSProject.Controllers
             schoolClass schoolClass = db.schoolClasses.Find(id);
             db.schoolClasses.Remove(schoolClass);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Session["nav"] != null)
+            {
+                if ((string)Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
