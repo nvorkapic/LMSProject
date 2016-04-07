@@ -118,8 +118,18 @@ namespace LMSProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,schoolClassID,RoleId,UserName,UserPassword")] user user)
         {
+
             if (ModelState.IsValid)
             {
+                if ((String.IsNullOrEmpty(user.UserName))||(String.IsNullOrEmpty(user.UserPassword))){
+                    return Content("Username & password is requeried !!!" + @"<p><a href=""#"" onclick=""history.back();"">Back</a></p>");
+                }
+
+                if (myUserRepo.CheckifUserExistByName(user.UserName))
+                {
+                    return Content("Username allready exist !!!" + @"<p><a href=""#"" onclick=""history.back();"">Back</a></p>");
+                }
+
                 try
                 {
                     myUserRepo.AddUser(user.UserName, user.UserName, user.UserPassword);
@@ -128,7 +138,7 @@ namespace LMSProject.Controllers
                 }
                 catch (Exception err)
                 {
-                    return Content("Mayor Error in create user:" + err.Message);
+                    return Content("Mayor Error in create user:" + err.Message + @"<p><a href=""#"" onclick=""history.back();"">Back</a></p>");
                 }
 
                 db.users.Add(user);
@@ -179,6 +189,12 @@ namespace LMSProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (myUserRepo.GetUsernameById(id) == "admin@root.app") // block delete of admin user
+            {
+                return Content("Can not remove root admin user !!!!" + @"<p><a href=""#"" onclick=""history.back();"">Back</a></p>");
+            }
+
             List<user> MyUserConns = (from dbu in db.users
                                      where dbu.UserId == id
                                      select dbu).ToList();
@@ -230,12 +246,12 @@ namespace LMSProject.Controllers
                 db.folderTypes.Add(myfolderTypePublic);
                 db.SaveChanges();
 
-                return Content("Added Roles for Teacher and Student and root user");
+                return Content("Added Roles for Teacher and Student and root user" + @"<p><a href=""#"" onclick=""history.back();"">Back</a></p>");
 
             }
             else
             {
-                return Content("Roles and data do already exist in the database !!!!");
+                return Content("Roles and data do already exist in the database !!!!" + @"<p><a href=""#"" onclick=""history.back();"">Back</a></p>");
             }
             
         }
