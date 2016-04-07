@@ -213,7 +213,22 @@ namespace LMSProject.Controllers
 
             myUserRepo.DeleteUser(id);
 
-            return RedirectToAction("Index");
+            if (Session["nav"] != null) {
+                if (Session["nav"] == "frontend")
+                {
+                    return RedirectToAction("Index","Teacher");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+ 
+
 
         }
 
