@@ -75,9 +75,9 @@
                     <table class="table-condensed">
                           @foreach (var item in Model.AllFiles) { 
                               <tr>
-                                  <th class="btn-lg btn-primary" colspan="4">@Html.Raw(item.folders.schoolClasses.name.ToString())</th>
+                                  <th class="btn-lg btn-primary" colspan="2">@Html.Raw(item.folders.schoolClasses.name.ToString())</th>
                                   <th>
-                                      <span class="btn btn-default" style="width:100%">@Html.Raw(item.name)</span>
+                                      <span class="btn btn-pink" style="width:100%" >@Html.Raw(item.name)</span>
                                   </th>
                                   <th>
 
