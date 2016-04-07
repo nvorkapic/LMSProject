@@ -24,13 +24,13 @@ namespace LMSProject.Controllers
 
         public ActionResult _List()
         {
-            string TeacherUserId = userRepository.GetUserIdByName(User.Identity.Name);
+            //string TeacherUserId = userRepository.GetUserIdByName(User.Identity.Name);
 
-            var classes = from c in db.users
-                          where c.UserId == TeacherUserId
-                          select c.schoolClasses;
+            //var classes = from c in db.users
+            //              where c.UserId == TeacherUserId
+            //              select c.schoolClasses;
 
-            return PartialView(classes.ToList());
+            return PartialView(db.schoolClasses.ToList());
         }
         // GET: schoolClasses/Details/5
         public ActionResult Details(int? id)
