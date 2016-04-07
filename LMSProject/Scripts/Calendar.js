@@ -102,7 +102,7 @@ var drawTimetable = function () {
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
-var calendar = angular.module("calendar", []);
+var calendar = angular.module("LMSProject");
 var models = [];
 calendar.controller("CalendarController", function ($scope, $http, $q) {
     $scope.showCreate = false;
