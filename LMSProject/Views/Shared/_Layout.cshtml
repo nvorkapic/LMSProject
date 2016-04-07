@@ -18,19 +18,23 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("LMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <label class="btn btn-primary" style="display:inline-block;">@Html.ActionLink("LMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</label>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Initialization", "CreateRoles", "users")</li>
-                        <li>@Html.ActionLink("School Classes", "Index", "schoolClasses")</li>
-                        <li>@Html.ActionLink("Users", "Index", "users")</li>
-                        <li>@Html.ActionLink("Folders", "Index", "folders")</li>
-                        <li>@Html.ActionLink("Tasks", "Index", "tasks")</li>
-                        <li>@Html.ActionLink("Task Files", "Index", "taskfiles")</li>
-                        <li>@Html.ActionLink("Schedules", "Index", "Calendar")</li>
-                        <li>@Html.ActionLink("User View", "Index", "UserViewModelFullViews")</li>
-                        <li>@Html.ActionLink("Teacher View", "Index", "Teacher")</li>
+                        <li class="btn btn-danger">@Html.ActionLink("Initialization", "CreateRoles", "users")</li>
+                        <li class="btn btn-pink dropdown-menu">
+                        <ul>
+                            <li class="btn btn-pink dropdown">@Html.ActionLink("School Classes", "Index", "schoolClasses")</li>
+                            <li class="btn btn-pink dropdown">@Html.ActionLink("Users", "Index", "users")</li>
+                            <li class="btn btn-pink dropdown">@Html.ActionLink("Folders", "Index", "folders")</li>
+                            <li class="btn btn-pink dropdown">@Html.ActionLink("Tasks", "Index", "tasks")</li>
+                            <li class="btn btn-pink dropdown">@Html.ActionLink("Task Files", "Index", "taskfiles")</li>
+                            <li class="btn btn-pink dropdown">@Html.ActionLink("Schedules", "Index", "Calendar")</li> 
+                        </ul></li>
+                        
+                        <li class="btn btn-success">@Html.ActionLink("User View", "Index", "UserViewModelFullViews")</li>
+                        <li class="btn btn-success">@Html.ActionLink("Teacher View", "Index", "Teacher")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>

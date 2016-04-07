@@ -27,7 +27,7 @@ textarea {
     padding-top:7%;
 }
 .navbar-inverse{
-    background-color:pink;
+    background-color:purple;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -45,8 +45,17 @@ textarea {
 
 .btn-pink{
     color:black;
-    text-shadow:5px 5px 0px 0px black;
     background-color:pink;
+    border-radius:3px 3px;
+
+}
+
+.btn-pinkTOP{
+    color:black;
+    background-color:pink;
+    border-radius:3px 3px;
+    border:solid;
+    border-color:purple;
 }
 .fileUpload {
     position: relative;
@@ -82,4 +91,8 @@ textarea {
     z-index:-10;
 
     background-image:url(http://www.pixelstalk.net/wp-content/uploads/2016/03/Rainbow-wallpaper-hd-background.jpg);
+}
+
+.styleRow {
+    background-color:rgba(176, 130, 169, 0.60); padding:10px 10px 30px 10px; border-radius:10px 10px; border:solid; border-color:purple;
 }
