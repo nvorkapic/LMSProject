@@ -29,6 +29,7 @@ namespace LMSProject.Controllers
         public string Path { get; set; }
         public string  TaskName { get; set; }
         public int Id { get; set; }
+        public string User { get; set; }
     }
     public class TeacherFolderViewModel
     {
@@ -104,6 +105,7 @@ namespace LMSProject.Controllers
                     foreach(var file in files)
                     {
                         string tempTaskName = "";
+                        //string tempUserName = "";
                         if (file.tasks != null)
                         {
                             tempTaskName = file.tasks.name;
@@ -114,7 +116,8 @@ namespace LMSProject.Controllers
                             Name = file.name,
                             Path = file.path,
                             TaskName = tempTaskName,
-                            Id = file.fileID
+                            Id = file.fileID,
+                            User = userRepository.GetUsernameById(file.userID)
                         });
                     }
                     c.Folders.Add(new TeacherFolderViewModel
