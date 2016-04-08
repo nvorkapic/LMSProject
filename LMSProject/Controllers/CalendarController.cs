@@ -149,21 +149,8 @@ namespace LMSProject.Controllers
                 //}
                 db.scheduleDetails.Add(detail);
                 db.SaveChanges();
-                if (Session["nav"] != null)
-                {
-                    if ((string)Session["nav"] == "frontend")
-                    {
-                        return RedirectToAction("Index", "Teacher");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
+
+                return RedirectToAction("ManageScheduleDetails",new { id = detail.scheduleID });
             }
             return View(detail);
         }

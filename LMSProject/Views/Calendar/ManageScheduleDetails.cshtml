@@ -61,3 +61,21 @@
 }
 
 </table>
+
+@{
+    if (Session["nav"] != null)
+    {
+        if (Session["nav"] == "frontend")
+        {
+            @Html.ActionLink("Back", "Index", "Teacher")
+        }
+        else
+        {
+            @Html.ActionLink("Back to List", "Index")
+        }
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
+}
